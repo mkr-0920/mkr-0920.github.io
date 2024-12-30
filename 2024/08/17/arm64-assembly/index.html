@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>arm64汇编 | Meng's blog</title><meta name="author" content="Meng"><meta name="copyright" content="Meng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="arm64汇编">
+<meta property="og:type" content="article">
+<meta property="og:title" content="arm64汇编">
+<meta property="og:url" content="https://blog.mengkr.asia/2024/08/17/arm64-assembly/index.html">
+<meta property="og:site_name" content="Meng&#39;s blog">
+<meta property="og:description" content="arm64汇编">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-29989540.jpeg">
+<meta property="article:published_time" content="2024-08-17T11:41:34.000Z">
+<meta property="article:modified_time" content="2024-12-30T15:20:43.872Z">
+<meta property="article:author" content="Meng">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-29989540.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.mengkr.asia/2024/08/17/arm64-assembly/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"该文章最后更新于","messageNext":"天前，可能已经过时"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'arm64汇编',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-30 23:20:43'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-29989540.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">arm64汇编</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-17T11:41:34.000Z" title="发表于 2024-08-17 19:41:34">2024-08-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-30T15:20:43.872Z" title="更新于 2024-12-30 23:20:43">2024-12-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%80%86%E5%90%91/">逆向</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><p><strong>ARM64</strong>汇编中有34个寄存器，其中包含31个通用寄存器(<strong>x0-x30</strong>)，<strong>sp</strong>，<strong>pc</strong>和<strong>cpsr</strong></p>
+<p><strong>x0~x7</strong>通常用来存放函数参数，更多的参数用堆栈来传递</p>
+<p><strong>x0</strong>通常用来存放函数的返回值</p>
+<p><strong>w0~w28</strong>表示<strong>x0-x30</strong>的低32位</p>
+<h2 id="特殊寄存器"><a href="#特殊寄存器" class="headerlink" title="特殊寄存器"></a>特殊寄存器</h2><ul>
+<li><p><strong>sp</strong>寄存器：<strong>Stack Pointer</strong>，保存栈顶地址</p>
+</li>
+<li><p><strong>fp</strong>寄存器(<strong>x29</strong>)：<strong>Frame Pointer</strong>，保存栈底地址</p>
+</li>
+<li><p><strong>lr</strong>寄存器(<strong>x30</strong>)：<strong>Link Register</strong>，存放函数的返回地址</p>
+</li>
+<li><p><strong>pc</strong>寄存器: 保存当前执行中的指令的下一条指令的地址</p>
+</li>
+</ul>
+<h2 id="cpsr寄存器（状态寄存器）"><a href="#cpsr寄存器（状态寄存器）" class="headerlink" title="cpsr寄存器（状态寄存器）"></a>cpsr寄存器（状态寄存器）</h2><p>  其他寄存器都是存储数据，是个统一的整体；状态寄存器有点特殊，它的每一位都有特殊的含义，记录特定的信息。</p>
+<p>  最常见的是<strong>NZCV</strong>标志位，分别代表运算过程中产生的不同状态，可以决定运算结果或者代码执行逻辑。</p>
+<ul>
+<li><p><strong>N</strong>：<strong>Negative Cndition Flag</strong>，代表运算结果是负数</p>
+</li>
+<li><p><strong>Z</strong>：<strong>Zero Condition Flag</strong>， Z 为 1 代表0，否则Z 为 0 代表 1</p>
+</li>
+<li><p><strong>C</strong>：<strong>Carry Condition Flag</strong>, 无符号运算有溢出时C 为 1</p>
+</li>
+<li><p><strong>V</strong>：<strong>Overflow Condition Flag</strong>, 有符号运算有溢出时C 为 1</p>
+</li>
+</ul>
+<h2 id="xzr（零寄存器）"><a href="#xzr（零寄存器）" class="headerlink" title="xzr（零寄存器）"></a>xzr（零寄存器）</h2><p><code>xzr/wzr</code>分别表示64&#x2F;32位，存储的值为0，一般用于清零操作</p>
+<h1 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h1><h2 id="加载-存储指令"><a href="#加载-存储指令" class="headerlink" title="加载&#x2F;存储指令"></a>加载&#x2F;存储指令</h2><p>加载&#x2F;存储指令⽤于在寄存器和存储器之间传送数据，加载指令⽤于将存储器中的数据传送到寄存器，存储指令则完成相反的操作。</p>
+<p>注意，汇编语言的注释是每行从分号“；”开始的，分号之后的内容都属于注释。</p>
+<ul>
+<li><code>ldr</code>指令</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ldr x8, [sp]        ;将存储地址为sp的数据读取到x8寄存器中</span><br><span class="line">ldr x9, [sp, #0x8]  ;将存储地址为sp+0x8的数据读取到x9寄存器中</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ldrb</code>指令(只操作一个字节)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldrb w8, [sp, #0x8]   ;将存储器地址为sp+0x8的1个字节数据读⼊寄存器w8，并将w8的⾼24位清零</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ldrh</code>指令(只操作两个字节)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldrh w8, [sp, #0x8]   ;将存储器地址为sp+0x8的2个字节数据读⼊寄存器w8，并将w8的⾼16位清零。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ldur</code>指令 (u和负地址运算相关)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldurb w0, [x29, #-0x8]   ;将存储地址为x29-0x8的数据读取到w0寄存器中</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>stp</code>指令（str 的变种指令，能够同时操做两个寄存器）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stp x29, x30, [sp, #0x10]  ;将 x29, x30 的值存⼊sp+0x10存储地址</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>str</code>指令</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">str x0, [sp]         ;将x0寄存器中的值存储到sp的存储地址</span><br><span class="line">str x0, [sp, #0x10]  ;将x0寄存器中的值存储到sp+0x10的存储地址</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>strb</code>指令(只操作一个字节)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strb x0, [sp, #0x10]  ;将x0寄存器中的低8位的字节的数据存储到sp+0x10的存储地址</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>strh</code>指令(只操作两个字节)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strh x0, [sp, #0x10]   ;将x0寄存器中的低16位的字节的数据存储到sp+0x10的存储地址</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>stur</code>指令 (u和负地址运算相关)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stur w0, [x29, #-0x8]   ;将x0寄存器中的数据存储到x29-0x8的存储地址</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ldp</code>指令（ldr 的变种指令，能够同时操做两个寄存器）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldp x29, x30, [sp, #0x10]  ;将sp+0x10的值取出来，存⼊寄存器 x29 和寄存器 x30</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据处理指令"><a href="#数据处理指令" class="headerlink" title="数据处理指令"></a>数据处理指令</h2><ul>
+<li><code>mov</code>指令（不用于内存地址）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov w8, #0x1   ;将立即数赋值给w8寄存器</span><br><span class="line">mov x0, x8     ;将给x0寄存器赋值给给x8寄存器</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>add</code>指令 (加)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add sp, sp, #0x20   ;将寄存器sp的值和立即数0x20相加后保存在寄存器sp中</span><br><span class="line">add x0, x1, x2      ;将寄存器 x1 和 x2 的值相加后保存到寄存器 x0 中</span><br><span class="line">add x0, x1, [x2]    ;将寄存器x1的值加上寄存器x2 的值做为地址，再取该内存地址的内容放⼊寄存器x0中</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>sub</code>指令 (减)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sub sp, sp, #0x20    ;将寄存器sp的值和立即数0x20相减后保存在寄存器sp中</span><br><span class="line">sub x0, x1, x2       ;将寄存器 x1 和 x2 的值相减后保存到寄存器 x0 中</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>mul</code>指令 (乘)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mul x0, x1, x2     ;将器 x1 和 x2 的值相乘后结果保存到寄存器 x0 中</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>sdiv</code>指令 (除，无符号除是udiv)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sdiv x0, x1, x2     ;将寄存器 x1 和 x2 的值相除后结果保存到寄存器 x0 中</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>and</code>指令 (位与)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and x0, x1, x2      ;将寄存器 x1 和 x2 的值按位与后保存到寄存器 x0 中</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>orr</code>指令 (位或)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">orr x0, x1, x2       ;将寄存器 x1 和 x2 的值按位或后保存到寄存器 x0 中</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>eor</code>指令 (位异或)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eor x0, x1, x2       ;将寄存器 x1 和 x2 的值按位异或后保存到寄存器 x0 中</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>cbnz</code>指令 (和⾮ 0 ⽐较)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cbnz   x0, 0x100002f70   ;如果非0，跳转到0x100002f70指令执行</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>cbz</code>指令 (和0 ⽐较)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cbz x0, 0x100002f70       ;如果为0，跳转到0x100002f70指令执行</span><br></pre></td></tr></table></figure>
+
+<h2 id="跳转指令"><a href="#跳转指令" class="headerlink" title="跳转指令"></a>跳转指令</h2><ul>
+<li><p><code>cmp</code>指令<br>将两个寄存器相减，结果会影响cpsr寄存器的标志位</p>
+</li>
+<li><p><code>b</code>指令 (直接跳转)<br>b指令可以接上后缀,用来和cmp比较后待条件的跳转<br>EQ：equal 相等<br>NE：not equal，不相等<br>GT：great than，大于<br>GE greate equal，大于等于<br>LT：less than，小于<br>LE：less equal，.小于等于<br>使用的时候可以连着使用beq 就是 前面cmp比较结果相等的时候跳转.也可以写成b.eq</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">b 0x100002fd0</span><br><span class="line"></span><br><span class="line">cmp x0,x1 ;这里做比较,用来下面的b跳转做比较条件</span><br><span class="line">b.lt label2  ;lt小于时候跳转</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>bl</code>指令 (跳转前记录下一条指令地址)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bl 0x100002f54</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>blr</code>指令 (跳转到某寄存器 (的值)指向的地址)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blr x10</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ret</code>指令 (函数返回)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ret</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.mengkr.asia">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.mengkr.asia/2024/08/17/arm64-assembly/">https://blog.mengkr.asia/2024/08/17/arm64-assembly/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.mengkr.asia" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-29989540.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/09/15/alist/" title="alist"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-29823030.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">alist</div></div></a></div><div class="next-post pull-right"><a href="/2024/08/15/UVR5/" title="UVR5"><img class="cover" src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">UVR5</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">寄存器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">特殊寄存器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cpsr%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88%E7%8A%B6%E6%80%81%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">cpsr寄存器（状态寄存器）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xzr%EF%BC%88%E9%9B%B6%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">xzr（零寄存器）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD-%E5%AD%98%E5%82%A8%E6%8C%87%E4%BB%A4"><span class="toc-number">2.1.</span> <span class="toc-text">加载&#x2F;存储指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4"><span class="toc-number">2.2.</span> <span class="toc-text">数据处理指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%B3%E8%BD%AC%E6%8C%87%E4%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text">跳转指令</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>

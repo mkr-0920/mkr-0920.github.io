@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>TelegramMediaDownload | Meng's blog</title><meta name="author" content="Meng"><meta name="copyright" content="Meng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="部署电报自动下载机器人，并通过rclone自动上传至网盘">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TelegramMediaDownload">
+<meta property="og:url" content="https://blog.mengkr.asia/2024/12/03/TelegramMediaDownload/index.html">
+<meta property="og:site_name" content="Meng&#39;s blog">
+<meta property="og:description" content="部署电报自动下载机器人，并通过rclone自动上传至网盘">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-30480785.jpeg">
+<meta property="article:published_time" content="2024-12-03T03:50:20.000Z">
+<meta property="article:modified_time" content="2025-02-03T04:26:23.060Z">
+<meta property="article:author" content="Meng">
+<meta property="article:tag" content="telegram">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-30480785.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.mengkr.asia/2024/12/03/TelegramMediaDownload/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"该文章最后更新于","messageNext":"天前，可能已经过时"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'TelegramMediaDownload',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-03 12:26:23'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-30480785.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">TelegramMediaDownload</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-03T03:50:20.000Z" title="发表于 2024-12-03 11:50:20">2024-12-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-02-03T04:26:23.060Z" title="更新于 2025-02-03 12:26:23">2025-02-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/others/">others</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>电报客户端只能在当前信息进行下载，并且不显示下载速度和具体的下载进度。用<a target="_blank" rel="noopener" href="https://github.com/tangyoha/telegram_media_downloader">telegram_media_downloader</a>部署机器人可以自动下载，并显示网速和下载进度，还能通过<code>rclone</code> 自动上传至网盘</p>
+<h1 id="创建机器人"><a href="#创建机器人" class="headerlink" title="创建机器人"></a>创建机器人</h1><h2 id="获取api密钥"><a href="#获取api密钥" class="headerlink" title="获取api密钥"></a>获取api密钥</h2><ol>
+<li><p>访问 <a target="_blank" rel="noopener" href="https://my.telegram.org/apps">telegram官网</a> 并使用您的 Telegram 帐户登录。</p>
+</li>
+<li><p>填写表格以注册新的 Telegram 应用程序。（填写 <code>App title</code>和<code>Short name</code> 即可）</p>
+</li>
+<li><p>完成！ API 密钥由两部分组成：<strong>api_id</strong> 和<strong>api_hash</strong>。</p>
+</li>
+</ol>
+<h2 id="机器人"><a href="#机器人" class="headerlink" title="机器人"></a>机器人</h2><p>与 <a target="_blank" rel="noopener" href="https://t.me/BotFather">https://t.me/BotFather</a> 对话：</p>
+<ol>
+<li>输入 &#x2F;start</li>
+<li>输入 &#x2F;newbot</li>
+<li>输入 你想创建的机器人名称</li>
+<li>保存BotToken</li>
+</ol>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="配置文件-config-yaml"><a href="#配置文件-config-yaml" class="headerlink" title="配置文件(config.yaml)"></a>配置文件(config.yaml)</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">api_hash:</span> </span><br><span class="line"><span class="attr">api_id:</span> </span><br><span class="line"><span class="attr">bot_token:</span> </span><br><span class="line"><span class="attr">web_host:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line"><span class="attr">web_port:</span> <span class="number">5000</span></span><br><span class="line"><span class="attr">proxy:</span></span><br><span class="line">  <span class="attr">scheme:</span> <span class="string">http</span></span><br><span class="line">  <span class="attr">hostname:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">7890</span></span><br><span class="line"><span class="attr">file_formats:</span></span><br><span class="line">  <span class="attr">audio:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">all</span></span><br><span class="line">  <span class="attr">document:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">all</span></span><br><span class="line">  <span class="attr">video:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">all</span></span><br><span class="line"><span class="attr">file_name_prefix:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">file_name</span></span><br><span class="line"></span><br><span class="line"><span class="attr">file_path_prefix:</span></span><br><span class="line"><span class="bullet">-</span> </span><br><span class="line"><span class="comment"># - chat_title</span></span><br><span class="line"><span class="comment"># - media_datetime</span></span><br><span class="line"><span class="attr">media_types:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">audio</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">photo</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">video</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">document</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">voice</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">video_note</span></span><br><span class="line"><span class="attr">save_path:</span> <span class="string">/home/username/Downloads/media</span></span><br><span class="line"><span class="attr">upload_drive:</span></span><br><span class="line">  <span class="attr">enable_upload_file:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">remote_dir:</span> <span class="string">alist:/</span></span><br><span class="line">  <span class="attr">rclone_path:</span> <span class="string">/usr/bin/rclone</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">ZH</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>api_hash</strong> - 你从电报应用程序获得的 api_hash</p>
+</li>
+<li><p><strong>api_id</strong> - 您从电报应用程序获得的 api_id</p>
+</li>
+<li><p><strong>bot_token</strong> - 你的机器人凭证</p>
+</li>
+<li><p><strong>chat</strong></p>
+<p>- 多频道</p>
+<ul>
+<li><code>chat_id</code> - 您要下载媒体的聊天&#x2F;频道的 ID。你从上述步骤中得到的。</li>
+<li><code>download_filter</code> - 下载过滤器, 查阅 <a target="_blank" rel="noopener" href="https://github.com/tangyoha/telegram_media_downloader/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E8%BF%87%E6%BB%A4%E5%99%A8">如何使用过滤器</a></li>
+<li><code>last_read_message_id</code> -如果这是您第一次阅读频道，请将其设置为“0”，或者如果您已经使用此脚本下载媒体，它将有一些数字，这些数字会在脚本成功执行后自动更新。不要改变它。</li>
+</ul>
+</li>
+<li><p><strong>chat_id</strong> - 您要下载媒体的聊天&#x2F;频道的 ID。你从上述步骤中得到的。</p>
+</li>
+<li><p><strong>last_read_message_id</strong> - 如果这是您第一次阅读频道，请将其设置为“0”，或者如果您已经使用此脚本下载媒体，它将有一些数字，这些数字会在脚本成功执行后自动更新。不要改变它。</p>
+</li>
+<li><p><strong>ids_to_retry</strong> - <code>保持原样。</code>下载器脚本使用它来跟踪所有跳过的下载，以便在下次执行脚本时可以下载它。</p>
+</li>
+<li><p><strong>media_types</strong> - 要下载的媒体类型，您可以更新要下载的媒体类型，它可以是一种或任何可用类型。</p>
+</li>
+<li><p><strong>file_formats</strong> - 为支持的媒体类型（“音频”、“文档”和“视频”）下载的文件类型。默认格式为“all”，下载所有文件。</p>
+</li>
+<li><p><strong>save_path</strong> - 你想存储下载文件的根目录</p>
+</li>
+<li><p><strong>file_path_prefix</strong></p>
+<p>- 存储文件子文件夹，列表的顺序不定，可以随机组合</p>
+<ul>
+<li><code>chat_title</code> - 聊天频道或者群组标题, 如果找不到标题则为配置文件中的<code>chat_id</code></li>
+<li><code>media_datetime</code> - 资源的发布时间</li>
+<li><code>media_type</code> - 资源类型，类型查阅 <code>media_types</code></li>
+</ul>
+</li>
+<li><p><strong>upload_drive</strong></p>
+<p>- 您可以将文件上传到云盘</p>
+<ul>
+<li><code>enable_upload_file</code> - [必填]启用上传文件，默认为<code>false</code></li>
+<li><code>remote_dir</code> - [必填]你上传的地方，如alist:&#x2F;，其中<code>alist</code>为创建<code>rclone</code>远程时所填的名字</li>
+<li><code>upload_adapter</code> - [必填]上传文件适配器，可以为<code>rclone</code>,<code>aligo</code>。如果为<code>rclone</code>，则支持rclone所有支持上传的服务器，如果为aligo，则支持上传阿里云盘</li>
+<li><code>rclone_path</code>，如果配置<code>upload_adapter</code>为<code>rclone</code>则为必填，<code>rclone</code>的可执行目录，查阅 <a target="_blank" rel="noopener" href="https://github.com/tangyoha/telegram_media_downloader/wiki/Rclone">如何使用rclone</a></li>
+<li><code>before_upload_file_zip</code> - 上传前压缩文件，默认为<code>false</code></li>
+<li><code>after_upload_file_delete</code> - 上传成功后删除文件，默认为<code>false</code></li>
+</ul>
+</li>
+<li><p><strong>file_name_prefix</strong></p>
+<p>- 自定义文件名称,使用和</p>
+<p>file_path_prefix</p>
+<p>一样</p>
+<ul>
+<li><code>message_id</code> - 消息id</li>
+<li><code>file_name</code> - 文件名称（可能为空）</li>
+<li><code>caption</code> - 消息的标题（可能为空）</li>
+</ul>
+</li>
+<li><p><strong>file_name_prefix_split</strong> - 自定义文件名称分割符号，默认为<code>-</code></p>
+</li>
+<li><p><strong>max_download_task</strong> - 最大任务下载任务个数，默认为5个。</p>
+</li>
+<li><p><strong>hide_file_name</strong> - 是否隐藏web界面文件名称，默认<code>false</code></p>
+</li>
+<li><p><strong>web_host</strong> - web界面地址</p>
+</li>
+<li><p><strong>web_port</strong> - web界面端口</p>
+</li>
+<li><p><strong>language</strong> - 应用语言，默认为英文(<code>EN</code>),可选<code>ZH</code>（中文）,<code>RU</code>,<code>UA</code></p>
+</li>
+<li><p><strong>web_login_secret</strong> - 网页登录密码，如果不配置则访问网页不需要登录</p>
+</li>
+<li><p><strong>log_level</strong> - 默认日志等级，请参阅 <code>logging._nameToLevel</code></p>
+</li>
+<li><p><strong>forward_limit</strong> - 限制每分钟转发次数，默认为33，默认请不要修改该参数</p>
+</li>
+<li><p><strong>allowed_user_ids</strong> - 允许哪些人使用机器人，默认登录账号可以使用，带@的名称请加单引号</p>
+</li>
+<li><p><strong>date_format</strong> - 支持自定义配置file_path_prefix中media_datetime的格式，具体格式查看 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/time.html">python-datetime</a></p>
+</li>
+<li><p><strong>enable_download_txt</strong> 启用下载txt文件，默认<code>false</code></p>
+</li>
+</ul>
+<h2 id="默认配置"><a href="#默认配置" class="headerlink" title="默认配置"></a>默认配置</h2><p>在 <code>module/cloud_drive.py</code> 修改默认配置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">    self,</span></span><br><span class="line"><span class="params">    enable_upload_file: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">    before_upload_file_zip: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">    after_upload_file_delete: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">    rclone_path: <span class="built_in">str</span> = os.path.join(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="params">        os.path.abspath(<span class="params"><span class="string">&quot;.&quot;</span></span>), <span class="string">&quot;rclone&quot;</span>, <span class="string">f&quot;rclone<span class="subst">&#123;platform.get_exe_ext()&#125;</span>&quot;</span></span></span></span><br><span class="line"><span class="params"><span class="params">    </span>),</span></span><br><span class="line"><span class="params">    remote_dir: <span class="built_in">str</span> = <span class="string">&quot;&quot;</span>,</span></span><br><span class="line"><span class="params">    upload_adapter: <span class="built_in">str</span> = <span class="string">&quot;rclone&quot;</span>,</span></span><br><span class="line"><span class="params"></span>):</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.mengkr.asia">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.mengkr.asia/2024/12/03/TelegramMediaDownload/">https://blog.mengkr.asia/2024/12/03/TelegramMediaDownload/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.mengkr.asia" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/telegram/">telegram</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-30480785.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/12/25/docker-iptables/" title="docker-iptables"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-30314241.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">docker-iptables</div></div></a></div><div class="next-post pull-right"><a href="/2024/11/26/netplan/" title="netplan网络配置"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-30388702.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">netplan网络配置</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc-number">2.</span> <span class="toc-text">创建机器人</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96api%E5%AF%86%E9%92%A5"><span class="toc-number">2.1.</span> <span class="toc-text">获取api密钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc-number">2.2.</span> <span class="toc-text">机器人</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-config-yaml"><span class="toc-number">3.1.</span> <span class="toc-text">配置文件(config.yaml)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE"><span class="toc-number">3.2.</span> <span class="toc-text">默认配置</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>

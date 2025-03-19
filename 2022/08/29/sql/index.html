@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://images.pexels.com/photos/1542495/pexels-photo-1542495.jpeg">
 <meta property="article:published_time" content="2022-08-29T15:28:31.000Z">
-<meta property="article:modified_time" content="2025-03-16T08:02:22.564Z">
+<meta property="article:modified_time" content="2025-03-19T06:20:45.575Z">
 <meta property="article:author" content="Meng">
 <meta property="article:tag" content="sql">
 <meta name="twitter:card" content="summary">
@@ -56,7 +56,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2025-03-16 16:02:22'
+  postUpdate: '2025-03-19 14:20:45'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -153,26 +153,791 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.pexels.com/photos/1542495/pexels-photo-1542495.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">sql查询语句</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-29T15:28:31.000Z" title="发表于 2022-08-29 23:28:31">2022-08-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-16T08:02:22.564Z" title="更新于 2025-03-16 16:02:22">2025-03-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/sql/">sql</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Data-analysis/">Data analysis</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在线练习网站：<a target="_blank" rel="noopener" href="https://sqlzoo.net/">sqlzoo</a></p>
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.pexels.com/photos/1542495/pexels-photo-1542495.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">sql查询语句</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-29T15:28:31.000Z" title="发表于 2022-08-29 23:28:31">2022-08-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-19T06:20:45.575Z" title="更新于 2025-03-19 14:20:45">2025-03-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/sql/">sql</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Data-analysis/">Data analysis</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在线练习网站：<a target="_blank" rel="noopener" href="https://sqlzoo.net/">sqlzoo</a></p>
 <p>多段代码需要在每句末加;单个不需要<br>运行原理：where-group by-having-order by-limit-select</p>
 <h1 id="select-from"><a href="#select-from" class="headerlink" title="select &amp; from"></a>select &amp; from</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> world #查询所有</span><br><span class="line"><span class="keyword">select</span> name, continent, population <span class="keyword">from</span> world; #查询指定列</span><br><span class="line"><span class="keyword">select</span> name 国家名, continent 大洲, population 人口 <span class="keyword">from</span> world; #赋予别名，<span class="keyword">as</span>可省略</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> continent <span class="keyword">from</span> world; #去重，重复的只取一个</span><br><span class="line"><span class="keyword">distinct</span>只能跟在<span class="keyword">select</span>后，后面可接多个字段</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> name, continent <span class="keyword">from</span> world; #两个值不完全重复就保留</span><br><span class="line"></span><br><span class="line">一些基本运算（加减乘除，可加括号）</span><br><span class="line"><span class="keyword">select</span> name, gdp, population, gdp<span class="operator">/</span>population 人均gdp <span class="keyword">from</span> world #计算人均gdp并赋予别名</span><br></pre></td></tr></table></figure>
-<h1 id="where"><a href="#where" class="headerlink" title="where"></a>where</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">where</span> 表达式 #限定查询行必须满足的条件，字符串加<span class="string">&#x27;&#x27;</span></span><br><span class="line">常用的</span><br><span class="line"><span class="keyword">between</span> xxx <span class="keyword">and</span> xxx</span><br><span class="line"><span class="keyword">and</span>,<span class="keyword">or</span>,<span class="keyword">not</span>,<span class="keyword">in</span></span><br><span class="line"><span class="keyword">is</span> <span class="keyword">null</span> #查询空值，注意空值不同于<span class="keyword">null</span>字符串（<span class="keyword">is</span> <span class="string">&#x27;null&#x27;</span>）</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">where</span> population<span class="operator">&gt;=</span><span class="number">100000000</span> #人口大于或等于一亿得到国家</span><br><span class="line"><span class="keyword">select</span> name, population <span class="keyword">from</span> world <span class="keyword">where</span> name <span class="keyword">in</span> (<span class="string">&#x27;USA&#x27;</span>, <span class="string">&#x27;China&#x27;</span>, <span class="string">&#x27;Canada&#x27;</span>) #或者用<span class="keyword">or</span>也行</span><br><span class="line"><span class="keyword">select</span> name, area <span class="keyword">from</span> world <span class="keyword">where</span> area <span class="keyword">between</span> <span class="number">25000</span> <span class="keyword">and</span> <span class="number">30000</span> #，面积筛选，数值必须从小到大，闭区间，也可以改用不等号</span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;C%ia&#x27;</span> #中间没有限定字符数，可用通配符<span class="operator">%</span>表示</span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;_t%&#x27;</span> #_是占位符，只表示一个字符，查询第二个字符是t的国家名</span><br><span class="line">指定字符数用占位符_，未指定用通配符<span class="operator">%</span></span><br><span class="line"></span><br><span class="line">多条件查询（用逻辑词连接）</span><br><span class="line"><span class="keyword">and</span>的优先级大于<span class="keyword">or</span>，可加括号调整运算顺序</span><br><span class="line"><span class="keyword">select</span> name area <span class="keyword">from</span> world <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;%a%a%&#x27;</span> <span class="keyword">and</span> area<span class="operator">&gt;=</span><span class="number">600000</span> <span class="keyword">or</span> population<span class="operator">&gt;</span><span class="number">13000000</span> <span class="keyword">and</span> area<span class="operator">&gt;</span><span class="number">950000</span></span><br></pre></td></tr></table></figure>
+<h1 id="where"><a href="#where" class="headerlink" title="where"></a>where</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">where</span> 表达式 #限定查询行必须满足的条件，字符串加<span class="string">&#x27;&#x27;</span></span><br><span class="line">常用的</span><br><span class="line"><span class="keyword">between</span> xxx <span class="keyword">and</span> xxx</span><br><span class="line"><span class="keyword">and</span>,<span class="keyword">or</span>,<span class="keyword">not</span>,<span class="keyword">in</span></span><br><span class="line"><span class="keyword">is</span> <span class="keyword">null</span> #查询空值，注意空值不同于<span class="keyword">null</span>字符串（<span class="keyword">is</span> <span class="string">&#x27;null&#x27;</span>）</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">where</span> name <span class="operator">=</span> capital #国家名和首都名称相同</span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">where</span> population<span class="operator">&gt;=</span><span class="number">100000000</span> #人口大于或等于一亿得到国家</span><br><span class="line"><span class="keyword">select</span> name, population <span class="keyword">from</span> world <span class="keyword">where</span> name <span class="keyword">in</span> (<span class="string">&#x27;USA&#x27;</span>, <span class="string">&#x27;China&#x27;</span>, <span class="string">&#x27;Canada&#x27;</span>) #或者用<span class="keyword">or</span>也行</span><br><span class="line"><span class="keyword">select</span> name, area <span class="keyword">from</span> world <span class="keyword">where</span> area <span class="keyword">between</span> <span class="number">25000</span> <span class="keyword">and</span> <span class="number">30000</span> #，面积筛选，数值必须从小到大，闭区间，也可以改用不等号</span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;C%ia&#x27;</span> #中间没有限定字符数，可用通配符<span class="operator">%</span>表示</span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;_t%&#x27;</span> #_是占位符，只表示一个字符，查询第二个字符是t的国家名</span><br><span class="line">指定字符数用占位符_，未指定用通配符<span class="operator">%</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> nobel <span class="keyword">where</span> winner <span class="operator">=</span> <span class="string">&#x27;EUGENE O&#x27;&#x27;NEILL&#x27;</span> #连续使用两个单引号在字符串中当作一个单引号。</span><br><span class="line"></span><br><span class="line">多条件查询（用逻辑词连接）</span><br><span class="line"><span class="keyword">and</span>的优先级大于<span class="keyword">or</span>，可加括号调整运算顺序</span><br><span class="line"><span class="keyword">select</span> name area <span class="keyword">from</span> world <span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;%a%a%&#x27;</span> <span class="keyword">and</span> area<span class="operator">&gt;=</span><span class="number">600000</span> <span class="keyword">or</span> population<span class="operator">&gt;</span><span class="number">13000000</span> <span class="keyword">and</span> area<span class="operator">&gt;</span><span class="number">950000</span></span><br></pre></td></tr></table></figure>
 <h1 id="order-by-（排序）"><a href="#order-by-（排序）" class="headerlink" title="order by （排序）"></a>order by （排序）</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> 字段名 <span class="keyword">asc</span><span class="operator">|</span><span class="keyword">desc</span> （升序<span class="operator">|</span>降序）#默认升序</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> winner, yr, subject <span class="keyword">from</span> nobel <span class="keyword">where</span> winner <span class="keyword">like</span> <span class="string">&#x27;Sir%&#x27;</span> <span class="keyword">order</span> <span class="keyword">by</span> yr <span class="keyword">desc</span>, winner <span class="keyword">asc</span>; #先按年份降序，再按姓名升序</span><br><span class="line"></span><br><span class="line">将诺贝尔化学奖和物理学奖排在后面</span><br><span class="line"><span class="keyword">select</span> winner, subject <span class="keyword">from</span> nobel <span class="keyword">where</span> yr<span class="operator">=</span><span class="number">1984</span> <span class="keyword">order</span> <span class="keyword">by</span> subject <span class="keyword">in</span> (<span class="string">&#x27;chemistry&#x27;</span>,<span class="string">&#x27;physics&#x27;</span>), subject, winner #在括号里的记为<span class="number">1</span>，不在的记为<span class="number">0</span>，从而排序</span><br></pre></td></tr></table></figure>
 <h1 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">limit [位置偏移量,]行数 #限制查询结果集合显示的行数</span><br><span class="line">limit n中n代表返回的行数，默认从第一行开始返回，limit x,n 意味着x<span class="operator">+</span><span class="number">1</span>开始返回n行</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">order</span> <span class="keyword">by</span> area <span class="keyword">desc</span> limit <span class="number">3</span> #查询世界面积前三的国家</span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">order</span> <span class="keyword">by</span> population <span class="keyword">desc</span> limit <span class="number">3</span>,<span class="number">4</span> #从<span class="number">3</span><span class="operator">+</span><span class="number">1</span><span class="operator">=</span><span class="number">4</span>开始返回<span class="number">4</span>行，即<span class="number">4</span>到<span class="number">7</span>行</span><br></pre></td></tr></table></figure>
 <h1 id="聚合函数-group-by"><a href="#聚合函数-group-by" class="headerlink" title="聚合函数&amp;group by"></a>聚合函数&amp;group by</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">一些函数：<span class="built_in">sum</span>(),<span class="built_in">avg</span>(),<span class="built_in">max</span>(),<span class="built_in">min</span>() #必须指定字段；不能用通配符；会忽略空值行</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">sum</span>(population) 人口总数 <span class="keyword">from</span> world <span class="keyword">where</span> continent <span class="operator">=</span> <span class="string">&#x27;Africa&#x27;</span> #求非洲总人口</span><br><span class="line"></span><br><span class="line"><span class="built_in">count</span>() 返回行数</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> world #计算表格总行数</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(name), <span class="built_in">count</span>(area), <span class="built_in">count</span>(population) <span class="keyword">from</span> world #某列的行数，若某行为空值<span class="keyword">null</span>，则会忽略</span><br><span class="line"></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> 操作分为两步：<span class="number">1.</span>依据某某项将字段值相同的化分到一个区；<span class="number">2.</span>去重分组</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span>子句中有多字段时，依据顺序进行分区</span><br><span class="line"></span><br><span class="line">查询<span class="number">13</span>年到<span class="number">15</span>年每年每个科目的获奖人数，结果按年份从大到小，人数从大到小排序</span><br><span class="line"><span class="keyword">select</span> yr, subject, <span class="built_in">count</span>(winner) 获奖人数 <span class="keyword">from</span> nobel <span class="keyword">where</span> yr <span class="keyword">between</span> <span class="number">2013</span> <span class="keyword">and</span> <span class="number">2015</span> <span class="keyword">group</span> <span class="keyword">by</span> yr, subject <span class="keyword">order</span> <span class="keyword">by</span> yr <span class="keyword">desc</span>, <span class="built_in">count</span>(winner) <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
-<h1 id="having"><a href="#having" class="headerlink" title="having"></a>having</h1><p>having是分组聚合后筛选（只能用分组后得到的字段）；where是分组聚合前筛选</p>
+
+<p>聚合函数是 SQL 中用于对一组值进行计算并返回单个值的函数。它们通常与 <code>GROUP BY</code> 子句一起使用，以对结果集进行分组并生成汇总信息。以下是一些常见的聚合函数及其用法说明：</p>
+<h2 id="常见聚合函数"><a href="#常见聚合函数" class="headerlink" title="常见聚合函数"></a>常见聚合函数</h2><ol>
+<li><p><strong><code>COUNT()</code></strong></p>
+<ul>
+<li>用于计算行数或非空值的数量。</li>
+<li>语法：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(column_name) <span class="keyword">FROM</span> table_name;</span><br></pre></td></tr></table></figure></li>
+<li>示例：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> employees;  <span class="comment">-- 计算员工总数</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong><code>SUM()</code></strong></p>
+<ul>
+<li>用于计算数值列的总和。</li>
+<li>语法：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(column_name) <span class="keyword">FROM</span> table_name;</span><br></pre></td></tr></table></figure></li>
+<li>示例：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(salary) <span class="keyword">FROM</span> employees;  <span class="comment">-- 计算所有员工的工资总和</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong><code>AVG()</code></strong></p>
+<ul>
+<li>用于计算数值列的平均值。</li>
+<li>语法：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(column_name) <span class="keyword">FROM</span> table_name;</span><br></pre></td></tr></table></figure></li>
+<li>示例：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(salary) <span class="keyword">FROM</span> employees;  <span class="comment">-- 计算员工工资的平均值</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong><code>MIN()</code></strong></p>
+<ul>
+<li>用于获取某列的最小值。</li>
+<li>语法：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MIN</span>(column_name) <span class="keyword">FROM</span> table_name;</span><br></pre></td></tr></table></figure></li>
+<li>示例：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MIN</span>(salary) <span class="keyword">FROM</span> employees;  <span class="comment">-- 获取最低工资</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong><code>MAX()</code></strong></p>
+<ul>
+<li>用于获取某列的最大值。</li>
+<li>语法：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(column_name) <span class="keyword">FROM</span> table_name;</span><br></pre></td></tr></table></figure></li>
+<li>示例：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(salary) <span class="keyword">FROM</span> employees;  <span class="comment">-- 获取最高工资</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong><code>GROUP_CONCAT()</code></strong> (MySQL 特有)</p>
+<ul>
+<li>用于将组内的值连接成一个字符串。</li>
+<li>语法：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> GROUP_CONCAT(column_name) <span class="keyword">FROM</span> table_name <span class="keyword">GROUP</span> <span class="keyword">BY</span> another_column;</span><br></pre></td></tr></table></figure></li>
+<li>示例：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> department, GROUP_CONCAT(employee_name) <span class="keyword">FROM</span> employees <span class="keyword">GROUP</span> <span class="keyword">BY</span> department;  <span class="comment">-- 按部门列出员工姓名</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong><code>ARRAY_AGG()</code></strong> (PostgreSQL 特有)</p>
+<ul>
+<li>将组内的值聚合为数组。</li>
+<li>语法：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">ARRAY_AGG</span>(column_name) <span class="keyword">FROM</span> table_name <span class="keyword">GROUP</span> <span class="keyword">BY</span> another_column;</span><br></pre></td></tr></table></figure></li>
+<li>示例：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> department, <span class="built_in">ARRAY_AGG</span>(employee_name) <span class="keyword">FROM</span> employees <span class="keyword">GROUP</span> <span class="keyword">BY</span> department;  <span class="comment">-- 按部门列出员工姓名数组</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong><code>STRING_AGG()</code></strong> (PostgreSQL 特有)</p>
+<ul>
+<li>将组内的值连接为字符串，可以指定分隔符。</li>
+<li>语法：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STRING_AGG(column_name, <span class="string">&#x27;, &#x27;</span>) <span class="keyword">FROM</span> table_name <span class="keyword">GROUP</span> <span class="keyword">BY</span> another_column;</span><br></pre></td></tr></table></figure></li>
+<li>示例：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> department, STRING_AGG(employee_name, <span class="string">&#x27;, &#x27;</span>) <span class="keyword">FROM</span> employees <span class="keyword">GROUP</span> <span class="keyword">BY</span> department;  <span class="comment">-- 按部门列出员工姓名，使用逗号分隔</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="使用聚合函数的示例"><a href="#使用聚合函数的示例" class="headerlink" title="使用聚合函数的示例"></a>使用聚合函数的示例</h2><p>假设我们有一个 <code>sales</code> 表，结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>salesperson</th>
+<th>amount</th>
+<th>sale_date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Alice</td>
+<td>100</td>
+<td>2022-01-01</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>200</td>
+<td>2022-01-02</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Alice</td>
+<td>150</td>
+<td>2022-01-03</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bob</td>
+<td>300</td>
+<td>2022-01-04</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Charlie</td>
+<td>250</td>
+<td>2022-01-05</td>
+</tr>
+</tbody></table>
+<h2 id="示例查询"><a href="#示例查询" class="headerlink" title="示例查询"></a>示例查询</h2><ol>
+<li><p><strong>计算每个销售人员的总销售额</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> salesperson, <span class="built_in">SUM</span>(amount) <span class="keyword">AS</span> total_sales</span><br><span class="line"><span class="keyword">FROM</span> sales</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> salesperson;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>计算销售额的平均值</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(amount) <span class="keyword">AS</span> average_sales</span><br><span class="line"><span class="keyword">FROM</span> sales;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>获取最大和最小销售额</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(amount) <span class="keyword">AS</span> max_sale, <span class="built_in">MIN</span>(amount) <span class="keyword">AS</span> min_sale</span><br><span class="line"><span class="keyword">FROM</span> sales;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>计算每个销售人员的销售次数</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> salesperson, <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> sales_count</span><br><span class="line"><span class="keyword">FROM</span> sales</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> salesperson;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="having"><a href="#having" class="headerlink" title="having"></a>having</h1><p>在 SQL 中，<code>HAVING</code> 子句用于对 <code>GROUP BY</code> 生成的结果进行筛选。与 <code>WHERE</code> 子句不同（分组聚合前筛选），<code>HAVING</code> 是在聚合操作之后进行的筛选，因此它可以使用聚合函数的结果</p>
+<p>以下是 <code>HAVING</code> 子句的一些示例，展示如何在聚合查询中进行筛选。</p>
+<h2 id="示例数据"><a href="#示例数据" class="headerlink" title="示例数据"></a>示例数据</h2><p>假设我们有一个 <code>sales</code> 表，结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>salesperson</th>
+<th>amount</th>
+<th>sale_date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Alice</td>
+<td>100</td>
+<td>2022-01-01</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>200</td>
+<td>2022-01-02</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Alice</td>
+<td>150</td>
+<td>2022-01-03</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bob</td>
+<td>300</td>
+<td>2022-01-04</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Charlie</td>
+<td>250</td>
+<td>2022-01-05</td>
+</tr>
+</tbody></table>
+<h2 id="示例查询-1"><a href="#示例查询-1" class="headerlink" title="示例查询"></a>示例查询</h2><ol>
+<li><p><strong>筛选总销售额大于 300 的销售人员</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> salesperson, <span class="built_in">SUM</span>(amount) <span class="keyword">AS</span> total_sales</span><br><span class="line"><span class="keyword">FROM</span> sales</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> salesperson</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">SUM</span>(amount) <span class="operator">&gt;</span> <span class="number">300</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>解释</strong>：该查询计算每个销售人员的总销售额，并筛选出总销售额大于 300 的销售人员。</li>
+</ul>
+</li>
+<li><p><strong>筛选销售次数大于 1 的销售人员</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> salesperson, <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> sales_count</span><br><span class="line"><span class="keyword">FROM</span> sales</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> salesperson</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="operator">&gt;</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>解释</strong>：该查询计算每个销售人员的销售次数，并筛选出销售次数大于 1 的销售人员。</li>
+</ul>
+</li>
+<li><p><strong>筛选平均销售额大于 150 的销售人员</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> salesperson, <span class="built_in">AVG</span>(amount) <span class="keyword">AS</span> average_sales</span><br><span class="line"><span class="keyword">FROM</span> sales</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> salesperson</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">AVG</span>(amount) <span class="operator">&gt;</span> <span class="number">150</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>解释</strong>：该查询计算每个销售人员的平均销售额，并筛选出平均销售额大于 150 的销售人员。</li>
+</ul>
+</li>
+<li><p><strong>筛选销售额总和大于 200 且销售次数大于 1 的销售人员</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> salesperson, <span class="built_in">SUM</span>(amount) <span class="keyword">AS</span> total_sales, <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> sales_count</span><br><span class="line"><span class="keyword">FROM</span> sales</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> salesperson</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">SUM</span>(amount) <span class="operator">&gt;</span> <span class="number">200</span> <span class="keyword">AND</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="operator">&gt;</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>解释</strong>：该查询计算每个销售人员的总销售额和销售次数，并筛选出总销售额大于 200 且销售次数大于 1 的销售人员。</li>
+</ul>
+</li>
+<li><p><strong>筛选总销售额等于 400 的销售人员</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> salesperson, <span class="built_in">SUM</span>(amount) <span class="keyword">AS</span> total_sales</span><br><span class="line"><span class="keyword">FROM</span> sales</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> salesperson</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">SUM</span>(amount) <span class="operator">=</span> <span class="number">400</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>解释</strong>：该查询计算每个销售人员的总销售额，并筛选出总销售额等于 400 的销售人员。</li>
+</ul>
+</li>
+</ol>
+<h1 id="NULL"><a href="#NULL" class="headerlink" title="NULL"></a>NULL</h1><p><code>IS NULL</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> teacher</span><br><span class="line"> <span class="keyword">where</span> dept <span class="keyword">is</span> <span class="keyword">NULL</span></span><br></pre></td></tr></table></figure>
+
+<p><code>COALESCE</code> 用于返回参数列表中第一个非 NULL 的值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">COALESCE</span>(value1, value2, ..., value_n)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>value1, value2, ..., value_n</code> 是您希望检查的值。</li>
+<li><code>COALESCE</code> 将返回第一个非 NULL 的值。如果所有值都是 NULL，则返回 NULL。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 使用 COALESCE 打印手机号码。如果没有给出号码，则使用号码“<span class="number">07986</span> <span class="number">444</span> <span class="number">2266</span>”</span><br><span class="line"><span class="keyword">select</span> name, <span class="built_in">COALESCE</span>(mobile, &quot;07986 444 2266&quot;)</span><br><span class="line"> <span class="keyword">from</span> teacher</span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="运行原理（总结）"><a href="#运行原理（总结）" class="headerlink" title="运行原理（总结）"></a>运行原理（总结）</h1><p>from语句从数据库中调取复制一份表格<br>where语句在复制的表格中筛选出符合条件的数据行<br>group by语句依据指定字符对筛选后的数据分区，将依据得到字段去重复，相当于Excel建立了一个数据透视表，添加了行标签<br>having语句筛选满足条件的分组<br>order by语句对筛选后的数据排序<br>limit语句对排序后的数据限制显示的行<br>select语句，提取最后要显示的字段</p>
 <h1 id="部分常见函数"><a href="#部分常见函数" class="headerlink" title="部分常见函数"></a>部分常见函数</h1><h2 id="四舍五入函数round-x-y"><a href="#四舍五入函数round-x-y" class="headerlink" title="四舍五入函数round(x,y)"></a>四舍五入函数round(x,y)</h2><p>对x进行四舍五入，精确到小数点后y位 round(3.15,1)&#x3D;3.2</p>
-<h2 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">concat(s1,s2,...) 连接字符串，任一参数为<span class="keyword">null</span>则返回<span class="keyword">null</span></span><br><span class="line">concat_ws(<span class="string">&#x27;分隔符&#x27;</span>, s1, s2,...)</span><br><span class="line"></span><br><span class="line">replace(s,s1,s2) 替换函数，使用字符串s2替换s中所有的s1</span><br><span class="line">replace(<span class="string">&#x27;MySQLMySQL&#x27;</span>,<span class="string">&#x27;SQL&#x27;</span>,<span class="string">&#x27;sql&#x27;</span>) 返回MysqlMysql</span><br><span class="line"></span><br><span class="line"><span class="keyword">left</span>(s,n),<span class="keyword">right</span>(s,n) <span class="operator">&amp;</span> <span class="built_in">substring</span>(s,n,len) 截取字符串的一部分</span><br><span class="line"><span class="keyword">left</span>返回字符串s最左边的n个字符</span><br><span class="line"><span class="keyword">right</span>类似</span><br><span class="line">substring返回字符串s从第n个字符起取长度为len的子字符串，n可为负值，负值则为从倒数第n个字符起取（往右）长度为len的子字符串，没有len值则取到最后一个字符</span><br><span class="line"></span><br><span class="line"><span class="built_in">cast</span>(x <span class="keyword">as</span> type) 转换数据类型</span><br><span class="line">type参数可以填写<span class="type">char</span>(n),<span class="type">date</span>,<span class="type">time</span>,datetime,<span class="type">decimal</span>等</span><br></pre></td></tr></table></figure>
+<h2 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">concat(s1,s2,...) 连接字符串，任一参数为<span class="keyword">null</span>则返回<span class="keyword">null</span></span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">where</span> capital <span class="keyword">like</span> concat(name, <span class="string">&#x27; City&#x27;</span>) 展示所有国家名字,其首都是国家名字加上”City”</span><br><span class="line"></span><br><span class="line">concat_ws(<span class="string">&#x27;分隔符&#x27;</span>, s1, s2,...)</span><br><span class="line"></span><br><span class="line">replace(s,s1,s2) 替换函数，使用字符串s2替换s中所有的s1</span><br><span class="line">replace(<span class="string">&#x27;MySQLMySQL&#x27;</span>,<span class="string">&#x27;SQL&#x27;</span>,<span class="string">&#x27;sql&#x27;</span>) 返回MysqlMysql</span><br><span class="line"></span><br><span class="line"><span class="keyword">left</span>(s,n),<span class="keyword">right</span>(s,n) <span class="operator">&amp;</span> <span class="built_in">substring</span>(s,n,len) 截取字符串的一部分</span><br><span class="line"><span class="keyword">left</span>返回字符串s最左边的n个字符</span><br><span class="line"><span class="keyword">right</span>类似</span><br><span class="line">substring返回字符串s从第n个字符起取长度为len的子字符串，n可为负值，负值则为从倒数第n个字符起取（往右）长度为len的子字符串，没有len值则取到最后一个字符</span><br><span class="line"></span><br><span class="line"><span class="built_in">cast</span>(x <span class="keyword">as</span> type) 转换数据类型</span><br><span class="line">type参数可以填写<span class="type">char</span>(n),<span class="type">date</span>,<span class="type">time</span>,datetime,<span class="type">decimal</span>等</span><br></pre></td></tr></table></figure>
 <h2 id="日期时间函数"><a href="#日期时间函数" class="headerlink" title="日期时间函数"></a>日期时间函数</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">year</span>(<span class="type">date</span>),<span class="keyword">month</span>(<span class="type">date</span>),<span class="keyword">day</span>(<span class="type">date</span>) 获取年月日的函数</span><br><span class="line"><span class="type">date</span>可以是年月日（分秒）组成的日期</span><br><span class="line"></span><br><span class="line">date_add(<span class="type">date</span>,<span class="type">interval</span> expr type),date_sub(<span class="type">date</span>,<span class="type">interval</span> expr type) 对指定起始时间进行加减操作</span><br><span class="line">expr用来指定从起始时间添加或减去的时间间隔</span><br><span class="line">type指示expr被解释的方式，type可以是以下值：<span class="keyword">second</span>,<span class="keyword">minute</span>,<span class="keyword">hour</span>,<span class="keyword">day</span>,week,<span class="keyword">month</span>,<span class="keyword">year</span></span><br><span class="line">例如：</span><br><span class="line">date_add(<span class="string">&#x27;2021-08-03 23:59:59&#x27;</span>,<span class="type">interval</span> <span class="number">1</span> <span class="keyword">second</span>)返回<span class="number">2021</span><span class="number">-08</span><span class="number">-04</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line"></span><br><span class="line">datediff(date1,date2) 计算两个日期之间间隔的天数</span><br><span class="line"></span><br><span class="line">date_format(<span class="type">date</span>,format) 将日期和时间格式化，具体格式自行查找</span><br></pre></td></tr></table></figure>
 <h2 id="条件判断函数"><a href="#条件判断函数" class="headerlink" title="条件判断函数"></a>条件判断函数</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if(expr,v1,v2)</span><br><span class="line">如果expr是<span class="literal">true</span>返回v1，否则返回v2</span><br><span class="line">if(<span class="number">1</span><span class="operator">&lt;</span><span class="number">2</span>,<span class="string">&#x27;Y&#x27;</span>,<span class="string">&#x27;N&#x27;</span>)返回Y</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="keyword">when</span></span><br><span class="line"><span class="keyword">case</span> expr <span class="keyword">when</span> v1 <span class="keyword">then</span> r1 [<span class="keyword">when</span> v2 <span class="keyword">then</span> r2]...[<span class="keyword">else</span> rn] <span class="keyword">end</span> #基于单个字段判断</span><br><span class="line">例如：<span class="keyword">case</span> <span class="number">2</span> <span class="keyword">when</span> <span class="number">1</span> <span class="keyword">then</span> <span class="string">&#x27;one&#x27;</span> <span class="keyword">when</span> <span class="number">2</span> <span class="keyword">then</span> <span class="string">&#x27;two&#x27;</span> <span class="keyword">else</span> <span class="string">&#x27;more&#x27;</span> <span class="keyword">end</span> 返回two</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="keyword">when</span> v1 <span class="keyword">then</span> r1 [<span class="keyword">when</span> v2 <span class="keyword">then</span> r2]...[<span class="keyword">else</span> rn] <span class="keyword">end</span></span><br><span class="line">例如：<span class="keyword">case</span> <span class="keyword">when</span> <span class="number">1</span><span class="operator">&lt;</span><span class="number">0</span> <span class="keyword">then</span> <span class="string">&#x27;T&#x27;</span> <span class="keyword">else</span> <span class="string">&#x27;F&#x27;</span> <span class="keyword">end</span> 返回F</span><br><span class="line"><span class="number">1</span><span class="operator">&lt;</span><span class="number">0</span>的结果为<span class="literal">false</span>，因此函数返回值为<span class="keyword">else</span>后面的F</span><br></pre></td></tr></table></figure>
-<h1 id="窗口函数-having后才可以引用窗口函数的结果"><a href="#窗口函数-having后才可以引用窗口函数的结果" class="headerlink" title="窗口函数(having后才可以引用窗口函数的结果)"></a>窗口函数(having后才可以引用窗口函数的结果)</h1><p>over(partition by 字段名 order by 字段名 asc|desc)  partition by指定分区依据，order by指定排序依据<br>注意和group by的区别<br>1.窗口函数写在select后面；2.partition by只分区不去重，不分区则整个表一个区；3.order by是必选项，在分区内排序。</p>
-<h2 id="排序赋值方法（给排名）"><a href="#排序赋值方法（给排名）" class="headerlink" title="排序赋值方法（给排名）"></a>排序赋值方法（给排名）</h2><p>rank():跳跃式排序，例如99，99，98，97给排名1，1，3，4<br>dense_rank():并列连续型排序，例如99，99，98，97给排名1，1，2，3<br>row_number():连续型排序，例如99，99，98，97给排名1，2，3，4（不允许并列）</p>
-<p>rank()over(partition by 字段名 order by 字段名 asc|desc)</p>
-<h2 id="偏移分析函数"><a href="#偏移分析函数" class="headerlink" title="偏移分析函数"></a>偏移分析函数</h2><p>lag&#x2F;lead(字段名,偏移量[,默认值])over(partition by 字段名 order by 字段名 asc|desc) #lag向上取，lead向下取<br>通常用于做减法得出增长值，如计算每周一新增xxx<br>select name, date_format(whn,’%Y-%m-%dd), (confirmed-lag(confirmed,1)over(order by whn))  from covid where name&#x3D;’Italy’ and weekday(whn)&#x3D;0 order by whn #weekday(whn)&#x3D;0表示周一</p>
-<h1 id="表连接"><a href="#表连接" class="headerlink" title="表连接"></a>表连接</h1><p>内&#x2F;左&#x2F;右连接<br>select 字段名<br>from 表名1 inner&#x2F;left&#x2F;right join 表名2 on 表名1.字段名&#x3D;表名2.字段名 #内连接inner可以忽略（默认）</p>
+<h1 id="窗口函数"><a href="#窗口函数" class="headerlink" title="窗口函数"></a>窗口函数</h1><h2 id="窗口函数合集"><a href="#窗口函数合集" class="headerlink" title="窗口函数合集"></a>窗口函数合集</h2><p>窗口函数（Window Functions）是 SQL 中用于执行计算的函数，它们在数据集的特定“窗口”上进行操作。窗口函数通常用于分析数据，计算累计值、排名、平均值等，而不需要使用 <code>GROUP BY</code>。以下是一些常见的窗口函数及其用途：</p>
+<h3 id="聚合窗口函数"><a href="#聚合窗口函数" class="headerlink" title="聚合窗口函数"></a>聚合窗口函数</h3><p>这些函数在指定的窗口内对数据进行聚合计算。</p>
+<ul>
+<li><p>**<code>SUM()</code>**：计算窗口内所有行的总和。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">SUM</span>(column_name) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column_name <span class="keyword">ORDER</span> <span class="keyword">BY</span> another_column)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>AVG()</code>**：计算窗口内所有行的平均值。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">AVG</span>(column_name) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column_name <span class="keyword">ORDER</span> <span class="keyword">BY</span> another_column)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>COUNT()</code>**：计算窗口内的行数。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">COUNT</span>(column_name) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column_name)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>MIN()</code>**：计算窗口内的最小值。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MIN</span>(column_name) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column_name)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>MAX()</code>**：计算窗口内的最大值。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MAX</span>(column_name) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column_name)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="排名窗口函数"><a href="#排名窗口函数" class="headerlink" title="排名窗口函数"></a>排名窗口函数</h3><p>这些函数用于在分组内为每行分配排名。</p>
+<ul>
+<li><p>**<code>ROW_NUMBER()</code>**：为每行分配唯一的序号（在分组内）。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ROW_NUMBER</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column_name <span class="keyword">ORDER</span> <span class="keyword">BY</span> another_column)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>RANK()</code>**：为每行分配排名，若有相同值，则排名相同。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">RANK</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column_name <span class="keyword">ORDER</span> <span class="keyword">BY</span> another_column)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>DENSE_RANK()</code>**：类似于 <code>RANK()</code>，但排名不留空。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">DENSE_RANK</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column_name <span class="keyword">ORDER</span> <span class="keyword">BY</span> another_column)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="滚动窗口函数"><a href="#滚动窗口函数" class="headerlink" title="滚动窗口函数"></a>滚动窗口函数</h3><p>这些函数用于计算在指定范围内的值。</p>
+<ul>
+<li><p>**<code>LEAD()</code>**：访问当前行之后的某一行的值。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">LEAD</span>(column_name, <span class="keyword">offset</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> another_column)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>LAG()</code>**：访问当前行之前的某一行的值。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">LAG</span>(column_name, <span class="keyword">offset</span>) <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> another_column)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>FIRST_VALUE()</code>**：获取窗口内的第一行值。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">FIRST_VALUE</span>(column_name) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column_name <span class="keyword">ORDER</span> <span class="keyword">BY</span> another_column)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>LAST_VALUE()</code>**：获取窗口内的最后一行值。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">LAST_VALUE</span>(column_name) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column_name <span class="keyword">ORDER</span> <span class="keyword">BY</span> another_column <span class="keyword">ROWS</span> <span class="keyword">BETWEEN</span> UNBOUNDED PRECEDING <span class="keyword">AND</span> UNBOUNDED FOLLOWING)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="窗口帧"><a href="#窗口帧" class="headerlink" title="窗口帧"></a>窗口帧</h3><p>窗口函数可以与窗口帧（Window Frame）结合使用，以限制计算的行数。窗口帧定义了在计算时考虑的行的范围。</p>
+<ul>
+<li><p>**<code>ROWS BETWEEN</code>**：定义一个特定的行数范围。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">SUM</span>(column_name) <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> another_column <span class="keyword">ROWS</span> <span class="keyword">BETWEEN</span> <span class="number">1</span> PRECEDING <span class="keyword">AND</span> <span class="keyword">CURRENT</span> <span class="type">ROW</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>RANGE BETWEEN</code>**：定义一个值范围。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">SUM</span>(column_name) <span class="keyword">OVER</span> (<span class="keyword">ORDER</span> <span class="keyword">BY</span> another_column <span class="keyword">RANGE</span> <span class="keyword">BETWEEN</span> <span class="type">INTERVAL</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">DAY</span> PRECEDING <span class="keyword">AND</span> <span class="keyword">CURRENT</span> <span class="type">ROW</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>假设我们有一个 <code>sales</code> 表，结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>salesperson</th>
+<th>amount</th>
+<th>sale_date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Alice</td>
+<td>100</td>
+<td>2022-01-01</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>200</td>
+<td>2022-01-02</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Alice</td>
+<td>150</td>
+<td>2022-01-03</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bob</td>
+<td>300</td>
+<td>2022-01-04</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Charlie</td>
+<td>250</td>
+<td>2022-01-05</td>
+</tr>
+</tbody></table>
+<h4 id="示例-1：计算每位销售人员的累计销售额"><a href="#示例-1：计算每位销售人员的累计销售额" class="headerlink" title="示例 1：计算每位销售人员的累计销售额"></a>示例 1：计算每位销售人员的累计销售额</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    salesperson,</span><br><span class="line">    amount,</span><br><span class="line">    <span class="built_in">SUM</span>(amount) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> salesperson <span class="keyword">ORDER</span> <span class="keyword">BY</span> sale_date) <span class="keyword">AS</span> cumulative_sales</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    sales;</span><br></pre></td></tr></table></figure>
+
+<h4 id="示例-2：为每位销售人员的销售额排名"><a href="#示例-2：为每位销售人员的销售额排名" class="headerlink" title="示例 2：为每位销售人员的销售额排名"></a>示例 2：为每位销售人员的销售额排名</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    salesperson,</span><br><span class="line">    amount,</span><br><span class="line">    <span class="built_in">RANK</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> salesperson <span class="keyword">ORDER</span> <span class="keyword">BY</span> amount <span class="keyword">DESC</span>) <span class="keyword">AS</span> sales_rank</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    sales;</span><br></pre></td></tr></table></figure>
+
+<h2 id="partition-by"><a href="#partition-by" class="headerlink" title="partition by"></a>partition by</h2><p><code>PARTITION BY</code> 是 SQL 中用于窗口函数（Window Functions）的一个子句，它允许您在查询结果中对数据进行分组，以便在每个分组内进行计算。使用 <code>PARTITION BY</code> 可以实现许多复杂的分析任务，例如计算每个组的总和、平均值、排名等，而不需要使用传统的 <code>GROUP BY</code>。</p>
+<p>基本语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SQLSELECT </span><br><span class="line">    column1,</span><br><span class="line">    column2,</span><br><span class="line">    window_function() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column_to_partition <span class="keyword">ORDER</span> <span class="keyword">BY</span> column_to_order)</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    table_name;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>window_function()</code> 是您想要使用的窗口函数，例如 <code>SUM()</code>、<code>AVG()</code>、<code>ROW_NUMBER()</code> 等。</li>
+<li><code>PARTITION BY column_to_partition</code> 指定了您希望如何将数据分组。</li>
+<li><code>ORDER BY column_to_order</code> 是可选的，用于在每个分组内对数据进行排序。<br>1.窗口函数写在select后面；2.partition by只分区不去重，不分区则整个表一个区；3.order by是可选项，在分区内排序。</li>
+</ul>
+<h2 id="group-by和partition-by区别"><a href="#group-by和partition-by区别" class="headerlink" title="group by和partition by区别"></a>group by和partition by区别</h2><p><code>GROUP BY</code> 和 <code>PARTITION BY</code> 是 SQL 中用于处理数据分组的两个不同概念。尽管它们都涉及到对数据进行分组，但它们的用途和工作方式有显著的区别。以下是它们的主要区别：</p>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><ul>
+<li><p>**<code>GROUP BY</code>**：</p>
+<ul>
+<li>用于将结果集中的行按一个或多个列进行分组，并对每个组应用聚合函数（如 <code>SUM()</code>、<code>COUNT()</code>、<code>AVG()</code> 等）。</li>
+<li><code>GROUP BY</code> 通常与聚合函数一起使用，以生成汇总数据。</li>
+<li>结果集的行数通常会减少，因为每个组只返回一行。</li>
+</ul>
+</li>
+<li><p>**<code>PARTITION BY</code>**：</p>
+<ul>
+<li>用于在窗口函数（如 <code>ROW_NUMBER()</code>、<code>RANK()</code>、<code>SUM()</code> 等）中定义一个数据的分区。</li>
+<li><code>PARTITION BY</code> 不会减少结果集的行数，而是允许在每个分区内进行计算，结果集中的每一行都可以保留。</li>
+<li>结果集中每个分区的行都可以访问同一个分区内的其他行。</li>
+</ul>
+</li>
+</ul>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><ul>
+<li><p>**<code>GROUP BY</code>**：</p>
+<ul>
+<li>语法示例：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, <span class="built_in">SUM</span>(column2)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column1;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>**<code>PARTITION BY</code>**：</p>
+<ul>
+<li>语法示例：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column1, column2,</span><br><span class="line">       <span class="built_in">SUM</span>(column2) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> column1 <span class="keyword">ORDER</span> <span class="keyword">BY</span> column3) <span class="keyword">AS</span> cumulative_sum</span><br><span class="line"><span class="keyword">FROM</span> table_name;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="结果集的变化"><a href="#结果集的变化" class="headerlink" title="结果集的变化"></a>结果集的变化</h3><ul>
+<li><p>**<code>GROUP BY</code>**：</p>
+<ul>
+<li>返回的结果集只包含分组列和聚合结果，通常行数减少。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> department, <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">AS</span> employee_count</span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> department;</span><br></pre></td></tr></table></figure>
+
+<p>假设 <code>employees</code> 表中有 100 行数据，按 <code>department</code> 分组后，结果可能只返回 5 行（每个部门一行）。</p>
+</li>
+<li><p>**<code>PARTITION BY</code>**：</p>
+<ul>
+<li>返回的结果集包含所有原始列，并为每一行计算聚合值，行数不变。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> employee_id, department,</span><br><span class="line">       <span class="built_in">SUM</span>(salary) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> department <span class="keyword">ORDER</span> <span class="keyword">BY</span> employee_id) <span class="keyword">AS</span> cumulative_salary</span><br><span class="line"><span class="keyword">FROM</span> employees;</span><br></pre></td></tr></table></figure>
+
+<p>这里，结果集仍然会有 100 行，但每行都会显示该部门的累计工资。</p>
+</li>
+</ul>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><p>**<code>GROUP BY</code>**：</p>
+<ul>
+<li>适用于需要汇总数据的场景，比如计算每个部门的员工数量、每个产品的销售总额等。</li>
+</ul>
+</li>
+<li><p>**<code>PARTITION BY</code>**：</p>
+<ul>
+<li>适用于需要在结果集内进行复杂分析的场景，比如计算每个部门的累计工资、每个销售人员的销售排名等。</li>
+</ul>
+</li>
+</ul>
+<h2 id="偏移分析函数"><a href="#偏移分析函数" class="headerlink" title="偏移分析函数"></a>偏移分析函数</h2><p>lag&#x2F;lead(字段名,偏移量[,默认值])over(partition by 字段名 order by 字段名 asc|desc) #lag向上取，lead向下取<br>通常用于做减法得出增长值，如计算每周一新增xxx</p>
+<h3 id="常见的偏移分析函数"><a href="#常见的偏移分析函数" class="headerlink" title="常见的偏移分析函数"></a>常见的偏移分析函数</h3><ol>
+<li><p><strong><code>LEAD()</code></strong></p>
+<ul>
+<li><code>LEAD()</code> 函数用于访问当前行之后的某一行的值。</li>
+<li>语法：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">LEAD</span>(column_name, <span class="keyword">offset</span>, default_value) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> partition_column <span class="keyword">ORDER</span> <span class="keyword">BY</span> order_column)</span><br></pre></td></tr></table></figure></li>
+<li><code>offset</code> 是可选参数，指定要跳过的行数（默认是 1），<code>default_value</code> 是可选的默认值，如果没有找到对应的行则返回该值。</li>
+</ul>
+</li>
+<li><p><strong><code>LAG()</code></strong></p>
+<ul>
+<li><code>LAG()</code> 函数用于访问当前行之前的某一行的值。</li>
+<li>语法：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">LAG</span>(column_name, <span class="keyword">offset</span>, default_value) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> partition_column <span class="keyword">ORDER</span> <span class="keyword">BY</span> order_column)</span><br></pre></td></tr></table></figure></li>
+<li>与 <code>LEAD()</code> 类似，<code>offset</code> 和 <code>default_value</code> 参数的含义相同。</li>
+</ul>
+</li>
+</ol>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><p>假设我们有一个 <code>sales</code> 表，结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>salesperson</th>
+<th>amount</th>
+<th>sale_date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Alice</td>
+<td>100</td>
+<td>2022-01-01</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>200</td>
+<td>2022-01-02</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Alice</td>
+<td>150</td>
+<td>2022-01-03</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bob</td>
+<td>300</td>
+<td>2022-01-04</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Charlie</td>
+<td>250</td>
+<td>2022-01-05</td>
+</tr>
+</tbody></table>
+<h4 id="示例-1：使用-LEAD-函数"><a href="#示例-1：使用-LEAD-函数" class="headerlink" title="示例 1：使用 LEAD() 函数"></a>示例 1：使用 <code>LEAD()</code> 函数</h4><p>计算每位销售人员当前销售额和下一次销售额的差额：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    salesperson,</span><br><span class="line">    sale_date,</span><br><span class="line">    amount,</span><br><span class="line">    <span class="built_in">LEAD</span>(amount) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> salesperson <span class="keyword">ORDER</span> <span class="keyword">BY</span> sale_date) <span class="keyword">AS</span> next_amount,</span><br><span class="line">    <span class="built_in">LEAD</span>(amount) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> salesperson <span class="keyword">ORDER</span> <span class="keyword">BY</span> sale_date) <span class="operator">-</span> amount <span class="keyword">AS</span> amount_difference</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    sales;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>salesperson</th>
+<th>sale_date</th>
+<th>amount</th>
+<th>next_amount</th>
+<th>amount_difference</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Alice</td>
+<td>2022-01-01</td>
+<td>100</td>
+<td>150</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Alice</td>
+<td>2022-01-03</td>
+<td>150</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>Bob</td>
+<td>2022-01-02</td>
+<td>200</td>
+<td>300</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Bob</td>
+<td>2022-01-04</td>
+<td>300</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>Charlie</td>
+<td>2022-01-05</td>
+<td>250</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody></table>
+<h4 id="示例-2：使用-LAG-函数"><a href="#示例-2：使用-LAG-函数" class="headerlink" title="示例 2：使用 LAG() 函数"></a>示例 2：使用 <code>LAG()</code> 函数</h4><p>计算每位销售人员当前销售额和上一次销售额的差额：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    salesperson,</span><br><span class="line">    sale_date,</span><br><span class="line">    amount,</span><br><span class="line">    <span class="built_in">LAG</span>(amount) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> salesperson <span class="keyword">ORDER</span> <span class="keyword">BY</span> sale_date) <span class="keyword">AS</span> previous_amount,</span><br><span class="line">    amount <span class="operator">-</span> <span class="built_in">LAG</span>(amount) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> salesperson <span class="keyword">ORDER</span> <span class="keyword">BY</span> sale_date) <span class="keyword">AS</span> amount_difference</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    sales;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>salesperson</th>
+<th>sale_date</th>
+<th>amount</th>
+<th>previous_amount</th>
+<th>amount_difference</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Alice</td>
+<td>2022-01-01</td>
+<td>100</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>Alice</td>
+<td>2022-01-03</td>
+<td>150</td>
+<td>100</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Bob</td>
+<td>2022-01-02</td>
+<td>200</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>Bob</td>
+<td>2022-01-04</td>
+<td>300</td>
+<td>200</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Charlie</td>
+<td>2022-01-05</td>
+<td>250</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody></table>
+<h3 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><strong>时间序列分析</strong>：比较时间序列数据中的当前值与前后值。</li>
+<li><strong>趋势分析</strong>：计算销售趋势、价格变化等。</li>
+<li><strong>数据完整性检查</strong>：检测数据中的异常值或变化。</li>
+</ul>
+<h1 id="表连接"><a href="#表连接" class="headerlink" title="表连接"></a>表连接</h1><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>内&#x2F;左&#x2F;右连接<br>select 字段名<br>from 表名1 inner&#x2F;left&#x2F;right join 表名2 on 表名1.字段名&#x3D;表名2.字段名 #内连接inner可以忽略（默认）</p>
+<p>假设我们有两个表：</p>
+<ol>
+<li><strong>game</strong> 表：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">game_name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">Game A</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">Game B</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">Game C</td>
+</tr>
+</tbody></table>
+<ol>
+<li><strong>goal</strong> 表：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">matchid</th>
+<th align="center">player_name</th>
+<th align="center">goals</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">Player 1</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">Player 2</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">Player 3</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">Player 4</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">Player 5</td>
+<td align="center">2</td>
+</tr>
+</tbody></table>
+<p>如果你执行以下查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    g.id, </span><br><span class="line">    g.game_name, </span><br><span class="line">    go.player_name, </span><br><span class="line">    go.goals</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    game g</span><br><span class="line"><span class="keyword">JOIN</span> </span><br><span class="line">    goal go <span class="keyword">ON</span> g.id <span class="operator">=</span> go.matchid;</span><br></pre></td></tr></table></figure>
+
+<p><code>game</code> 表中的 <code>id</code> 列与 <code>goal</code> 表中的 <code>matchid</code> 列进行连接。由于 <code>goal</code> 表中可能有多个行的 <code>matchid</code> 等于 <code>game</code> 表中的 <code>id</code>，结果将如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">game_name</th>
+<th align="center">player_name</th>
+<th align="center">goals</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">Game A</td>
+<td align="center">Player 1</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">Game A</td>
+<td align="center">Player 2</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">Game B</td>
+<td align="center">Player 3</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">Game B</td>
+<td align="center">Player 4</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">Game B</td>
+<td align="center">Player 5</td>
+<td align="center">2</td>
+</tr>
+</tbody></table>
 <p>select team1, team2, player from game join goal on game.id&#x3D;goal.matchid where player like ‘Mario%’ #根据id连接表</p>
 <p>表格也可用别名：from game ga join eteam et on et.id&#x3D;ga.team1</p>
 <p>多表连接时，字段名唯一可以不说明在哪个表</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/sql-join.png"></p>
+<h2 id="多表连接"><a href="#多表连接" class="headerlink" title="多表连接"></a>多表连接</h2><p>假设我们有以下三个表：</p>
+<ul>
+<li><strong>game</strong> 表：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">matchid</th>
+<th align="center">mdate</th>
+<th align="center">team1</th>
+<th align="center">team2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">2022-01-01</td>
+<td align="center">A</td>
+<td align="center">B</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">2022-01-02</td>
+<td align="center">C</td>
+<td align="center">D</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>goal</strong> 表：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">matchid</th>
+<th align="center">teamid</th>
+<th align="center">score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">A</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">B</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">C</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">D</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>player</strong> 表：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">playerid</th>
+<th align="center">name</th>
+<th align="center">teamid</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">Player 1</td>
+<td align="center">A</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">Player 2</td>
+<td align="center">B</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">Player 3</td>
+<td align="center">C</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">Player 4</td>
+<td align="center">D</td>
+</tr>
+</tbody></table>
+<p>我们希望查询每场比赛的日期、球队、得分和球员。可以使用以下 SQL 查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    g.mdate,</span><br><span class="line">    g.team1,</span><br><span class="line">    g.team2,</span><br><span class="line">    <span class="built_in">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> go.teamid <span class="operator">=</span> g.team1 <span class="keyword">THEN</span> go.score <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> score1,</span><br><span class="line">    <span class="built_in">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> go.teamid <span class="operator">=</span> g.team2 <span class="keyword">THEN</span> go.score <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> score2,</span><br><span class="line">    GROUP_CONCAT(<span class="keyword">DISTINCT</span> p.name <span class="keyword">ORDER</span> <span class="keyword">BY</span> p.name) <span class="keyword">AS</span> players</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    game g</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> </span><br><span class="line">    goal go <span class="keyword">ON</span> g.matchid <span class="operator">=</span> go.matchid</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> </span><br><span class="line">    player p <span class="keyword">ON</span> go.teamid <span class="operator">=</span> p.teamid</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> </span><br><span class="line">    g.matchid, g.mdate, g.team1, g.team2</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">    g.mdate;</span><br></pre></td></tr></table></figure>
+
+<p>查询解释</p>
+<ol>
+<li><p><strong>选择字段</strong>：选择比赛日期、球队、得分和参与的球员。</p>
+</li>
+<li><p>连接表</p>
+<p>：</p>
+<ul>
+<li>使用 <code>LEFT JOIN</code> 将 <code>goal</code> 表连接到 <code>game</code> 表，以获取每场比赛的得分。</li>
+<li>使用 <code>LEFT JOIN</code> 将 <code>player</code> 表连接到 <code>goal</code> 表，以获取得分球队的球员。</li>
+</ul>
+</li>
+<li><p>聚合函数</p>
+<p>：</p>
+<ul>
+<li>使用 <code>SUM</code> 来计算每个球队的总得分。</li>
+<li>使用 <code>GROUP_CONCAT</code> 来列出每个球队的所有球员名字。</li>
+</ul>
+</li>
+<li><p><strong>分组和排序</strong>：根据比赛 ID 和日期进行分组，并按日期排序。</p>
+</li>
+</ol>
 <h1 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h1><p>1.子查询本身就是一个完整的查询，用括号包裹在主查询中；2.子查询的结果返回给主查询；3.子查询可以在select, from, where, having子句中使用，但注意不同句子能接受的子查询种类有差别；4.子查询可以多重嵌套</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">where</span>:</span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">where</span> gdp <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">and</span></span><br><span class="line">gdp<span class="operator">&gt;</span>(</span><br><span class="line">    <span class="keyword">select</span> <span class="built_in">max</span>(gdp) <span class="keyword">from</span> world <span class="keyword">where</span> continent<span class="operator">=</span><span class="string">&#x27;Europe&#x27;</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">from</span>:</span><br><span class="line"><span class="keyword">select</span> constituency, party <span class="keyword">from</span> (</span><br><span class="line">    上一次查询得到的表</span><br><span class="line">) <span class="keyword">as</span> rk</span><br><span class="line"><span class="keyword">where</span> rk.posn<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.mengkr.asia">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.mengkr.asia/2022/08/29/sql/">https://blog.mengkr.asia/2022/08/29/sql/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.mengkr.asia" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/sql/">sql</a></div><div class="post_share"><div class="social-share" data-image="https://images.pexels.com/photos/1542495/pexels-photo-1542495.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/09/30/calibre-web/" title="自建书库"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-449004.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">自建书库</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/12/python/" title="python"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-620337.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">python</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#select-from"><span class="toc-number">2.</span> <span class="toc-text">select &amp; from</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#where"><span class="toc-number">3.</span> <span class="toc-text">where</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#order-by-%EF%BC%88%E6%8E%92%E5%BA%8F%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">order by （排序）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#limit"><span class="toc-number">5.</span> <span class="toc-text">limit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0-group-by"><span class="toc-number">6.</span> <span class="toc-text">聚合函数&amp;group by</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#having"><span class="toc-number">7.</span> <span class="toc-text">having</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89"><span class="toc-number">8.</span> <span class="toc-text">运行原理（总结）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0"><span class="toc-number">9.</span> <span class="toc-text">部分常见函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5%E5%87%BD%E6%95%B0round-x-y"><span class="toc-number">9.1.</span> <span class="toc-text">四舍五入函数round(x,y)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%87%BD%E6%95%B0"><span class="toc-number">9.2.</span> <span class="toc-text">字符串函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0"><span class="toc-number">9.3.</span> <span class="toc-text">日期时间函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%E5%87%BD%E6%95%B0"><span class="toc-number">9.4.</span> <span class="toc-text">条件判断函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0-having%E5%90%8E%E6%89%8D%E5%8F%AF%E4%BB%A5%E5%BC%95%E7%94%A8%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E7%9A%84%E7%BB%93%E6%9E%9C"><span class="toc-number">10.</span> <span class="toc-text">窗口函数(having后才可以引用窗口函数的结果)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E8%B5%8B%E5%80%BC%E6%96%B9%E6%B3%95%EF%BC%88%E7%BB%99%E6%8E%92%E5%90%8D%EF%BC%89"><span class="toc-number">10.1.</span> <span class="toc-text">排序赋值方法（给排名）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%8F%E7%A7%BB%E5%88%86%E6%9E%90%E5%87%BD%E6%95%B0"><span class="toc-number">10.2.</span> <span class="toc-text">偏移分析函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%A8%E8%BF%9E%E6%8E%A5"><span class="toc-number">11.</span> <span class="toc-text">表连接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">12.</span> <span class="toc-text">子查询</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">where</span>:</span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world <span class="keyword">where</span> gdp <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">and</span></span><br><span class="line">gdp<span class="operator">&gt;</span>(</span><br><span class="line">    <span class="keyword">select</span> <span class="built_in">max</span>(gdp) <span class="keyword">from</span> world <span class="keyword">where</span> continent<span class="operator">=</span><span class="string">&#x27;Europe&#x27;</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">from</span>:</span><br><span class="line"><span class="keyword">select</span> constituency, party <span class="keyword">from</span> (</span><br><span class="line">    上一次查询得到的表</span><br><span class="line">) <span class="keyword">as</span> rk</span><br><span class="line"><span class="keyword">where</span> rk.posn<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>可以用<code>ALL</code> 对一个列表进行&gt;&#x3D;或&gt;或&lt;或&lt;&#x3D;充当比较。例如，你可以用此查询找到世界上人口最大的国家：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 那些国家的gdp比欧洲所有国家都高</span><br><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> world</span><br><span class="line"> <span class="keyword">where</span> gdp <span class="operator">&gt;</span> <span class="keyword">all</span>(<span class="keyword">select</span> gdp <span class="keyword">from</span> world</span><br><span class="line">  <span class="keyword">where</span> continent <span class="operator">=</span> <span class="string">&#x27;Europe&#x27;</span> <span class="keyword">and</span> gdp <span class="operator">&gt;</span> <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>为表格再命名，便可以分出不同的表格</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 在每一个洲中找出面积最大的国家</span><br><span class="line"><span class="keyword">SELECT</span> continent, name, area <span class="keyword">FROM</span> world x</span><br><span class="line">  <span class="keyword">WHERE</span> area <span class="operator">&gt;=</span> <span class="keyword">ALL</span></span><br><span class="line">    (<span class="keyword">SELECT</span> area <span class="keyword">FROM</span> world y</span><br><span class="line">        <span class="keyword">WHERE</span> y.continent<span class="operator">=</span>x.continent</span><br><span class="line">          <span class="keyword">AND</span> area<span class="operator">&gt;</span><span class="number">0</span>)</span><br><span class="line"># 有些國家的人口是同洲份的所有其他国的<span class="number">3</span>倍或以上</span><br><span class="line"><span class="keyword">select</span> name, continent <span class="keyword">from</span> world x</span><br><span class="line"> <span class="keyword">where</span> population <span class="operator">&gt;=</span> <span class="keyword">all</span>(<span class="keyword">select</span> population <span class="operator">*</span> <span class="number">3</span> <span class="keyword">from</span> world y</span><br><span class="line">  <span class="keyword">where</span> y.continent <span class="operator">=</span> x.continent <span class="keyword">and</span> y.name <span class="operator">!=</span> x.name)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="SQL语句的格式规范"><a href="#SQL语句的格式规范" class="headerlink" title="SQL语句的格式规范"></a>SQL语句的格式规范</h1><p>SQL 语句的代码格式通常遵循一定的规范，以提高可读性和维护性。以下是一些常见的 SQL 语句格式规范和最佳实践：</p>
+<h2 id="1-关键字大写"><a href="#1-关键字大写" class="headerlink" title="1. 关键字大写"></a>1. 关键字大写</h2><p>SQL 语句中的关键字（如 <code>SELECT</code>、<code>FROM</code>、<code>WHERE</code>、<code>JOIN</code>、<code>INSERT</code>、<code>UPDATE</code>、<code>DELETE</code> 等）通常使用大写字母，以便于快速识别。</p>
+<h2 id="2-每个子句独占一行"><a href="#2-每个子句独占一行" class="headerlink" title="2. 每个子句独占一行"></a>2. 每个子句独占一行</h2><p>将每个主要子句（如 <code>SELECT</code>、<code>FROM</code>、<code>WHERE</code> 等）放在单独的一行上，有助于提高可读性。</p>
+<h2 id="3-缩进"><a href="#3-缩进" class="headerlink" title="3. 缩进"></a>3. 缩进</h2><p>对于嵌套的查询或多行的条件，使用适当的缩进来表示层次关系。</p>
+<h2 id="4-逗号后换行"><a href="#4-逗号后换行" class="headerlink" title="4. 逗号后换行"></a>4. 逗号后换行</h2><p>在 <code>SELECT</code> 和 <code>INSERT</code> 语句中，每个列名后面的逗号后换行，以便于添加或删除列时更容易进行修改。</p>
+<h2 id="5-使用空格分隔"><a href="#5-使用空格分隔" class="headerlink" title="5. 使用空格分隔"></a>5. 使用空格分隔</h2><p>在 SQL 语句中，适当使用空格以提高可读性，特别是在关键字、列名和运算符之间。</p>
+<h2 id="6-适当使用注释"><a href="#6-适当使用注释" class="headerlink" title="6. 适当使用注释"></a>6. 适当使用注释</h2><p>在复杂的查询中，使用注释（<code>--</code> 或 <code>/* ... */</code>）来解释查询的目的或特定部分的功能。</p>
+<h2 id="示例-SQL-语句格式"><a href="#示例-SQL-语句格式" class="headerlink" title="示例 SQL 语句格式"></a>示例 SQL 语句格式</h2><p>以下是一个遵循上述格式规范的 SQL 查询示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    name, </span><br><span class="line">    capital, </span><br><span class="line">    population,</span><br><span class="line">    <span class="keyword">CASE</span> </span><br><span class="line">        <span class="keyword">WHEN</span> population <span class="operator">&lt;</span> <span class="number">10000000</span> <span class="keyword">THEN</span> <span class="string">&#x27;人口少&#x27;</span></span><br><span class="line">        <span class="keyword">WHEN</span> population <span class="keyword">BETWEEN</span> <span class="number">10000000</span> <span class="keyword">AND</span> <span class="number">100000000</span> <span class="keyword">THEN</span> <span class="string">&#x27;人口中等&#x27;</span></span><br><span class="line">        <span class="keyword">ELSE</span> <span class="string">&#x27;人口多&#x27;</span></span><br><span class="line">    <span class="keyword">END</span> <span class="keyword">AS</span> population_category</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    world</span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">    population <span class="operator">&gt;</span> <span class="number">5000000</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> </span><br><span class="line">    population <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.mengkr.asia">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.mengkr.asia/2022/08/29/sql/">https://blog.mengkr.asia/2022/08/29/sql/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.mengkr.asia" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/sql/">sql</a></div><div class="post_share"><div class="social-share" data-image="https://images.pexels.com/photos/1542495/pexels-photo-1542495.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/09/30/calibre-web/" title="自建书库"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-449004.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">自建书库</div></div></a></div><div class="next-post pull-right"><a href="/2022/02/12/python/" title="python"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-620337.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">python</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#select-from"><span class="toc-number">2.</span> <span class="toc-text">select &amp; from</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#where"><span class="toc-number">3.</span> <span class="toc-text">where</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#order-by-%EF%BC%88%E6%8E%92%E5%BA%8F%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">order by （排序）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#limit"><span class="toc-number">5.</span> <span class="toc-text">limit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0-group-by"><span class="toc-number">6.</span> <span class="toc-text">聚合函数&amp;group by</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="toc-number">6.1.</span> <span class="toc-text">常见聚合函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0%E7%9A%84%E7%A4%BA%E4%BE%8B"><span class="toc-number">6.2.</span> <span class="toc-text">使用聚合函数的示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E6%9F%A5%E8%AF%A2"><span class="toc-number">6.3.</span> <span class="toc-text">示例查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#having"><span class="toc-number">7.</span> <span class="toc-text">having</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE"><span class="toc-number">7.1.</span> <span class="toc-text">示例数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E6%9F%A5%E8%AF%A2-1"><span class="toc-number">7.2.</span> <span class="toc-text">示例查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NULL"><span class="toc-number">8.</span> <span class="toc-text">NULL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89"><span class="toc-number">9.</span> <span class="toc-text">运行原理（总结）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0"><span class="toc-number">10.</span> <span class="toc-text">部分常见函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5%E5%87%BD%E6%95%B0round-x-y"><span class="toc-number">10.1.</span> <span class="toc-text">四舍五入函数round(x,y)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%87%BD%E6%95%B0"><span class="toc-number">10.2.</span> <span class="toc-text">字符串函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0"><span class="toc-number">10.3.</span> <span class="toc-text">日期时间函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%E5%87%BD%E6%95%B0"><span class="toc-number">10.4.</span> <span class="toc-text">条件判断函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="toc-number">11.</span> <span class="toc-text">窗口函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0%E5%90%88%E9%9B%86"><span class="toc-number">11.1.</span> <span class="toc-text">窗口函数合集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="toc-number">11.1.1.</span> <span class="toc-text">聚合窗口函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%90%8D%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="toc-number">11.1.2.</span> <span class="toc-text">排名窗口函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="toc-number">11.1.3.</span> <span class="toc-text">滚动窗口函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%B8%A7"><span class="toc-number">11.1.4.</span> <span class="toc-text">窗口帧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">11.1.5.</span> <span class="toc-text">示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-1%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%AF%8F%E4%BD%8D%E9%94%80%E5%94%AE%E4%BA%BA%E5%91%98%E7%9A%84%E7%B4%AF%E8%AE%A1%E9%94%80%E5%94%AE%E9%A2%9D"><span class="toc-number">11.1.5.1.</span> <span class="toc-text">示例 1：计算每位销售人员的累计销售额</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-2%EF%BC%9A%E4%B8%BA%E6%AF%8F%E4%BD%8D%E9%94%80%E5%94%AE%E4%BA%BA%E5%91%98%E7%9A%84%E9%94%80%E5%94%AE%E9%A2%9D%E6%8E%92%E5%90%8D"><span class="toc-number">11.1.5.2.</span> <span class="toc-text">示例 2：为每位销售人员的销售额排名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#partition-by"><span class="toc-number">11.2.</span> <span class="toc-text">partition by</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#group-by%E5%92%8Cpartition-by%E5%8C%BA%E5%88%AB"><span class="toc-number">11.3.</span> <span class="toc-text">group by和partition by区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E9%80%94"><span class="toc-number">11.3.1.</span> <span class="toc-text">用途</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-number">11.3.2.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C%E9%9B%86%E7%9A%84%E5%8F%98%E5%8C%96"><span class="toc-number">11.3.3.</span> <span class="toc-text">结果集的变化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">11.3.4.</span> <span class="toc-text">使用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%8F%E7%A7%BB%E5%88%86%E6%9E%90%E5%87%BD%E6%95%B0"><span class="toc-number">11.4.</span> <span class="toc-text">偏移分析函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%81%8F%E7%A7%BB%E5%88%86%E6%9E%90%E5%87%BD%E6%95%B0"><span class="toc-number">11.4.1.</span> <span class="toc-text">常见的偏移分析函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="toc-number">11.4.2.</span> <span class="toc-text">示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-1%EF%BC%9A%E4%BD%BF%E7%94%A8-LEAD-%E5%87%BD%E6%95%B0"><span class="toc-number">11.4.2.1.</span> <span class="toc-text">示例 1：使用 LEAD() 函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-2%EF%BC%9A%E4%BD%BF%E7%94%A8-LAG-%E5%87%BD%E6%95%B0"><span class="toc-number">11.4.2.2.</span> <span class="toc-text">示例 2：使用 LAG() 函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="toc-number">11.4.3.</span> <span class="toc-text">使用场景</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%A8%E8%BF%9E%E6%8E%A5"><span class="toc-number">12.</span> <span class="toc-text">表连接</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">12.1.</span> <span class="toc-text">基本用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5"><span class="toc-number">12.2.</span> <span class="toc-text">多表连接</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">13.</span> <span class="toc-text">子查询</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83"><span class="toc-number">14.</span> <span class="toc-text">SQL语句的格式规范</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%85%B3%E9%94%AE%E5%AD%97%E5%A4%A7%E5%86%99"><span class="toc-number">14.1.</span> <span class="toc-text">1. 关键字大写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%AF%8F%E4%B8%AA%E5%AD%90%E5%8F%A5%E7%8B%AC%E5%8D%A0%E4%B8%80%E8%A1%8C"><span class="toc-number">14.2.</span> <span class="toc-text">2. 每个子句独占一行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%BC%A9%E8%BF%9B"><span class="toc-number">14.3.</span> <span class="toc-text">3. 缩进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%80%97%E5%8F%B7%E5%90%8E%E6%8D%A2%E8%A1%8C"><span class="toc-number">14.4.</span> <span class="toc-text">4. 逗号后换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BD%BF%E7%94%A8%E7%A9%BA%E6%A0%BC%E5%88%86%E9%9A%94"><span class="toc-number">14.5.</span> <span class="toc-text">5. 使用空格分隔</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E9%80%82%E5%BD%93%E4%BD%BF%E7%94%A8%E6%B3%A8%E9%87%8A"><span class="toc-number">14.6.</span> <span class="toc-text">6. 适当使用注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-SQL-%E8%AF%AD%E5%8F%A5%E6%A0%BC%E5%BC%8F"><span class="toc-number">14.7.</span> <span class="toc-text">示例 SQL 语句格式</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Undetected Cheat Engine | Meng's blog</title><meta name="author" content="Meng"><meta name="copyright" content="Meng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Cheat Engine过检测，编译驱动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Undetected Cheat Engine">
+<meta property="og:url" content="https://blog.010920.xyz/2025/08/01/UndetectedCE/index.html">
+<meta property="og:site_name" content="Meng&#39;s blog">
+<meta property="og:description" content="Cheat Engine过检测，编译驱动">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/Cheat_Engine_Logo.png">
+<meta property="article:published_time" content="2025-08-01T10:36:29.000Z">
+<meta property="article:modified_time" content="2025-08-10T13:32:13.240Z">
+<meta property="article:author" content="Meng">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/Cheat_Engine_Logo.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.010920.xyz/2025/08/01/UndetectedCE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"该文章最后更新于","messageNext":"天前，可能已经过时"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Undetected Cheat Engine',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-08-10 21:32:13'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">60</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/Cheat_Engine_Logo.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Undetected Cheat Engine</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-01T10:36:29.000Z" title="发表于 2025-08-01 18:36:29">2025-08-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-10T13:32:13.240Z" title="更新于 2025-08-10 21:32:13">2025-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="工具下载"><a href="#工具下载" class="headerlink" title="工具下载"></a>工具下载</h1><p><a target="_blank" rel="noopener" href="https://github.com/cheat-engine/cheat-engine">CE源码</a></p>
+<p><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/lazarus/files/Lazarus%20Windows%2064%20bits/Lazarus%202.2.2/">Lazarus 2.2.2</a></p>
+<p><a target="_blank" rel="noopener" href="https://mh-nexus.de/de/downloads.php?product=HxD20">HxD</a></p>
+<p><a target="_blank" rel="noopener" href="https://wwi.lanzouy.com/irlsT06ul16f">VMP</a> 密码:6666 解压密码:52pojie</p>
+<h1 id="修改并编译CE"><a href="#修改并编译CE" class="headerlink" title="修改并编译CE"></a>修改并编译CE</h1><h2 id="更改驱动名称"><a href="#更改驱动名称" class="headerlink" title="更改驱动名称"></a>更改驱动名称</h2><p>许多反作弊系统会通过黑名单驱动名称”dbk64.sys”来阻止Cheat Engine运行，因此我们需要修改这个名称。</p>
+<ul>
+<li><ol>
+<li>打开下载的Cheat Engine源代码文件夹</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>导航至<code>Cheat Engine -&gt; dbk32</code>目录</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>找到<code>DBK32function.pas</code>文件并用文本编辑器(如vscode)打开</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>搜索字符串<code>dbk64.sys</code></li>
+</ol>
+</li>
+<li><ol start="5">
+<li>将<code>servicename</code>修改为其他名称</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>同时修改<code>dbk64</code>和<code>dbk32</code>的sysfile名称，例如改为<code>mynewdriver64.sys</code>和<code>mynewdriver32.sys</code></li>
+</ol>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-08-01%20185854.png"></p>
+<h2 id="随机窗口名称"><a href="#随机窗口名称" class="headerlink" title="随机窗口名称"></a>随机窗口名称</h2><p><code>Cheat Engine</code>主文件夹，找到<code>cheatengine.lpi</code>文件并用<code>Lazarus</code>打开</p>
+<p><strong>工程 -&gt; 单元</strong>搜索并打开<code>MainUnit2.pas</code>，搜索<code>cename</code>，定位到要修改的行数</p>
+<p>生成随机字符串函数：</p>
+<figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GenerateRandomString</span><span class="params">(StringLength: Integer;</span></span></span><br><span class="line"><span class="params"><span class="function">                             CharSet: <span class="keyword">String</span> = <span class="string">&#x27;&#x27;</span>)</span>:</span> <span class="keyword">String</span>;</span><br><span class="line"><span class="keyword">const</span></span><br><span class="line">  <span class="comment">// 默认包含大小写字母、数字和常用特殊字符</span></span><br><span class="line">  DEFAULT_CHARSET = <span class="string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&amp;*()_+-=[]&#123;&#125;|;:,.&lt;&gt;?&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span></span><br><span class="line">  i, CharIndex: Integer;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  Result := <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="comment">// 如果未提供字符集，使用默认字符集（包含特殊字符）</span></span><br><span class="line">  <span class="keyword">if</span> CharSet = <span class="string">&#x27;&#x27;</span> <span class="keyword">then</span> CharSet := DEFAULT_CHARSET;</span><br><span class="line">  <span class="keyword">if</span> CharSet = <span class="string">&#x27;&#x27;</span> <span class="keyword">then</span> <span class="keyword">Exit</span>; <span class="comment">// 防止空字符集</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 生成随机字符串</span></span><br><span class="line">  <span class="keyword">for</span> i := <span class="number">1</span> <span class="keyword">to</span> StringLength <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">begin</span></span><br><span class="line">    CharIndex := Random(Length(CharSet)) + <span class="number">1</span>;</span><br><span class="line">    Result := Result + CharSet[CharIndex];</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-08-01%20191156.png"></p>
+<h2 id="项目选项设置"><a href="#项目选项设置" class="headerlink" title="项目选项设置"></a>项目选项设置</h2><ul>
+<li><ol>
+<li>点击<strong>工程-&gt; 工程选项</strong></li>
+</ol>
+</li>
+<li><ol start="2">
+<li>在<strong>应用程序</strong>选项卡中：</li>
+</ol>
+<ul>
+<li>修改<strong>“标题”</strong>(原为”Cheat Engine <em>Version</em>“)</li>
+<li>点击<code>Clear Icon</code>清除图标(可选添加新图标)</li>
+<li>修改<strong>“名称”</strong>原为”Cheat Engine”)</li>
+</ul>
+</li>
+<li><ol start="3">
+<li>在<strong>版本信息</strong>选项卡中修改<code>CompanyName</code>和<code>FileDescription</code></li>
+</ol>
+</li>
+<li><ol start="4">
+<li>在**”编译器选项 -&gt; 路径”**中：</li>
+</ol>
+<ul>
+<li>选择**”Release 64-Bit”**构建模式</li>
+<li>修改”目标文件名称 (-0)”中的”cheatengine”</li>
+<li>对**”Release 64-Bit O4 AVX2”**模式重复相同操作</li>
+</ul>
+</li>
+<li><ol start="5">
+<li>点击”确定”保存设置</li>
+</ol>
+</li>
+</ul>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>运行 -&gt; 清理和构建，点击”清理和构建”开始编译</p>
+<h1 id="使用HxD修改Cheat-Engine字符串"><a href="#使用HxD修改Cheat-Engine字符串" class="headerlink" title="使用HxD修改Cheat Engine字符串"></a>使用HxD修改Cheat Engine字符串</h1><p>编译完成后，在”Cheat Engine -&gt; bin”目录中找到生成的exe文件，使用<code>HxD</code>修改残留字符串。</p>
+<ul>
+<li><ol>
+<li>下载安装HxD编辑器</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>将编译好的exe文件拖入HxD</li>
+</ol>
+</li>
+<li><ol start="3">
+<li><code>Ctrl+R</code> 替换</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>确保勾选**”从头”和”区分大小写”**</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>替换以下字符串(<strong>注意保持相同长度</strong>)：</li>
+</ol>
+<ul>
+<li>“Cheat Engine” → “Mynew Engine”(11字符+1空格)</li>
+<li>“cheat engine” → “mynew engine”</li>
+<li>“cheatengine” → “mynewengine”</li>
+<li>“CheatEngine” → “MynewEngine”</li>
+<li>“cheatEngine” → “mynewEngine”</li>
+<li>“cheat Engine” → “mynew Engine”</li>
+</ul>
+</li>
+<li><ol start="6">
+<li>对”Unicode (UTF-16 little endian)”编码重复上述替换</li>
+</ol>
+</li>
+<li><ol start="7">
+<li>保存修改</li>
+</ol>
+</li>
+</ul>
+<h1 id="使用VMProtect保护程序"><a href="#使用VMProtect保护程序" class="headerlink" title="使用VMProtect保护程序"></a>使用VMProtect保护程序</h1><p>VMProtect可以进一步增强Cheat Engine的安全性，使其更难被反作弊系统通过特征码检测。据测试，它还能使Cheat Engine绕过FiveM反作弊系统的检测。</p>
+<ol>
+<li><strong>保护程序</strong>：<ul>
+<li>打开VMProtect</li>
+<li>将编译好的Cheat Engine可执行文件拖入程序窗口</li>
+</ul>
+</li>
+<li><strong>设置保护选项</strong>：<ul>
+<li>点击”添加进程”添加函数</li>
+<li>选择”EntryPoint”入口点，点击”添加进程”</li>
+<li>双击”编译类型”选项直到显示”超级 (变异 + 虚拟)”</li>
+<li>点击”选项”</li>
+<li>双击”调试器”选项直到显示”User-mode + Kernel-mode”</li>
+<li>双击”虚拟化工具”选项直到显示”是“</li>
+<li>双击”移除重定位信息”选项直到显示”是“</li>
+</ul>
+</li>
+<li><strong>开始编译</strong>：<ul>
+<li>点击箭头按钮开始保护过程</li>
+<li>完成后会在”Cheat Engine -&gt; bin”目录生成”*.vmp.exe”文件</li>
+<li>建议使用这个经过保护的文件进行操作</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-08-01%20195715.png"></p>
+<h1 id="使用Lua脚本修改内部字符串-可选"><a href="#使用Lua脚本修改内部字符串-可选" class="headerlink" title="使用Lua脚本修改内部字符串(可选)"></a>使用Lua脚本修改内部字符串(可选)</h1><p>如需彻底修改Cheat Engine内部所有字符串(最大程度避免特征检测)，可以使用以下Lua脚本：</p>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><ol>
+<li>打开Cheat Engine</li>
+<li>进入”Memory View”内存视图</li>
+<li>选择”Tools” -&gt; “Lua Engine”打开Lua引擎</li>
+<li>复制以下代码并粘贴到输入框中：</li>
+</ol>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">renameComponents</span><span class="params">(c)</span></span></span><br><span class="line">  <span class="keyword">local</span> i</span><br><span class="line">  <span class="keyword">if</span> c.Component <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">for</span> i=<span class="number">0</span>,c.ComponentCount<span class="number">-1</span> <span class="keyword">do</span></span><br><span class="line">      renameComponents(c.Component[i])</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span> c.Caption <span class="keyword">then</span></span><br><span class="line">    c.Caption=<span class="string">&#x27;WTF&#x27;</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i=<span class="number">0</span>,getFormCount()<span class="number">-1</span> <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">local</span> form = getForm(i)</span><br><span class="line">    <span class="keyword">for</span> j=<span class="number">0</span>,form.ControlCount<span class="number">-1</span> <span class="keyword">do</span></span><br><span class="line">      renameComponents(form)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line">    form.Caption=<span class="string">&#x27;Bla&#x27;</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">registerFormAddNotification(<span class="function"><span class="keyword">function</span><span class="params">(f)</span></span></span><br><span class="line">  f.registerCreateCallback(<span class="function"><span class="keyword">function</span><span class="params">(frm)</span></span></span><br><span class="line">    renameComponents(f)</span><br><span class="line">  <span class="keyword">end</span>)</span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>点击”Execute”执行脚本</li>
+<li>执行后，Cheat Engine内部大多数字符串将被替换为”WTF”</li>
+</ol>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>此步骤并非必须，仅推荐给追求最高隐蔽性的用户</li>
+<li>修改字符串可能影响部分功能的正常显示</li>
+</ul>
+<h1 id="驱动编译"><a href="#驱动编译" class="headerlink" title="驱动编译"></a>驱动编译</h1><h2 id="Visual-Studio-2019-SDK-WDK开发环境"><a href="#Visual-Studio-2019-SDK-WDK开发环境" class="headerlink" title="Visual Studio 2019 + SDK + WDK开发环境"></a>Visual Studio 2019 + SDK + WDK开发环境</h2><ol>
+<li><strong>下载Visual Studio 2019</strong>：<ul>
+<li>访问微软官网下载Community 2019版本</li>
+<li>安装时勾选**”使用C++的桌面开发”**</li>
+</ul>
+</li>
+<li><strong>安装必要组件</strong>：<ul>
+<li>在”单个组件”选项卡中搜索**”142 x64”**</li>
+<li>勾选以下关键组件：<ul>
+<li>MSVC v142构建工具（最新版）</li>
+<li>C++ ATL库（含Spectre缓解措施）</li>
+<li>C++ MFC库（含Spectre缓解措施）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>安装Windows 10 SDK</strong>：<ul>
+<li>下载版本2004(10.0.19041.0)</li>
+<li>完成标准安装流程</li>
+</ul>
+</li>
+<li><strong>安装WDK驱动开发包</strong>：<ul>
+<li>下载对应版本2004的WDK</li>
+<li>安装时确保勾选**”安装Windows Driver Kit Visual Studio扩展”**</li>
+</ul>
+</li>
+</ol>
+<h2 id="修改并编译CE驱动-DBK"><a href="#修改并编译CE驱动-DBK" class="headerlink" title="修改并编译CE驱动(DBK)"></a>修改并编译CE驱动(DBK)</h2><p>驱动编译准备：</p>
+<ol>
+<li>打开Cheat Engine源代码中的<code>DBKKernel.sln</code>解决方案文件</li>
+<li>在解决方案资源管理器中找到<code>DBK64.inf</code>文件</li>
+</ol>
+<p>关键修改项：</p>
+<ol>
+<li><strong>重命名驱动</strong>：<ul>
+<li>使用替换功能(CTRL+H)将所有”DBK64”替换为步骤<code>更改驱动名称</code>中自定义的名称</li>
+<li>修改<code>ManufacturerName=&quot;Cheat Engine&quot;</code>为自定义信息</li>
+</ul>
+</li>
+<li><strong>项目配置</strong>：<ul>
+<li>右键项目→属性→配置为”Release without sig”和x64平台</li>
+<li>在”常规”修改”目标文件名”为自定义驱动名</li>
+<li>清除”生成事件 -&gt; 生成后事件 _&gt; 命令行”中的所有内容</li>
+</ul>
+</li>
+<li><strong>测试证书创建</strong>：<ul>
+<li>在”Driver Signing _&gt; Test Certificate”中创建测试证书</li>
+<li>应用所有更改</li>
+</ul>
+</li>
+</ol>
+<p>编译驱动：</p>
+<ol>
+<li>选择”Release without sig”和x64配置</li>
+<li>点击”生成”→”生成解决方案”</li>
+<li>编译完成后在bin目录获取<code>.sys</code>驱动文件</li>
+</ol>
+<h1 id="绕过驱动签名验证-DSE-EFIGUARD"><a href="#绕过驱动签名验证-DSE-EFIGUARD" class="headerlink" title="绕过驱动签名验证(DSE&#x2F;EFIGUARD)"></a>绕过驱动签名验证(DSE&#x2F;EFIGUARD)</h1><blockquote>
+<p>注意：Efiguard已被部分反作弊系统检测</p>
+</blockquote>
+<h2 id="制作EFIGuard启动U盘"><a href="#制作EFIGuard启动U盘" class="headerlink" title="制作EFIGuard启动U盘"></a>制作EFIGuard启动U盘</h2><ol>
+<li>下载<a target="_blank" rel="noopener" href="https://github.com/Mattiwatti/EfiGuard">EfiGuard</a></li>
+<li>准备FAT32格式的U盘：<ul>
+<li>通过磁盘管理工具删除原有分区</li>
+<li>新建简单卷并选择FAT32格式</li>
+</ul>
+</li>
+<li>部署EFI文件：<ul>
+<li>将工具包中的EFI文件夹复制到U盘</li>
+<li>重命名<code>Loader.efi</code>为<code>bootx64.efi</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="驱动签名验证操作流程"><a href="#驱动签名验证操作流程" class="headerlink" title="驱动签名验证操作流程"></a>驱动签名验证操作流程</h2><ol>
+<li><p>从U盘启动进入EFIGuard环境</p>
+</li>
+<li><p>在Windows中打开管理员CMD：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /d <span class="string">&quot;EfiGuard文件夹路径&quot;</span></span><br><span class="line">efidsefix.exe -d  <span class="comment"># 禁用驱动签名强制</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动修改版Cheat Engine：</p>
+<ul>
+<li>设置→调试器选项→启用**”Use kernelmode debugger”**</li>
+<li>在Extra中启用<strong>所有4个选项</strong></li>
+<li>确认顶部显示**”DBK64 LOADED”**</li>
+</ul>
+</li>
+<li><p>重新启用签名验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">efidsefix.exe -e  <span class="comment"># 游戏启动前必须执行</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="模块名称显示修复脚本"><a href="#模块名称显示修复脚本" class="headerlink" title="模块名称显示修复脚本"></a>模块名称显示修复脚本</h1><p>当使用DBK驱动时，某些反作弊系统会阻止显示游戏模块名称。以下是解决方案：</p>
+<ol start="2">
+<li><p>执行脚本：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">symbols = createSymbolList();</span><br><span class="line">symbols.register();</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onOpenProcess</span><span class="params">(pid)</span></span></span><br><span class="line">    symbols.unregister();</span><br><span class="line">    symbols = createSymbolList();</span><br><span class="line">    symbols.register();</span><br><span class="line"> </span><br><span class="line">    reinitializeSymbolhandler();</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">4</span>) <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> proc = dbk_getPEProcess(pid);</span><br><span class="line">    <span class="comment">--printf(&quot;proc: %08X&quot;, proc);</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> peb = readQword(proc + <span class="number">0x550</span>);</span><br><span class="line">    <span class="comment">--printf(&quot;peb: %08X&quot;, peb);</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> ldr = readQword(peb + <span class="number">0x18</span>);</span><br><span class="line">    <span class="comment">--printf(&quot;ldr: %08X&quot;, ldr);</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> index = readQword(ldr + <span class="number">0x10</span>);</span><br><span class="line">    <span class="comment">--printf(&quot;index: %08X\n&quot;, index);</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">while</span> (index ~= ldr + <span class="number">0x10</span>) <span class="keyword">do</span></span><br><span class="line">          <span class="keyword">local</span> <span class="built_in">mod</span> = readQword(index);</span><br><span class="line">          <span class="comment">--printf(&quot;mod: %08X&quot;, mod);</span></span><br><span class="line"> </span><br><span class="line">          <span class="keyword">local</span> name = readString(readQword(<span class="built_in">mod</span> + <span class="number">0x58</span> + <span class="number">0x8</span>), readSmallInteger(<span class="built_in">mod</span> + <span class="number">0x58</span>), <span class="literal">true</span>);</span><br><span class="line">          <span class="comment">--printf(&quot;name: %s&quot;, name);</span></span><br><span class="line"> </span><br><span class="line">          <span class="keyword">local</span> base = readQword(<span class="built_in">mod</span> + <span class="number">0x30</span>);</span><br><span class="line">          <span class="comment">--printf(&quot;base: %08X&quot;, base);</span></span><br><span class="line"> </span><br><span class="line">          <span class="keyword">local</span> size = readInteger(<span class="built_in">mod</span> + <span class="number">0x40</span>);</span><br><span class="line">          <span class="comment">--printf(&quot;size: %04X\n&quot;, size);</span></span><br><span class="line"> </span><br><span class="line">          symbols.addModule(name, <span class="string">&quot;&quot;</span>, base, size, <span class="literal">true</span>);</span><br><span class="line"> </span><br><span class="line">          index = readQword(<span class="built_in">mod</span>);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> name = readString(proc + <span class="number">0x5A8</span>, <span class="number">15</span>);</span><br><span class="line">    <span class="comment">--print(&quot;name:&quot;, name);</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> base = readQword(proc + <span class="number">0x520</span>);</span><br><span class="line">    <span class="comment">--printf(&quot;base: %08X&quot;, base);</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> size = readQword(proc + <span class="number">0x498</span>);</span><br><span class="line">    <span class="comment">--printf(&quot;size: %04X&quot;, size);</span></span><br><span class="line"> </span><br><span class="line">    symbols.addModule(name, <span class="string">&quot;&quot;</span>, base, size);</span><br><span class="line"> </span><br><span class="line">    reinitializeSymbolhandler();</span><br><span class="line"> </span><br><span class="line">    <span class="comment">--print(&quot;finished!&quot;);</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>常见问题解决：</p>
+<ul>
+<li><p>若出现冻结&#x2F;崩溃，修改以下代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 原始代码</span></span><br><span class="line"><span class="keyword">while</span> (index ~= ldr + <span class="number">0x10</span>) <span class="keyword">do</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 修改为</span></span><br><span class="line"><span class="keyword">for</span> i=<span class="number">1</span>, <span class="number">150</span> <span class="keyword">do</span>  <span class="comment">-- 限制循环次数防止死循环</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>使用效果：</p>
+<ul>
+<li>重新附加到游戏进程后</li>
+<li>内存视图将显示完整的模块列表</li>
+<li>支持基址+偏移量的标准操作方式</li>
+</ul>
+</li>
+</ol>
+<h1 id="DBVM原理与应用"><a href="#DBVM原理与应用" class="headerlink" title="DBVM原理与应用"></a>DBVM原理与应用</h1><h2 id="虚拟化技术核心原理"><a href="#虚拟化技术核心原理" class="headerlink" title="虚拟化技术核心原理"></a>虚拟化技术核心原理</h2><p>层级架构（Ring模型）</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>权限级别</th>
+<th>典型组件</th>
+<th>反作弊检测强度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Ring -1</strong></td>
+<td>硬件虚拟化</td>
+<td>DBVM超级监视器</td>
+<td>极难检测</td>
+</tr>
+<tr>
+<td><strong>Ring 0</strong></td>
+<td>内核态</td>
+<td>反作弊驱动&#x2F;CE驱动</td>
+<td>中等检测</td>
+</tr>
+<tr>
+<td><strong>Ring 3</strong></td>
+<td>用户态</td>
+<td>游戏客户端&#x2F;CE主程序</td>
+<td>易检测</td>
+</tr>
+</tbody></table>
+<p>虚拟化工作原理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    A[物理硬件] --&gt; B(DBVM超级监视器)</span><br><span class="line">    B --&gt; C[Host OS]</span><br><span class="line">    B --&gt; D[游戏虚拟机]</span><br><span class="line">    D --&gt; E[反作弊系统]</span><br><span class="line">    C --&gt; F[Cheat Engine]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>关键特性：</p>
+<ul>
+<li><strong>硬件级隔离</strong>：直接在CPU虚拟化扩展(Intel VT-x&#x2F;AMD-V)上运行</li>
+<li><strong>内存隐身</strong>：通过扩展页表(EPT)实现透明内存访问</li>
+<li><strong>中断劫持</strong>：完全控制所有硬件中断处理</li>
+</ul>
+</blockquote>
+<h2 id="DBVM使用"><a href="#DBVM使用" class="headerlink" title="DBVM使用"></a>DBVM使用</h2><p>组件获取：</p>
+<ol>
+<li>获取预编译镜像：<br>下载官方CE获取<code>vmdisk.img</code></li>
+<li>文件存放路径：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cheat Engine/bin/vmdisk.img</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>配置流程：</p>
+<ol>
+<li>启用虚拟化支持：<br>打开设置-&gt;调试器选项选择”Use DBVM-level debugger”，帮助-&gt;关于-&gt;点击支持检测</li>
+<li>验证安装状态：<ul>
+<li>成功标志：CE界面显示 <strong>“DBVM active (Version x.x)”</strong></li>
+<li>失败排查：<ul>
+<li>BIOS中开启VT-x&#x2F;AMD-V</li>
+<li>禁用Hyper-V等竞争技术<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bcdedit /<span class="built_in">set</span> hypervisorlaunchtype off</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz/2025/08/01/UndetectedCE/">https://blog.010920.xyz/2025/08/01/UndetectedCE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.010920.xyz" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/Cheat_Engine_Logo.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/07/10/programming/lua/" title="lua"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/600px-Lua-Logo.svg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">lua</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">工具下载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%B9%B6%E7%BC%96%E8%AF%91CE"><span class="toc-number">2.</span> <span class="toc-text">修改并编译CE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E9%A9%B1%E5%8A%A8%E5%90%8D%E7%A7%B0"><span class="toc-number">2.1.</span> <span class="toc-text">更改驱动名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E7%AA%97%E5%8F%A3%E5%90%8D%E7%A7%B0"><span class="toc-number">2.2.</span> <span class="toc-text">随机窗口名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E9%80%89%E9%A1%B9%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text">项目选项设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-number">2.4.</span> <span class="toc-text">编译</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8HxD%E4%BF%AE%E6%94%B9Cheat-Engine%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">3.</span> <span class="toc-text">使用HxD修改Cheat Engine字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8VMProtect%E4%BF%9D%E6%8A%A4%E7%A8%8B%E5%BA%8F"><span class="toc-number">4.</span> <span class="toc-text">使用VMProtect保护程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Lua%E8%84%9A%E6%9C%AC%E4%BF%AE%E6%94%B9%E5%86%85%E9%83%A8%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%8F%AF%E9%80%89"><span class="toc-number">5.</span> <span class="toc-text">使用Lua脚本修改内部字符串(可选)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="toc-number">5.1.</span> <span class="toc-text">操作步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">5.2.</span> <span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E7%BC%96%E8%AF%91"><span class="toc-number">6.</span> <span class="toc-text">驱动编译</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Visual-Studio-2019-SDK-WDK%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">6.1.</span> <span class="toc-text">Visual Studio 2019 + SDK + WDK开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%B9%B6%E7%BC%96%E8%AF%91CE%E9%A9%B1%E5%8A%A8-DBK"><span class="toc-number">6.2.</span> <span class="toc-text">修改并编译CE驱动(DBK)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E9%A9%B1%E5%8A%A8%E7%AD%BE%E5%90%8D%E9%AA%8C%E8%AF%81-DSE-EFIGUARD"><span class="toc-number">7.</span> <span class="toc-text">绕过驱动签名验证(DSE&#x2F;EFIGUARD)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B6%E4%BD%9CEFIGuard%E5%90%AF%E5%8A%A8U%E7%9B%98"><span class="toc-number">7.1.</span> <span class="toc-text">制作EFIGuard启动U盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E7%AD%BE%E5%90%8D%E9%AA%8C%E8%AF%81%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">7.2.</span> <span class="toc-text">驱动签名验证操作流程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%90%8D%E7%A7%B0%E6%98%BE%E7%A4%BA%E4%BF%AE%E5%A4%8D%E8%84%9A%E6%9C%AC"><span class="toc-number">8.</span> <span class="toc-text">模块名称显示修复脚本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DBVM%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8"><span class="toc-number">9.</span> <span class="toc-text">DBVM原理与应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><span class="toc-number">9.1.</span> <span class="toc-text">虚拟化技术核心原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DBVM%E4%BD%BF%E7%94%A8"><span class="toc-number">9.2.</span> <span class="toc-text">DBVM使用</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>

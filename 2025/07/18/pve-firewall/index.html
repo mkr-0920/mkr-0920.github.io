@@ -1,0 +1,332 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>pve防火墙 | Meng's blog</title><meta name="author" content="Meng"><meta name="copyright" content="Meng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="pve防火墙配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pve防火墙">
+<meta property="og:url" content="https://blog.010920.xyz/2025/07/18/pve-firewall/index.html">
+<meta property="og:site_name" content="Meng&#39;s blog">
+<meta property="og:description" content="pve防火墙配置">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-33930977.jpeg">
+<meta property="article:published_time" content="2025-07-18T08:05:22.000Z">
+<meta property="article:modified_time" content="2025-09-18T09:08:19.920Z">
+<meta property="article:author" content="Meng">
+<meta property="article:tag" content="pve">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-33930977.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.010920.xyz/2025/07/18/pve-firewall/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"该文章最后更新于","messageNext":"天前，可能已经过时"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'pve防火墙',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-18 17:08:19'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">67</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-33930977.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">pve防火墙</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-18T08:05:22.000Z" title="发表于 2025-07-18 16:05:22">2025-07-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-18T09:08:19.920Z" title="更新于 2025-09-18 17:08:19">2025-09-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/others/">others</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Proxmox VE虚拟平台自带一个<strong>pve-firewall.service</strong>服务，其本质是<strong>调用iptables模块</strong></p>
+<p><strong>pve</strong>有3个层级防火墙：</p>
+<ul>
+<li><ol>
+<li>集群级别的防火墙</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>节点防火墙（主机防火墙）</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>虚拟机防火墙</li>
+</ol>
+</li>
+</ul>
+<h1 id="集群级别的防火墙"><a href="#集群级别的防火墙" class="headerlink" title="集群级别的防火墙"></a>集群级别的防火墙</h1><p>作用域为整个集群的防火墙配置保存在</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/pve/firewall/cluster.fw</span><br></pre></td></tr></table></figure>
+
+<p>该配置文件由以下小节构成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[OPTIONS]</span><br><span class="line">该小节用于设置整个集群的防火墙配置项。</span><br><span class="line"></span><br><span class="line">ebtables: &lt;boolean&gt; (default = 1)</span><br><span class="line">集群范围内启用ebtables。</span><br><span class="line"></span><br><span class="line">enable: &lt;integer&gt; (0 -N)</span><br><span class="line">启用/禁用集群范围的防火墙。</span><br><span class="line"></span><br><span class="line">log_ratelimit: [enable=]&lt;1|0&gt; [,burst=&lt;integer&gt;] [,rate=&lt;rate&gt;]</span><br><span class="line">设置日志记录速度阀值。</span><br><span class="line"></span><br><span class="line">burst=&lt;integer&gt; (0 - N) (default = 5)</span><br><span class="line">将被记录的初始突发包。</span><br><span class="line"></span><br><span class="line">enable=&lt;boolean&gt; (default = 1)</span><br><span class="line">启用或禁用阀值</span><br><span class="line"></span><br><span class="line">rate=&lt;rate&gt; (default = 1/second)</span><br><span class="line">突发缓冲区重新填充频度。</span><br><span class="line"></span><br><span class="line">policy_in: &lt;ACCEPT | DROP | REJECT&gt;</span><br><span class="line">流入方向的防火墙策略。</span><br><span class="line"></span><br><span class="line">policy_out: &lt;ACCEPT | DROP | REJECT&gt;</span><br><span class="line">流出方向的防火墙策略。</span><br><span class="line"></span><br><span class="line">[RULES]</span><br><span class="line">该小节用于设置所有节点公共的防火墙策略。</span><br><span class="line"></span><br><span class="line">[IPSET &lt;name&gt;]</span><br><span class="line">整个集群范围内有效的IP集合定义。</span><br><span class="line"></span><br><span class="line">[GROUP &lt;name&gt;]</span><br><span class="line">整个集群范围内有效的组定义。</span><br><span class="line"></span><br><span class="line">[ALIASES]</span><br><span class="line">整个集群范围内有效的别名定义</span><br></pre></td></tr></table></figure>
+
+<p>防火墙<strong>默认是被完全禁用的</strong>。你可以按如下方式设置启用参数项：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-18%20162505.png"></p>
+<p>或者编辑文件<code>cluster.fw</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[OPTIONS]</span><br><span class="line"># enable firewall (cluster wide setting, default is disabled)</span><br><span class="line">enable: 1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>重要</strong></p>
+<p>启用防火墙后，默认所有主机的通信都将被阻断。<strong>唯一例外是集群网络内的WebGUI（端口8006）和ssh（端口22）访问可以继续使用</strong>。</p>
+</li>
+<li><p><strong>注意</strong></p>
+<p>请在<strong>启用防火墙前先打开到Proxmox VE服务器的一个SSH连接</strong>，这样即使策略配置有误，也还可以通过该连接访问服务器。</p>
+</li>
+</ul>
+<p>为简化配置，你可以<strong>创建一个名为“管理地址”的IPSet，并把所有的远程管理终端IP地址添加进去</strong>。这样就可以创建策略允许所有的远程地址访问WebGUI。</p>
+<h1 id="主机防火墙"><a href="#主机防火墙" class="headerlink" title="主机防火墙"></a>主机防火墙</h1><p>主机级别的防火墙配置保存在</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/pve/nodes/&lt;nodename&gt;/host.fw</span><br></pre></td></tr></table></figure>
+
+<p>该文件中的配置<strong>可以覆盖cluster.fw中的配置</strong>。你可以提升报警日志级别，设置netfilter相关参数。该配置文件由以下小节构成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">[OPTIONS]</span><br><span class="line">该小节用于设置当前主机的防火墙配置项。</span><br><span class="line"></span><br><span class="line">enable: &lt;boolean&gt;</span><br><span class="line">启用/禁用主机防火墙策略。</span><br><span class="line"></span><br><span class="line">log_level_in: &lt;alert | crit | debug | emerg | err | info | nolog | notice | warning&gt;</span><br><span class="line">流入方向的防火墙日志级别。</span><br><span class="line"></span><br><span class="line">log_level_out: &lt;alert | crit | debug | emerg | err | info | nolog | notice | warning&gt;</span><br><span class="line">流出方向的防火墙日志级别。</span><br><span class="line"></span><br><span class="line">log_nf_conntrack: &lt;boolean&gt; (default = 0)</span><br><span class="line">启用记录连接跟踪信息。</span><br><span class="line"></span><br><span class="line">ndp: &lt;boolean&gt;</span><br><span class="line">启用NDP。 </span><br><span class="line"></span><br><span class="line">nf_conntrack_allow_invalid: &lt;boolean&gt; (default = 0)</span><br><span class="line">在跟踪连接时允许记录不合法的包。</span><br><span class="line"></span><br><span class="line">nf_conntrack_max: &lt;integer&gt; (32768 -N)</span><br><span class="line">最大的跟踪连接数量。</span><br><span class="line"></span><br><span class="line">nf_conntrack_tcp_timeout_established: &lt;integer&gt; (7875 -N)</span><br><span class="line">反向连接建立超时时间。</span><br><span class="line"></span><br><span class="line">nosmurfs: &lt;boolean&gt;</span><br><span class="line">启用SMURFS过滤器。</span><br><span class="line"></span><br><span class="line">smurf_log_level: &lt;alert | crit | debug | emerg | err | info | nolog | notice | warning&gt;</span><br><span class="line">SMURFS过滤器日志级别。</span><br><span class="line"></span><br><span class="line">tcp_flags_log_level: &lt;alert | crit | debug | emerg | err | info | nolog | notice | warning&gt;</span><br><span class="line">非法TCP标志过滤器日志级别。</span><br><span class="line"></span><br><span class="line">tcpflags: &lt;boolean&gt;</span><br><span class="line">启用非法TCP标志组合过滤器。</span><br><span class="line"></span><br><span class="line">[RULES]</span><br><span class="line">该小节用于设置当前主机的防火墙策略。</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-18%20162532.png"></p>
+<h2 id="虚拟机防火墙"><a href="#虚拟机防火墙" class="headerlink" title="虚拟机防火墙"></a>虚拟机防火墙</h2><p>虚拟机和容器级别的防火墙配置保存在</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/pve/firewall/&lt;VMID&gt;.fw</span><br></pre></td></tr></table></figure>
+
+<p>其内容由以下数据构成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">[OPTIONS]</span><br><span class="line">该小节用于设置当前虚拟机或容器的防火墙配置项。</span><br><span class="line"></span><br><span class="line">dhcp: &lt;boolean&gt;</span><br><span class="line">启用DHCP。</span><br><span class="line"></span><br><span class="line">enable: &lt;boolean&gt;</span><br><span class="line">启用/禁用防火墙策略。</span><br><span class="line"></span><br><span class="line">ipfilter: &lt;boolean&gt;</span><br><span class="line">启用默认IP地址过滤器。相当于为每个网卡接口增加一个空白的ipfilter-net&lt;id&gt;地址集合。</span><br><span class="line">该IP地址集合隐式包含了一些默认控制，例如限制IPv6链路本地地址为网卡MAC生成的地址。对于容器，配置的IP地址将被隐式添加进去。</span><br><span class="line"></span><br><span class="line">log_level_in: &lt;alert | crit | debug | emerg | err | info | nolog | notice | warning&gt;</span><br><span class="line">流入方向的防火墙日志级别。</span><br><span class="line"></span><br><span class="line">log_level_out: &lt;alert | crit | debug | emerg | err | info | nolog | notice | warning&gt;</span><br><span class="line">流出方向的防火墙日志级别。</span><br><span class="line"></span><br><span class="line">macfilter: &lt;boolean&gt;</span><br><span class="line">启用/禁用MAC地址过滤器。</span><br><span class="line"></span><br><span class="line">ndp: &lt;boolean&gt;</span><br><span class="line">启用NDP。</span><br><span class="line"></span><br><span class="line">policy_in: &lt;ACCEPT | DROP | REJECT&gt;</span><br><span class="line">流入方向的防火墙策略。</span><br><span class="line"></span><br><span class="line">policy_out: &lt;ACCEPT | DROP | REJECT&gt;</span><br><span class="line">流出方向的防火墙策略。</span><br><span class="line"></span><br><span class="line">radv: &lt;boolean&gt;</span><br><span class="line">允许发出路由通知。</span><br><span class="line"></span><br><span class="line">[RULES]</span><br><span class="line">该小节用于设置当前虚拟机或容器的防火墙策略。</span><br><span class="line"></span><br><span class="line">[IPSET &lt;name&gt;]</span><br><span class="line">IP集合定义。</span><br><span class="line"></span><br><span class="line">[ALIASES]</span><br><span class="line">IP地址别名定义。</span><br></pre></td></tr></table></figure>
+
+<p><strong>启用虚拟机或容器上的防火墙</strong></p>
+<p>每个虚拟网卡设备都有一个防火墙启用标识。你可以控制每个网卡的防火墙启用状态。在设置启用虚拟机防火墙后，<strong>必须设置网卡上的防火墙启用标识</strong>才可以真正启用防火墙。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-18%20163204.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-07-18%20162543.png"></p>
+<h1 id="安全组"><a href="#安全组" class="headerlink" title="安全组"></a>安全组</h1><p>安全组是在集群级别定义的规则集合，可以在所有 VM 的规则中使用</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/2188660-20210909095527817-801038728.png"></p>
+<h1 id="服务和命令"><a href="#服务和命令" class="headerlink" title="服务和命令"></a>服务和命令</h1><p>防火墙在每个节点上运行两个服务守护进程：</p>
+<ul>
+<li>pvefw-logger：NFLOG 守护进程（ulogd 替换）。</li>
+<li>pve-firewall：更新 iptables 规则</li>
+</ul>
+<p>还有一个名为pve-firewall的 CLI 命令，可用于启动和停止防火墙服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pve-firewall start</span><br><span class="line">pve-firewall stop</span><br><span class="line">pve-firewall restart</span><br></pre></td></tr></table></figure>
+
+<p>要获取状态使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pve-firewall status</span><br></pre></td></tr></table></figure>
+
+<p>上述命令读取并编译所有防火墙规则，因此如果您的防火墙配置包含任何错误，您将看到警告。</p>
+<p>如果要查看生成的 iptables 规则，可以使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables-save</span><br></pre></td></tr></table></figure>
+
+<h1 id="默认防火墙策略"><a href="#默认防火墙策略" class="headerlink" title="默认防火墙策略"></a>默认防火墙策略</h1><p>防火墙默认会对以下网络通信开启控制策略：</p>
+<h2 id="进-出数据中心的丢弃-拒绝策略"><a href="#进-出数据中心的丢弃-拒绝策略" class="headerlink" title="进&#x2F;出数据中心的丢弃&#x2F;拒绝策略"></a>进&#x2F;出数据中心的丢弃&#x2F;拒绝策略</h2><p>即使防火墙的出入控制策略被设为DROP或REJECT，集群内Proxmox VE主机<strong>仍将允许以下网络访问</strong>。</p>
+<ul>
+<li>通过loopback端口的流量。</li>
+<li>已建立的网络连接。</li>
+<li>基于IGMP协议的通信流量。</li>
+<li>开放管理终端到<strong>8006端口</strong>的TCP访问权限，以便访问Web管理控制台。</li>
+<li>开放管理终端到5900-5999端口的TCP访问权限，以便使用VNC终端。</li>
+<li>开放管理终端到3128端口的TCP访问权限，以便使用SPICE代理。</li>
+<li>开放管理终端到<strong>22端口</strong>的TCP访问权限，以便ssh访问。</li>
+<li>为corosync集群服务开放5404和5405端口的UDP访问权限。</li>
+<li>为集群服务开放多播访问权限。</li>
+<li>类型3（目的不可达）、4（拥堵控制）、11（超时）的ICMP流量。</li>
+</ul>
+<p>以下网络包将被丢弃，并且即使开启日志也不会被日志记录。</p>
+<ul>
+<li>处于非法连接状态的TCP流量。</li>
+<li>和corosync无关的广播、多播和任意目的数据包，即目的端口不是5404和5405的数据包。</li>
+<li>目的端口是43的TCP数据包。</li>
+<li>目的端口是135和445的UDP数据包。</li>
+<li>目的端口是137-139的UDP数据包。</li>
+<li>源端口是137且目的端口是1024-65535的UDP数据包。</li>
+<li>目的端口是1900的UDP数据包。</li>
+<li>目的端口是135，139，445的TCP数据包。</li>
+<li>源端口是53的UDP数据包。</li>
+</ul>
+<p>其余网络通信将被丢弃或拒绝，并被日志记录。具体处理结果由<code>防火墙</code>→<code>选项</code>中的选项决定，具体包括NDP，SMURFS和TCP标志位过滤等。</p>
+<p>可以查看以下命令的输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># iptables-save</span><br></pre></td></tr></table></figure>
+
+<p>了解防火墙策略的活动情况。该命令的输出也会被合并到系统报告，并在Web GUI的节点描述选项卡展示，或通过pvereport命令查看。</p>
+<h2 id="进-出客户机的丢弃-拒绝策略"><a href="#进-出客户机的丢弃-拒绝策略" class="headerlink" title="进&#x2F;出客户机的丢弃&#x2F;拒绝策略"></a>进&#x2F;出客户机的丢弃&#x2F;拒绝策略</h2><p>默认情况下，除DHCP、NDP、路由告知、明确通过MAC和IP地址过滤策略排除的数据包以外，有关客户机的网络数据包都会被丢弃或拒绝。数据中心的丢弃和拒绝策略会被虚拟机自动继承，但和主机有关的例外通过策略则不会被集成。</p>
+<h1 id="防火墙日志"><a href="#防火墙日志" class="headerlink" title="防火墙日志"></a>防火墙日志</h1><p><strong>默认情况下，所有的防火墙策略都不产生日志记录</strong>。</p>
+<p>如要启用日志记录，需要在<strong>Firewall→Options</strong>中设置出&#x2F;入网络数据包的日志级别loglevel。</p>
+<p>主机、客户机的日志级别可以分别设置。设置后，Proxmox VE的防火墙日志将被启用，并可以在<strong>Firewall→Log</strong>中查看。</p>
+<p>需要注意，<strong>只有被标准策略丢弃或拒绝的数据包会产生日志记录</strong>。</p>
+<p><strong>防火墙日志级别loglevel并不影响产生日志数量</strong>。只用于改变日志记录的LOGID前缀，以便后续处理。</p>
+<p>具体的loglevel取值如下表：</p>
+<table>
+<thead>
+<tr>
+<th>loglevel</th>
+<th>LOGID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nolog</td>
+<td>—</td>
+</tr>
+<tr>
+<td>emerg</td>
+<td>0</td>
+</tr>
+<tr>
+<td>alert</td>
+<td>1</td>
+</tr>
+<tr>
+<td>crit</td>
+<td>2</td>
+</tr>
+<tr>
+<td>err</td>
+<td>3</td>
+</tr>
+<tr>
+<td>warning</td>
+<td>4</td>
+</tr>
+<tr>
+<td>notice</td>
+<td>5</td>
+</tr>
+<tr>
+<td>info</td>
+<td>6</td>
+</tr>
+<tr>
+<td>debug</td>
+<td>7</td>
+</tr>
+</tbody></table>
+<p><strong>一般使用建议</strong></p>
+<p>对于绝大多数情况，遵循以下原则：</p>
+<ol>
+<li><strong><code>nolog</code> (最常用)</strong>: <strong>默认选择</strong>。用于“常规允许”规则。你明确希望允许的流量（如你的 Web 服务端口、SSH 端口），没有必要记录日志，否则日志会被大量正常流量淹没。</li>
+<li><strong><code>warning</code> (4) 或 <code>notice</code> (5) (常用)</strong>: 用于“需要关注的允许”规则。例如，你允许从特定管理网段访问 SSH，但想记录下谁登录了，可以用 <code>notice</code>。或者用于记录一些不寻常但允许的行为。</li>
+<li><strong><code>err</code> (3) 或 <code>crit</code> (2)</strong>: 用于“拒绝”规则。当你有明确的拒绝规则（<code>REJECT</code> 或 <code>DROP</code>）时，使用这些级别可以高效地记录可能的攻击或扫描尝试，因为这些日志本身就值得关注。</li>
+<li><strong><code>info</code> (6) 或 <code>debug</code> (7)</strong>: <strong>谨慎使用</strong>。仅用于临时调试和故障排除。会产生海量日志，迅速填满磁盘，调试完毕后应立即移除或改为 <code>nolog</code>。</li>
+</ol>
+<h2 id="用户自定义防火墙策略日志记录"><a href="#用户自定义防火墙策略日志记录" class="headerlink" title="用户自定义防火墙策略日志记录"></a>用户自定义防火墙策略日志记录</h2><p>如需让用户自定义防火墙策略生成日志记录，可以为每条策略分别设置日志级别。通过Firewall→Options可以为每条策略设置非常精细的日志级别 。 当然可以通过WebUI在创建或修改每条策略时设置或改变loglevel，也可以通过pvesh调用相应API进行设置。</p>
+<p>此外，还可以通过修改防火墙日志文件调整日志级别，只要在相应策略后添加-log 即可。</p>
+<p>示例如下，<strong>以下两条命令效果是一样的，都不产生日志</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IN REJECT -p icmp -log nolog</span><br><span class="line">IN REJECT -p icmp</span><br></pre></td></tr></table></figure>
+
+<p>但以下策略将产生debug级别日志。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IN REJECT -p icmp -log debug</span><br></pre></td></tr></table></figure>
+
+<h1 id="PVE端口列表"><a href="#PVE端口列表" class="headerlink" title="PVE端口列表"></a>PVE端口列表</h1><ul>
+<li>Web界面：8006</li>
+<li>VNC控制台：5900-5999</li>
+<li>SPICE proxy：3128</li>
+<li>sshd（用于集群管理）：22</li>
+<li>rpcbind：111</li>
+<li>corosync多播（集群通信使用）：5404, 5405 UDP</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz/2025/07/18/pve-firewall/">https://blog.010920.xyz/2025/07/18/pve-firewall/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.010920.xyz" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/pve/">pve</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-33930977.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/08/01/UndetectedCE/" title="Undetected Cheat Engine"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/Cheat_Engine_Logo.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Undetected Cheat Engine</div></div></a></div><div class="next-post pull-right"><a href="/2025/07/14/DataAnalysis/matplotlib-Object/" title="matplotlib面向对象方式的作图"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-33888435.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">matplotlib面向对象方式的作图</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/16/GVT-g/" title="GVT-g 核显虚拟化"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-30251322.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-16</div><div class="title">GVT-g 核显虚拟化</div></div></a></div><div><a href="/2024/11/18/pve/" title="pve"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-30274220.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-18</div><div class="title">pve</div></div></a></div><div><a href="/2025/04/11/e1000e-error/" title="Intel 千兆网卡重负载问题解决"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-32002551.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-11</div><div class="title">Intel 千兆网卡重负载问题解决</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E7%BA%A7%E5%88%AB%E7%9A%84%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">2.</span> <span class="toc-text">集群级别的防火墙</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BB%E6%9C%BA%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">3.</span> <span class="toc-text">主机防火墙</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">3.1.</span> <span class="toc-text">虚拟机防火墙</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E7%BB%84"><span class="toc-number">4.</span> <span class="toc-text">安全组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%92%8C%E5%91%BD%E4%BB%A4"><span class="toc-number">5.</span> <span class="toc-text">服务和命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E9%98%B2%E7%81%AB%E5%A2%99%E7%AD%96%E7%95%A5"><span class="toc-number">6.</span> <span class="toc-text">默认防火墙策略</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B-%E5%87%BA%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%BF%83%E7%9A%84%E4%B8%A2%E5%BC%83-%E6%8B%92%E7%BB%9D%E7%AD%96%E7%95%A5"><span class="toc-number">6.1.</span> <span class="toc-text">进&#x2F;出数据中心的丢弃&#x2F;拒绝策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B-%E5%87%BA%E5%AE%A2%E6%88%B7%E6%9C%BA%E7%9A%84%E4%B8%A2%E5%BC%83-%E6%8B%92%E7%BB%9D%E7%AD%96%E7%95%A5"><span class="toc-number">6.2.</span> <span class="toc-text">进&#x2F;出客户机的丢弃&#x2F;拒绝策略</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E6%97%A5%E5%BF%97"><span class="toc-number">7.</span> <span class="toc-text">防火墙日志</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E9%98%B2%E7%81%AB%E5%A2%99%E7%AD%96%E7%95%A5%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95"><span class="toc-number">7.1.</span> <span class="toc-text">用户自定义防火墙策略日志记录</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PVE%E7%AB%AF%E5%8F%A3%E5%88%97%E8%A1%A8"><span class="toc-number">8.</span> <span class="toc-text">PVE端口列表</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>k30p开启lxc、docker | Meng's blog</title><meta name="author" content="Meng"><meta name="copyright" content="Meng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="编译内核开启lxc、docker支持">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k30p开启lxc、docker">
+<meta property="og:url" content="https://blog.010920.xyz/2022/09/14/k30p-lxc-docker/index.html">
+<meta property="og:site_name" content="Meng&#39;s blog">
+<meta property="og:description" content="编译内核开启lxc、docker支持">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-28349097.jpeg">
+<meta property="article:published_time" content="2022-09-14T12:18:37.000Z">
+<meta property="article:modified_time" content="2025-10-14T06:10:33.121Z">
+<meta property="article:author" content="Meng">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="kernel">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-28349097.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.010920.xyz/2022/09/14/k30p-lxc-docker/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"该文章最后更新于","messageNext":"天前，可能已经过时"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'k30p开启lxc、docker',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-10-14 14:10:33'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">55</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-28349097.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">k30p开启lxc、docker</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-14T12:18:37.000Z" title="发表于 2022-09-14 20:18:37">2022-09-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-14T06:10:33.121Z" title="更新于 2025-10-14 14:10:33">2025-10-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="内核源码"><a href="#内核源码" class="headerlink" title="内核源码"></a>内核源码</h2><p><a target="_blank" rel="noopener" href="https://github.com/Pierre2324/NGK_android_kernel_xiaomi_sm8250">NGK</a>支持AOSP、MIUI</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/mkr-0920/NGK_android_kernel_xiaomi_sm8250.git</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="编译链"><a href="#编译链" class="headerlink" title="编译链"></a>编译链</h2><p>clang</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/kdrag0n/proton-clang">proton-clang</a></p>
+<p><a target="_blank" rel="noopener" href="https://gitlab.com/Project-Nexus/nexus-clang">nexus-clang</a></p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/Neutron-Toolchains">neutron-clang</a></p>
+<p>gcc</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9">los-gcc-4.9-64</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9">los-gcc-4.9-32</a></p>
+<p><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9">gcc-4.9-aosp-64</a></p>
+<p><a target="_blank" rel="noopener" href="https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9">gcc-4.9-aosp-32</a></p>
+<p>这里使用proton-clang</p>
+<h2 id="内核配置"><a href="#内核配置" class="headerlink" title="内核配置"></a>内核配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#打开到内核目录</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/mkr-0920/lxc-docker-support-for-android.git utils</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;source &quot;utils/Kconfig&quot;&#x27;</span> &gt;&gt; Kconfig</span><br></pre></td></tr></table></figure>
+
+<p>在arch&#x2F;arm64&#x2F;configs&#x2F;xxxx_defconfig 中加入以下内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CONFIG_ANDROID_PARANOID_NETWORK is not set</span></span><br><span class="line">CONFIG_DOCKER=y</span><br></pre></td></tr></table></figure>
+
+<h2 id="补丁"><a href="#补丁" class="headerlink" title="补丁"></a>补丁</h2><p>参照utils下的补丁文件进行修改，fix_cgroup.patch，fix_panic.patch 主要修改以下这两个文件 kernel&#x2F;cgroup&#x2F;cgroup.c   net&#x2F;netfilter&#x2F;xt_qtaguid.c</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">--- a/kernel/cgroup/cgroup.c</span><br><span class="line">+++ b/kernel/cgroup/cgroup.c</span><br><span class="line">@@ -3786,6 +3786,10 @@ static int cgroup_add_file(struct cgroup_subsys_state *css, struct cgroup *cgrp,</span><br><span class="line"> 		cfile-&gt;kn = kn;</span><br><span class="line"> 		spin_unlock_irq(&amp;cgroup_file_kn_lock);</span><br><span class="line"> 	&#125;</span><br><span class="line">+	<span class="keyword">if</span> (cft-&gt;ss &amp;&amp; (cgrp-&gt;root-&gt;flags &amp; CGRP_ROOT_NOPREFIX) &amp;&amp; !(cft-&gt;flags &amp; CFTYPE_NO_PREFIX)) &#123;</span><br><span class="line">+				snprintf(name, CGROUP_FILE_NAME_MAX, <span class="string">&quot;%s.%s&quot;</span>, cft-&gt;ss-&gt;name, cft-&gt;name);</span><br><span class="line">+				kernfs_create_link(cgrp-&gt;kn, name, kn);</span><br><span class="line">+	&#125;</span><br><span class="line"> </span><br><span class="line"> 	<span class="built_in">return</span> 0;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">--- a/net/netfilter/xt_qtaguid.c     2020-05-12 12:13:14.000000000 +0300</span><br><span class="line">+++ b/net/netfilter/xt_qtaguid.c       2019-09-15 23:56:45.000000000 +0300</span><br><span class="line">@@ -737,7 +737,7 @@</span><br><span class="line">&#123;</span><br><span class="line">        struct proc_iface_stat_fmt_info *p = m-&gt;private;</span><br><span class="line">        struct iface_stat *iface_entry;</span><br><span class="line">-       struct rtnl_link_stats64 dev_stats, *stats;</span><br><span class="line">+       struct rtnl_link_stats64 *stats;</span><br><span class="line">        struct rtnl_link_stats64 no_dev_stats = &#123;0&#125;;  </span><br><span class="line">@@ -745,13 +745,8 @@</span><br><span class="line">        current-&gt;pid, current-&gt;tgid, from_kuid(&amp;init_user_ns, current_fsuid()));</span><br><span class="line">        iface_entry = list_entry(v, struct iface_stat, list);</span><br><span class="line">+       stats = &amp;no_dev_stats; </span><br><span class="line">-       <span class="keyword">if</span> (iface_entry-&gt;active) &#123;</span><br><span class="line">-               stats = dev_get_stats(iface_entry-&gt;net_dev,</span><br><span class="line">-                                     &amp;dev_stats);</span><br><span class="line">-       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">-               stats = &amp;no_dev_stats;</span><br><span class="line">-       &#125;</span><br><span class="line">        /*</span><br><span class="line">         * If the meaning of the data changes, <span class="keyword">then</span> update the fmtX</span><br><span class="line">         * string.</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;/home/mkr/Downloads/toolchains/proton-clang/bin:<span class="variable">$&#123;PATH&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">make ARCH=arm64 CC=clang nogravity-lmi_defconfig O=out</span><br><span class="line">make -j$(<span class="built_in">nproc</span> --all) \</span><br><span class="line">ARCH=arm64 \</span><br><span class="line">O=out \</span><br><span class="line">CC=clang \</span><br><span class="line">CROSS_COMPILE=aarch64-linux-gnu- \</span><br><span class="line">CROSS_COMPILE_COMPAT=arm-linux-gnueabi- \</span><br><span class="line">AR=llvm-ar \</span><br><span class="line">NM=llvm-nm \</span><br><span class="line">OBJCOPY=llvm-objcopy \</span><br><span class="line">OBJDUMP=llvm-objdump \</span><br><span class="line">STRIP=llvm-strip \</span><br><span class="line">LLVM=1 \</span><br><span class="line">LLVM_IAS=1</span><br></pre></td></tr></table></figure>
+
+<h2 id="打包内核"><a href="#打包内核" class="headerlink" title="打包内核"></a>打包内核</h2><p><a target="_blank" rel="noopener" href="https://github.com/osm0sis/AnyKernel3.git">AnyKernel3</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/osm0sis/AnyKernel3.git</span><br><span class="line"><span class="built_in">cp</span> out/arch/arm64/boot/Image.gz-dtb AnyKernel3/</span><br><span class="line"><span class="built_in">cp</span> out/arch/arm64/boot/dtbo.img AnyKernel3/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#anykernel.sh</span></span><br><span class="line"><span class="function"><span class="title">properties</span></span>() &#123; <span class="string">&#x27;</span></span><br><span class="line"><span class="string">kernel.string=k30p-lxc-docker</span></span><br><span class="line"><span class="string">do.devicecheck=1</span></span><br><span class="line"><span class="string">do.modules=0</span></span><br><span class="line"><span class="string">do.systemless=1</span></span><br><span class="line"><span class="string">do.cleanup=1</span></span><br><span class="line"><span class="string">do.cleanuponabort=0</span></span><br><span class="line"><span class="string">device.name1=lmi</span></span><br><span class="line"><span class="string">device.name2=</span></span><br><span class="line"><span class="string">device.name3=</span></span><br><span class="line"><span class="string">device.name4=</span></span><br><span class="line"><span class="string">device.name5=</span></span><br><span class="line"><span class="string">supported.versions=</span></span><br><span class="line"><span class="string">supported.patchlevels=</span></span><br><span class="line"><span class="string">&#x27;</span>; &#125; <span class="comment"># end properties</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># shell variables</span></span><br><span class="line">block=/dev/block/bootdevice/by-name/boot;</span><br><span class="line">is_slot_device=0;</span><br><span class="line">ramdisk_compression=auto;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## AnyKernel methods (DO NOT CHANGE)</span></span><br><span class="line"><span class="comment"># import patching functions/variables - see for reference</span></span><br><span class="line">. tools/ak3-core.sh;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># migrate from /overlay to /overlay.d to enable SAR Magisk</span></span><br><span class="line"><span class="keyword">if</span> [ -d <span class="variable">$ramdisk</span>/overlay ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">rm</span> -rf <span class="variable">$ramdisk</span>/overlay;</span><br><span class="line"><span class="keyword">fi</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">## AnyKernel install</span></span><br><span class="line">dump_boot;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -e /vendor/etc/powerhint.json ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">cp</span> -a <span class="variable">$ramdisk</span>/ngk/powerhint.json /vendor/etc/powerhint.json;</span><br><span class="line">    <span class="built_in">chmod</span> 644 /vendor/etc/powerhint.json;</span><br><span class="line"><span class="keyword">fi</span>;</span><br><span class="line"></span><br><span class="line">write_boot;</span><br><span class="line"><span class="comment">## end install</span></span><br></pre></td></tr></table></figure>
+
+<p>简要说明</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kernel.string= ： 这里需要你填写内核的名称</span><br><span class="line">do.devicecheck= ： 填写1开启，0是关闭。这里是用来检测设备名称的，和下面device.name1~5形成对应。如果设备名称不对应，就无法刷入进设备。</span><br><span class="line">device.name1 ~5 ： 这里可以填写你的设备名称。注意，有些手机是开发代号，有的是设备名称具体依靠你自行判断。使用这些参数需要先开启do.devicecheck。</span><br><span class="line">block= XXXX ： 需要刷写内核的分区，一般是boot。</span><br><span class="line">is_slot_device= ： 填写1开启，0是关闭，auto是自动判断。设备使用是使用AB插槽。一般是VAB分区或者AB分区的则需要开启。</span><br><span class="line">patch_vbmeta_flag= ： 填写1开启，0是关闭，auto是自动判断。是否修补vbmeta来关闭AVB验证。</span><br></pre></td></tr></table></figure>
+
+<p>TWRP刷入</p>
+<h2 id="termux"><a href="#termux" class="headerlink" title="termux"></a>termux</h2><p><a target="_blank" rel="noopener" href="https://github.com/tomxi1997/termux-lxc/releases">termux-lxc</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz/2022/09/14/k30p-lxc-docker/">https://blog.010920.xyz/2022/09/14/k30p-lxc-docker/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.010920.xyz" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/docker/">docker</a><a class="post-meta__tags" href="/tags/kernel/">kernel</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-28349097.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/09/30/calibre-web/" title="自建书库"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-449004.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">自建书库</div></div></a></div><div class="next-post pull-right"><a href="/2022/09/01/programming/C/" title="C语言"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-33695271.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C语言</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/12/25/Linux/docker-iptables/" title="docker-iptables"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-30314241.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-25</div><div class="title">docker-iptables</div></div></a></div><div><a href="/2023/05/30/Linux/docker/" title="Docker"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-415958.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-30</div><div class="title">Docker</div></div></a></div><div><a href="/2023/08/12/Linux/pmOS-kernel/" title="pmOS-kernel"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-459225.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="title">pmOS-kernel</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">内核源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E9%93%BE"><span class="toc-number">2.</span> <span class="toc-text">编译链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">内核配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E4%B8%81"><span class="toc-number">4.</span> <span class="toc-text">补丁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-number">5.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E5%86%85%E6%A0%B8"><span class="toc-number">6.</span> <span class="toc-text">打包内核</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#termux"><span class="toc-number">7.</span> <span class="toc-text">termux</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>

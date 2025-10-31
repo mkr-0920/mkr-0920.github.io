@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Zygisk注入so | Meng's blog</title><meta name="author" content="Meng"><meta name="copyright" content="Meng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Zygisk注入so作为服务端，通用悬浮窗 App 作为客户端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zygisk注入so">
+<meta property="og:url" content="https://blog.010920.xyz/2025/10/03/zygisk-so-inject/index.html">
+<meta property="og:site_name" content="Meng&#39;s blog">
+<meta property="og:description" content="Zygisk注入so作为服务端，通用悬浮窗 App 作为客户端">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34513902.jpeg">
+<meta property="article:published_time" content="2025-10-03T04:14:58.000Z">
+<meta property="article:modified_time" content="2025-10-31T04:40:06.878Z">
+<meta property="article:author" content="Meng">
+<meta property="article:tag" content="zygisk">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34513902.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.010920.xyz/2025/10/03/zygisk-so-inject/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"该文章最后更新于","messageNext":"天前，可能已经过时"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Zygisk注入so',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-10-31 12:40:06'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">79</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">57</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34513902.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Zygisk注入so</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-03T04:14:58.000Z" title="发表于 2025-10-03 12:14:58">2025-10-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-31T04:40:06.878Z" title="更新于 2025-10-31 12:40:06">2025-10-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Zygisk-注入与通用悬浮窗"><a href="#Zygisk-注入与通用悬浮窗" class="headerlink" title="Zygisk 注入与通用悬浮窗"></a>Zygisk 注入与通用悬浮窗</h1><p>在 Android Mod 领域，我们的目标是构建一个强大的注入后端（<code>.so</code>）和一个灵活的 UI 前端（悬浮窗）。一个平庸的设计是将二者紧密耦合，而一个出色的设计，则是我们今天要探讨的：<strong>将 <code>.so</code> 作为“大脑”和服务端，悬浮窗 App 只是一个“空壳”和客户端。</strong></p>
+<p>这一架构的完整原理依赖三个核心组件：</p>
+<ol>
+<li><strong>注入层 (Injector)</strong>: <strong>Magisk Zygisk</strong> 模块，负责将 <code>.so</code> 动态库注入目标应用进程。</li>
+<li><strong>服务端 (Backend)</strong>: 注入的 <strong><code>.so</code> 文件</strong>。它作为“大脑”在应用进程中运行，包含所有 Hook 逻辑，并<strong>作为服务端</strong>监听抽象套接字。</li>
+<li><strong>客户端 (Frontend)</strong>: 一个<strong>通用悬浮窗 App</strong>。它被<strong>手动启动</strong>，对应用一无所知，<strong>作为客户端</strong>连接 <code>.so</code>，并动态请求功能列表来构建 UI。</li>
+</ol>
+<hr>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="什么是-Zygisk-注入？"><a href="#什么是-Zygisk-注入？" class="headerlink" title="什么是 Zygisk 注入？"></a>什么是 Zygisk 注入？</h2><p>与依赖 Xposed&#x2F;LSPosed 在 App 层面进行 Hook 不同，Zygisk 是一种更底层、更强大的注入方式。</p>
+<p><strong>Zygote 是 Android 系统的“应用孵化器”。所有 App 进程都是由 Zygote 进程 fork 出来的。</strong></p>
+<p>Magisk 的 Zygisk 功能，允许我们的自定义代码（一个 Zygisk 模块）在 Zygote 进程中运行。</p>
+<p>我们可以在 Zygote fork 出一个新 App 进程之后，但在该 App 开始执行自己的代码之前（这个时机称为 postAppSpecialize），执行我们的逻辑。</p>
+<p>对于我们的 Mod 需求，这意味着：<strong>当 Zygisk 检测到目标应用即将启动时，它可以立即使用 dlopen 将我们的 <code>my_hook_payload.so</code> 直接加载到应用进程的内存空间中。</strong></p>
+<p>这种注入是原生的、与 App 源码无关的，并且<strong>完全绕过了 App 层的各种 Hook 检测</strong>。</p>
+<hr>
+<h2 id="什么是抽象套接字？"><a href="#什么是抽象套接字？" class="headerlink" title="什么是抽象套接字？"></a>什么是抽象套接字？</h2><p>一旦 <code>.so</code> 成功注入，它就运行在<strong>应用进程</strong>中。而我们的悬浮窗 App 运行在<strong>它自己的进程</strong>中。两者需要跨进程通信 (IPC)。</p>
+<ul>
+<li><strong>传统套接字 (文件系统)</strong>: 比如在 <code>/data/local/tmp/my.sock</code> 创建一个套接字文件。这会立即带来<strong>文件权限</strong>和 <strong>SELinux</strong> 的灾难。应用进程（作为<code>u:r:untrusted_app:s0</code>）几乎不可能有权限访问这个文件，悬浮窗 App 也一样。</li>
+<li><strong>抽象套接字 (Abstract UDS)</strong>: 这是一个关键的 Linux 特性。它的地址<strong>不在文件系统中</strong>，而是存在于一个以<strong>空字节 (<code>\0</code>)</strong> 开头的特殊命名空间中（例如 <code>\0my_mod_socket</code>）。</li>
+</ul>
+<p><strong>使用抽象套接字的优势：</strong></p>
+<ol>
+<li><strong>无视权限</strong>: 因为不落地为文件，我们完全绕过了 Android 复杂的文件权限和沙箱。</li>
+<li><strong>简单高效</strong>: 它是标准的 Socket 编程，在 C++ (<code>.so</code> 端) 和 Java&#x2F;Kotlin (App 端) 都有成熟的 API。</li>
+<li><strong>SELinux 友好</strong>: 进程间使用抽象套接字通信通常被 SELinux 策略所允许（<code>unix_stream_socket connectto</code>）。</li>
+</ol>
+<hr>
+<h2 id="交互设计"><a href="#交互设计" class="headerlink" title="交互设计"></a>交互设计</h2><ul>
+<li><strong>App (客户端) 不重要</strong>：它是一个“哑终端”(Dumb Terminal)，不需要知道目标应用的包名，更不需要知道功能实现的具体细节。它的唯一职责是：<ul>
+<li><ol>
+<li>被用户手动启动。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>启动一个后台服务。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>不断尝试连接一个“约定好”的抽象套接字地址（例如 <code>\0my_mod_socket</code>）。</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>连接成功后，发送一个标准命令：<code>get_features</code>。</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>接收服务端的响应（通常是 JSON），并据此动态生成菜单按钮。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong><code>.so</code> (服务端) 成为一切的核心</strong>：<ul>
+<li><ol>
+<li>被 Zygisk 注入应用进程。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>立即创建、绑定并监听 <code>\0my_mod_socket</code> 地址。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>等待 App 客户端连接。</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>连接成功后，等待来自 App 的命令。</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>当收到 <code>get_features</code> 命令时，它会<strong>立即检查自己所在的应用环境</strong>，并动态构建一个功能列表（例如 <code>[&#123;&quot;id&quot;:&quot;god_mode&quot;, &quot;name&quot;:&quot;上帝模式&quot;&#125;]</code>），将其序列化（如 JSON）并发回给 App。</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>当收到 App 发来的功能启用命令（如 <code>enable:god_mode</code>）时，它才去执行对应的 Hook 或内存修改。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>这种设计实现了<strong>终极解耦</strong>：可以用<strong>同一个悬浮窗 App</strong>，去适配 10 款完全不同的应用，唯一需要修改的只是每款应用对应的 <code>.so</code> 文件。</p>
+<hr>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="服务端-so"><a href="#服务端-so" class="headerlink" title="服务端 (.so)"></a>服务端 (<code>.so</code>)</h2><p><code>.so</code> 必须在新线程中启动其服务，以避免阻塞应用主线程。</p>
+<blockquote>
+<p><strong>逻辑</strong>: 应用启动 -&gt; Zygisk 注入 <code>.so</code> -&gt; <code>.so</code> (如 <code>JNI_OnLoad</code>) 创建一个 <code>pthread</code> -&gt; 在新线程中 <code>socket</code> -&gt; <code>bind</code> -&gt; <code>listen</code> -&gt; <code>accept</code> (阻塞等待 App)。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/un.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们的抽象套接字地址</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span>* SOCKET_NAME = <span class="string">&quot;\0my_mod_socket&quot;</span>;</span><br><span class="line"><span class="type">int</span> g_client_fd = <span class="number">-1</span>; <span class="comment">// 全局保存客户端 FD</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// （示例）序列化我们的功能列表</span></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span>* <span class="title">get_game_features_json</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 实际中，这里会根据当前应用动态构建</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&#123;\&quot;features\&quot;:[&#123;\&quot;id\&quot;:\&quot;demo1\&quot;,\&quot;name\&quot;:\&quot;demo1\&quot;&#125;,&#123;\&quot;id\&quot;:\&quot;demo2\&quot;,\&quot;name\&quot;:\&quot;demo2\&quot;&#125;]&#125;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Socket 线程的主函数</span></span><br><span class="line"><span class="function"><span class="type">void</span>* <span class="title">socket_server_thread</span><span class="params">(<span class="type">void</span>* arg)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> server_fd = <span class="built_in">socket</span>(AF_UNIX, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// ... 错误检查 ...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_un</span> addr;</span><br><span class="line">    <span class="built_in">memset</span>(&amp;addr, <span class="number">0</span>, <span class="built_in">sizeof</span>(addr));</span><br><span class="line">    addr.sun_family = AF_UNIX;</span><br><span class="line">    <span class="comment">// 核心：设置抽象命名空间。注意 memcpy 长度要包含开头的 &#x27;\0&#x27;</span></span><br><span class="line">    <span class="built_in">memcpy</span>(&amp;addr.sun_path, SOCKET_NAME, <span class="built_in">strlen</span>(SOCKET_NAME) + <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 绑定，注意 sizeof(addr) 是错的，要精确计算长度</span></span><br><span class="line">    <span class="type">int</span> len = <span class="built_in">sizeof</span>(<span class="type">sa_family_t</span>) + <span class="built_in">strlen</span>(SOCKET_NAME) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">bind</span>(server_fd, (<span class="keyword">struct</span> sockaddr*)&amp;addr, len) == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="comment">// LOGE(&quot;SO-Server: 绑定失败&quot;);</span></span><br><span class="line">        <span class="built_in">close</span>(server_fd);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">listen</span>(server_fd, <span class="number">1</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="comment">// LOGE(&quot;SO-Server: 监听失败&quot;);</span></span><br><span class="line">        <span class="built_in">close</span>(server_fd);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// LOGD(&quot;SO-Server: 在 %s 上监听，等待 App 客户端...&quot;, SOCKET_NAME);</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 循环接受连接（允许客户端断开后重连）</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        g_client_fd = <span class="built_in">accept</span>(server_fd, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">        <span class="keyword">if</span> (g_client_fd == <span class="number">-1</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>; <span class="comment">// 接受失败，继续下一次循环</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// LOGI(&quot;SO-Server: 客户端 (App) 已连接!&quot;);</span></span><br><span class="line">        </span><br><span class="line">        <span class="type">char</span> buffer[<span class="number">1024</span>];</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="built_in">memset</span>(buffer, <span class="number">0</span>, <span class="built_in">sizeof</span>(buffer));</span><br><span class="line">            <span class="type">int</span> read_bytes = <span class="built_in">read</span>(g_client_fd, buffer, <span class="built_in">sizeof</span>(buffer) - <span class="number">1</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (read_bytes &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// LOGW(&quot;SO-Server: 客户端断开连接&quot;);</span></span><br><span class="line">                <span class="built_in">close</span>(g_client_fd);</span><br><span class="line">                g_client_fd = <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">break</span>; <span class="comment">// 客户端断开，跳出内层循环，等待新连接</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// LOGD(&quot;SO-Server: 收到命令: %s&quot;, buffer);</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">// ★ 核心协议：响应 &quot;get_features&quot;</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">strncmp</span>(buffer, <span class="string">&quot;get_features&quot;</span>, <span class="number">12</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="type">const</span> <span class="type">char</span>* features = <span class="built_in">get_game_features_json</span>();</span><br><span class="line">                <span class="built_in">write</span>(g_client_fd, features, <span class="built_in">strlen</span>(features));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// ... 处理其他命令，例如 &quot;enable:god_mode&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">close</span>(server_fd);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Zygisk 注入后调用的主函数</span></span><br><span class="line"><span class="comment">// (或 JNI_OnLoad, 或构造函数)</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InitializeHooks</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">pthread_t</span> tid;</span><br><span class="line">    <span class="built_in">pthread_create</span>(&amp;tid, <span class="literal">NULL</span>, socket_server_thread, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="客户端-App"><a href="#客户端-App" class="headerlink" title="客户端 (App)"></a>客户端 (App)</h2><p>App 被用户<strong>手动启动</strong>。它不知道应用是否已运行，所以它必须<strong>不断尝试连接</strong>。</p>
+<blockquote>
+<p><strong>逻辑</strong>: 用户手动启动 App -&gt; <code>FloatingWindowService</code> 启动 -&gt; 在后台线程中<strong>进入 <code>while(true)</code> 循环</strong> -&gt; <code>connect</code> -&gt; 失败则 <code>sleep(2)</code> 并重试 -&gt; 成功则跳出循环 -&gt; 发送 <code>get_features</code> -&gt; 接收 JSON -&gt; 动态构建 UI。</p>
+</blockquote>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.net.LocalSocket</span><br><span class="line"><span class="keyword">import</span> android.net.LocalSocketAddress</span><br><span class="line"><span class="keyword">import</span> android.util.Log</span><br><span class="line"><span class="keyword">import</span> java.io.IOException</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FloatingWindowService</span> : <span class="type">Service</span>() &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 约定好的地址，Java/Kotlin API 自动处理开头的 \0</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> SOCKET_NAME = <span class="string">&quot;my_mod_socket&quot;</span> </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> socket: LocalSocket? = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> TAG = <span class="string">&quot;MyMod_Client&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate()</span><br><span class="line">        <span class="comment">// ... 创建悬浮窗 UI 骨架 ...</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 启动连接线程</span></span><br><span class="line">        connectToSocketServer();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">connectToSocketServer</span><span class="params">()</span></span> &#123;</span><br><span class="line">        Thread &#123;</span><br><span class="line">            <span class="comment">// ★ 核心：连接重试循环</span></span><br><span class="line">            <span class="comment">// 这是处理“App 先于应用启动”这一竞态条件的关键</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123; </span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    socket = LocalSocket()</span><br><span class="line">                    <span class="keyword">val</span> socketAddress = LocalSocketAddress(SOCKET_NAME, LocalSocketAddress.Namespace.ABSTRACT)</span><br><span class="line">                    </span><br><span class="line">                    Log.d(TAG, <span class="string">&quot;App-Client: 尝试连接 SO-Server...&quot;</span>)</span><br><span class="line">                    socket!!.connect(socketAddress)</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment">// ★ 连接成功！</span></span><br><span class="line">                    Log.i(TAG, <span class="string">&quot;App-Client: 已连接到 SO-Server!&quot;</span>)</span><br><span class="line">                    requestFeatures()</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment">// (在这里可以启动一个读取线程，持续监听来自 SO 的主动推送)</span></span><br><span class="line">                    </span><br><span class="line">                    <span class="keyword">break</span>; <span class="comment">// 成功后跳出重试循环</span></span><br><span class="line">                    </span><br><span class="line">                &#125; <span class="keyword">catch</span> (e: IOException) &#123;</span><br><span class="line">                    <span class="comment">// 连接失败 (应用未启动或 SO 未就绪)</span></span><br><span class="line">                    Log.w(TAG, <span class="string">&quot;App-Client: 连接失败，2秒后重试...&quot;</span>)</span><br><span class="line">                    socket?.close()</span><br><span class="line">                    Thread.sleep(<span class="number">2000</span>) <span class="comment">// 等待 2 秒重试</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 连接成功后，立即请求功能列表</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">requestFeatures</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (socket == <span class="literal">null</span> || !socket!!.isConnected) <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        Thread &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 1. 发送 &quot;get_features&quot; 命令</span></span><br><span class="line">                socket!!.outputStream.write(<span class="string">&quot;get_features&quot;</span>.toByteArray())</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 2. 读取响应</span></span><br><span class="line">                <span class="keyword">val</span> buffer = ByteArray(<span class="number">4096</span>)</span><br><span class="line">                <span class="keyword">val</span> readBytes = socket!!.inputStream.read(buffer)</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (readBytes &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">val</span> featuresJson = String(buffer, <span class="number">0</span>, readBytes)</span><br><span class="line">                    Log.i(TAG, <span class="string">&quot;App-Client: 收到功能列表: <span class="variable">$featuresJson</span>&quot;</span>)</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment">// 3. (在主线程) 解析 JSON 并动态构建 UI</span></span><br><span class="line">                    <span class="comment">// runOnUiThread &#123; buildMenuFromJson(featuresJson) &#125;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (e: IOException) &#123;</span><br><span class="line">                Log.e(TAG, <span class="string">&quot;App-Client: 通信错误&quot;</span>, e)</span><br><span class="line">                <span class="comment">// (此处应触发重连逻辑)</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>请自行使用<code>android studio</code>开发悬浮窗，设计控件等</strong></p>
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz/2025/10/03/zygisk-so-inject/">https://blog.010920.xyz/2025/10/03/zygisk-so-inject/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.010920.xyz" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/zygisk/">zygisk</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34513902.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/09/21/Linux/Linux-permissions/" title="Linux权限"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-33979490.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Linux权限</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Zygisk-%E6%B3%A8%E5%85%A5%E4%B8%8E%E9%80%9A%E7%94%A8%E6%82%AC%E6%B5%AE%E7%AA%97"><span class="toc-number">1.</span> <span class="toc-text">Zygisk 注入与通用悬浮窗</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Zygisk-%E6%B3%A8%E5%85%A5%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">什么是 Zygisk 注入？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8A%BD%E8%B1%A1%E5%A5%97%E6%8E%A5%E5%AD%97%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">什么是抽象套接字？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E4%BA%92%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.3.</span> <span class="toc-text">交互设计</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5"><span class="toc-number">3.</span> <span class="toc-text">实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF-so"><span class="toc-number">3.1.</span> <span class="toc-text">服务端 (.so)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF-App"><span class="toc-number">3.2.</span> <span class="toc-text">客户端 (App)</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>

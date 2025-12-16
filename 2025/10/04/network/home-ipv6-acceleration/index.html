@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34509418.jpeg">
 <meta property="article:published_time" content="2025-10-04T05:41:27.000Z">
-<meta property="article:modified_time" content="2025-11-24T15:03:32.028Z">
+<meta property="article:modified_time" content="2025-11-27T08:37:42.703Z">
 <meta property="article:author" content="Meng">
 <meta property="article:tag" content="ipv6">
 <meta name="twitter:card" content="summary">
@@ -56,7 +56,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2025-11-24 23:03:32'
+  postUpdate: '2025-11-27 16:37:42'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -153,7 +153,7 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">86</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34509418.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">加速访问你家宽的公网IPv6服务</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-04T05:41:27.000Z" title="发表于 2025-10-04 13:41:27">2025-10-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-24T15:03:32.028Z" title="更新于 2025-11-24 23:03:32">2025-11-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/network/">network</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>越来越多的人拥有了公网 IPv6 地址，这为在家中搭建各种服务（如网站、NAS、媒体服务器）提供了极大便利。通过 DDNS（动态域名服务），我们可以将一个固定的域名指向动态变化的家庭 IPv6 地址。</p>
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34509418.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">加速访问你家宽的公网IPv6服务</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-04T05:41:27.000Z" title="发表于 2025-10-04 13:41:27">2025-10-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-27T08:37:42.703Z" title="更新于 2025-11-27 16:37:42">2025-11-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/network/">network</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>越来越多的人拥有了公网 IPv6 地址，这为在家中搭建各种服务（如网站、NAS、媒体服务器）提供了极大便利。通过 DDNS（动态域名服务），我们可以将一个固定的域名指向动态变化的家庭 IPv6 地址。</p>
 <p>然而，理想很丰满，现实很骨感。受限于运营商、跨网访问、国际出口等因素，直接访问家中的 IPv6 服务常常体验不佳：<strong>速度慢、延迟高、甚至时好时坏</strong>。</p>
 <p>本文将详细探讨几种加速方案，从易到难，彻底优化家庭服务器访问体验。</p>
 <p><strong>基本前提</strong></p>
@@ -165,7 +165,7 @@
 <li><strong>域名</strong>：你拥有一个属于自己的域名。</li>
 </ol>
 <hr>
-<h1 id="方案一：CDN-加速"><a href="#方案一：CDN-加速" class="headerlink" title="方案一：CDN 加速"></a>方案一：CDN 加速</h1><p>这是最简单、最常用，也是效果最立竿见影的方案，尤其适用于 <strong>Web 服务</strong>（网站、博客、API 等）。我们将使用 Cloudflare 作为示例，因为它免费。</p>
+<h1 id="方案一：CDN-加速"><a href="#方案一：CDN-加速" class="headerlink" title="方案一：CDN 加速"></a>方案一：CDN 加速</h1><p>这是最简单、最常用，也是效果最立竿见影的方案，尤其适用于 <strong>Web 服务</strong>（网站、博客、API 等）。我们将使用 Cloudflare 作为示例，因为免费。</p>
 <h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p>CDN（内容分发网络）在全球有许多边缘节点。当用户访问你的域名时：</p>
 <ol>
 <li>用户的请求被解析到<strong>最近的 Cloudflare 边缘节点</strong>。</li>
@@ -220,8 +220,8 @@
 </li>
 </ul>
 <hr>
-<h1 id="方案二：Nginx-HTTP-3-QUIC"><a href="#方案二：Nginx-HTTP-3-QUIC" class="headerlink" title="方案二：Nginx + HTTP&#x2F;3 (QUIC)"></a>方案二：Nginx + HTTP&#x2F;3 (QUIC)</h1><p>此方案是一种<strong>协议层优化</strong>，它并不能解决运营商路由不佳的问题，但可以<strong>极大改善在不稳定、高延迟网络下的 Web 访问体验</strong>。它可以与方案一（Cloudflare）<strong>叠加使用</strong>。</p>
-<h2 id="工作原理-1"><a href="#工作原理-1" class="headerlink" title="工作原理"></a>工作原理</h2><p>HTTP&#x2F;3 是 HTTP 协议的最新版本，它基于 <strong>QUIC</strong> 协议，而 QUIC 运行在 <strong>UDP</strong> 之上。</p>
+<h1 id="方案二：Nginx-HTTP-3-QUIC"><a href="#方案二：Nginx-HTTP-3-QUIC" class="headerlink" title="方案二：Nginx + HTTP&#x2F;3 (QUIC)"></a>方案二：Nginx + HTTP&#x2F;3 (QUIC)</h1><p>此方案是一种<strong>协议层优化</strong>，并不能解决运营商路由不佳的问题，但可以<strong>极大改善在不稳定、高延迟网络下的 Web 访问体验</strong>。可以与方案一（Cloudflare）<strong>叠加使用</strong>。</p>
+<h2 id="工作原理-1"><a href="#工作原理-1" class="headerlink" title="工作原理"></a>工作原理</h2><p>HTTP&#x2F;3 是 HTTP 协议的最新版本，基于 <strong>QUIC</strong> 协议，而 QUIC 运行在 <strong>UDP</strong> 之上。</p>
 <ul>
 <li><strong>解决队头阻塞</strong>：传统的 HTTP&#x2F;2 基于 TCP，如果一个 TCP 包丢失，整个连接都必须等待重传。QUIC 在 UDP 上实现了多路复用，一个流（比如一个图片）的丢包不会阻塞其他流（比如 CSS）。</li>
 <li><strong>更快的连接建立</strong>：QUIC 支持 0-RTT 连接建立，访问过的网站几乎可以瞬时加载。</li>
@@ -263,7 +263,7 @@
 </li>
 </ul>
 <hr>
-<h1 id="方案三：Hysteria-2-私有协议加速"><a href="#方案三：Hysteria-2-私有协议加速" class="headerlink" title="方案三：Hysteria 2 (私有协议加速)"></a>方案三：Hysteria 2 (私有协议加速)</h1><p>这是一个“重武器”。Hysteria 2 是一种基于 QUIC 的代理协议，专为<strong>高延迟、高丢包的恶劣网络环境</strong>设计。它不是用来做公共网站的，而是用来<strong>加速你个人对所有服务（Web, SSH, RDP…）的访问</strong>。</p>
+<h1 id="方案三：Hysteria-2-私有协议加速"><a href="#方案三：Hysteria-2-私有协议加速" class="headerlink" title="方案三：Hysteria 2 (私有协议加速)"></a>方案三：Hysteria 2 (私有协议加速)</h1><p>这是一个“重武器”。Hysteria 2 是一种基于 QUIC 的代理协议，专为<strong>高延迟、高丢包的恶劣网络环境</strong>设计。不是用来做公共网站的，而是用来<strong>加速你个人对所有服务（Web, SSH, RDP…）的访问</strong>。</p>
 <h2 id="工作原理-2"><a href="#工作原理-2" class="headerlink" title="工作原理"></a>工作原理</h2><p>你将家里的服务器搭建为 Hysteria 2 <strong>服务端</strong>。在你的<strong>客户端</strong>设备（电脑、手机）上运行 Hysteria 2 <strong>客户端</strong>。</p>
 <p>Hysteria 2 使用一种<strong>激进的拥塞控制算法</strong>，在丢包率高达 30-40% 的网络上依然能“榨干”带宽。</p>
 <p>标准用法：</p>
@@ -315,14 +315,14 @@
 </li>
 </ul>
 <hr>
-<h1 id="方案四：Zero-Config-P2P-覆盖网络-Tailscale-ZeroTier"><a href="#方案四：Zero-Config-P2P-覆盖网络-Tailscale-ZeroTier" class="headerlink" title="方案四：Zero-Config P2P 覆盖网络 (Tailscale &#x2F; ZeroTier)"></a>方案四：Zero-Config P2P 覆盖网络 (Tailscale &#x2F; ZeroTier)</h1><p>适用于<strong>个人私有服务</strong>的访问。它不追求极限加速，但追求<strong>最稳定、最简单的 P2P（点对点）直连</strong>。</p>
+<h1 id="方案四：Zero-Config-P2P-覆盖网络-Tailscale-ZeroTier"><a href="#方案四：Zero-Config-P2P-覆盖网络-Tailscale-ZeroTier" class="headerlink" title="方案四：Zero-Config P2P 覆盖网络 (Tailscale &#x2F; ZeroTier)"></a>方案四：Zero-Config P2P 覆盖网络 (Tailscale &#x2F; ZeroTier)</h1><p>适用于<strong>个人私有服务</strong>的访问。不追求极限加速，但追求<strong>最稳定、最简单的 P2P（点对点）直连</strong>。</p>
 <h2 id="工作原理-3"><a href="#工作原理-3" class="headerlink" title="工作原理"></a>工作原理</h2><p>Tailscale（基于 WireGuard）或 ZeroTier 都是“虚拟组网”工具。</p>
 <ol>
 <li>你在所有设备上（家庭服务器、笔记本电脑、手机）安装 Tailscale 客户端并登录同一账号。</li>
 <li>所有这些设备会“神奇”地出现在一个虚拟的局域网中（例如 <code>100.x.x.x</code> 网段）。</li>
 <li>Tailscale 会想尽一切办法为你建立 <strong>P2P 直连</strong>。</li>
 <li><strong>关键</strong>：当你的家庭服务器和你的笔记本电脑都有公网 IPv6 时，Tailscale 几乎 <strong>100%</strong> 可以建立 <strong>IPv6-to-IPv6 的 P2P 直连</strong>。这绕过了所有运营商的奇葩路由，是<strong>理论上最快的路径</strong>。</li>
-<li>如果 P2P 失败（例如在严格的 NAT v4 网络下），它会自动通过 DERP 中继服务器转发，保证连通性。</li>
+<li>如果 P2P 失败（例如在严格的 NAT v4 网络下），会自动通过 DERP 中继服务器转发，保证连通性。</li>
 </ol>
 <h2 id="详细步骤-3"><a href="#详细步骤-3" class="headerlink" title="详细步骤"></a>详细步骤</h2><ol>
 <li><strong>注册账号</strong>：访问 Tailscale 官网，使用 Google&#x2F;Microsoft&#x2F;GitHub 账号注册。</li>
@@ -339,7 +339,7 @@
 </li>
 <li><strong>访问</strong>：<ul>
 <li>进入 Tailscale 的 Admin Console (Web 界面)。</li>
-<li>你会看到你的家庭服务器，它有一个固定的 <code>100.x.x.x</code> IP 和一个机器名（如 <code>my-server</code>）。</li>
+<li>你会看到你的家庭服务器，有一个固定的 <code>100.x.x.x</code> IP 和一个机器名（如 <code>my-server</code>）。</li>
 <li><strong>你现在可以直接通过这个 <code>100.x.x.x</code> IP 或机器名 <code>my-server</code> 访问你家里的服务</strong>，例如 <code>ssh user@my-server</code> 或 <code>http://my-server:8080</code>。</li>
 <li>DDNS 都不需要了（对于私有访问而言）。</li>
 </ul>

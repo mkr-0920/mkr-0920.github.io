@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>借壳上市：利用 CE 官方驱动 (DBK64) 加载未签名驱动原理分析 | Meng's blog</title><meta name="author" content="Meng"><meta name="copyright" content="Meng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="利用CE的DBK驱动加载未签名驱动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="借壳上市：利用 CE 官方驱动 (DBK64) 加载未签名驱动原理分析">
+<meta property="og:url" content="https://blog.010920.xyz/2025/12/03/Reverse/CECheater/index.html">
+<meta property="og:site_name" content="Meng&#39;s blog">
+<meta property="og:description" content="利用CE的DBK驱动加载未签名驱动">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg">
+<meta property="article:published_time" content="2025-12-03T06:00:00.000Z">
+<meta property="article:modified_time" content="2025-12-03T11:21:48.065Z">
+<meta property="article:author" content="Meng">
+<meta property="article:tag" content="CE">
+<meta property="article:tag" content="BYOVD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.010920.xyz/2025/12/03/Reverse/CECheater/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"该文章最后更新于","messageNext":"天前，可能已经过时"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '借壳上市：利用 CE 官方驱动 (DBK64) 加载未签名驱动原理分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-03 19:21:48'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">借壳上市：利用 CE 官方驱动 (DBK64) 加载未签名驱动原理分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-03T06:00:00.000Z" title="发表于 2025-12-03 14:00:00">2025-12-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-03T11:21:48.065Z" title="更新于 2025-12-03 19:21:48">2025-12-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>在折腾内核驱动加载的时候，不想花几百刀去买 EV 证书，又不想每次都开测试模式（TestSigning）。这年头，<strong>BYOVD (Bring Your Own Vulnerable Driver)</strong> 几乎是标准操作了。大家最熟悉的一般是 <code>kdmapper</code> 利用那个著名的 Intel 网卡驱动漏洞。</p>
+<p>但其实 Cheat Engine (CE) 自带的那个 <code>dbk64.sys</code> 也是个狠角色。它本身是签了名的合法驱动，但为了给 CE 提供强大的内存修改功能，它暴露出来的 IOCTL 接口简直就是给黑客留的后门。</p>
+<p>今天就来扒一扒 <strong>CECheater</strong> 这个项目，看看它是怎么“借”用 DBK 驱动，把我们自己的未签名驱动（Payload）强行塞进内核并跑起来的。</p>
+<h2 id="核心原理：它是怎么“偷渡”的？"><a href="#核心原理：它是怎么“偷渡”的？" class="headerlink" title="核心原理：它是怎么“偷渡”的？"></a>核心原理：它是怎么“偷渡”的？</h2><p>简单来说，Windows 给了 <code>dbk64.sys</code> 一张合法的“门禁卡”（数字签名）。CECheater 不需要自己进门，而是把 Payload 递给已经进门的 DBK，让 DBK 在里面帮我们办事。</p>
+<p>整个流程可以拆解为这几步：</p>
+<ol>
+<li><strong>加载工具人</strong>：先把正版 <code>dbk64.sys</code> 加载起来。</li>
+<li><strong>申请地皮</strong>：利用 DBK 的接口在内核里申请一块内存（RWX 权限）。</li>
+<li>**手动映射 (Manual Map)**：把我们的未签名驱动文件（.sys），像拼图一样手动在用户层解析好，填到刚才申请的内核内存里。</li>
+<li><strong>执行入口</strong>：再利用 DBK 的执行接口，跳转到我们驱动的 <code>DriverEntry</code>。</li>
+</ol>
+<p>下面结合源码细节通过去分析。</p>
+<h2 id="1-搞定“工具人”-DBK-驱动加载"><a href="#1-搞定“工具人”-DBK-驱动加载" class="headerlink" title="1. 搞定“工具人” (DBK 驱动加载)"></a>1. 搞定“工具人” (DBK 驱动加载)</h2><p><code>dbk64.sys</code> 比较矫情，它不像普通驱动直接 <code>SC create</code> 就能跑，它启动时会检查注册表里的一堆配置。</p>
+<p>在 <code>DBKControl.cpp</code> 里可以看到，加载前必须手动伪造这些注册表项：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 伪造服务注册表项</span></span><br><span class="line">std::wstring subKey = <span class="built_in">Format</span>(<span class="string">L&quot;SYSTEM\\CurrentControlSet\\Services\\%ws&quot;</span>, DBK_SERVICE_NAME);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="built_in">RegSetValueEx</span>(hKey, <span class="string">L&quot;A&quot;</span>, <span class="number">0</span>, REG_SZ, ...); <span class="comment">// \Device\DBK64</span></span><br><span class="line"><span class="built_in">RegSetValueEx</span>(hKey, <span class="string">L&quot;B&quot;</span>, <span class="number">0</span>, REG_SZ, ...); <span class="comment">// \DosDevices\DBK64</span></span><br><span class="line"><span class="built_in">RegSetValueEx</span>(hKey, <span class="string">L&quot;C&quot;</span>, <span class="number">0</span>, REG_SZ, ...); <span class="comment">// \BaseNamedObjects\DBKProcList60</span></span><br><span class="line">````</span><br><span class="line"></span><br><span class="line">如果这些 A、B、C、D 键值不对，驱动就会加载失败。加载成功后，我们就能拿到 `\\.\DBK64` 的句柄，开始发号施令了。</span><br><span class="line"></span><br><span class="line">## <span class="number">2</span>\. 内核借地 (Allocation)</span><br><span class="line"></span><br><span class="line">有了句柄，第一件事是找内核要内存。这里用到了 IOCTL `IOCTL_CE_ALLOCATEMEM_NONPAGED` (<span class="number">0x0826</span>)。</span><br><span class="line"></span><br><span class="line">在 `IOCtlCode.h` 里可以看到 CE 暴露了多少危险功能：</span><br><span class="line"></span><br><span class="line">```cpp</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> IOCTL_CE_READMEMORY        CTL_CODE(..., 0x0800, ...)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> IOCTL_CE_WRITEMEMORY       CTL_CODE(..., 0x0801, ...)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> IOCTL_CE_EXECUTE_CODE      CTL_CODE(..., 0x083c, ...) <span class="comment">// 重点是这个</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> IOCTL_CE_ALLOCATEMEM_NONPAGED CTL_CODE(..., 0x0826, ...)</span></span><br></pre></td></tr></table></figure>
+
+<p>通过 <code>DBK_AllocNonPagedMem</code> 函数，我们在内核非分页池（NonPagedPool）中拿到了一块带有执行权限的内存地址 <code>pKernelImage</code>。这就是我们 Payload 的新家。</p>
+<h2 id="3-手动映射-The-Hard-Part"><a href="#3-手动映射-The-Hard-Part" class="headerlink" title="3. 手动映射 (The Hard Part)"></a>3. 手动映射 (The Hard Part)</h2><p>这一步是整个项目的核心。因为我们不是通过系统加载器（OS Loader）加载驱动，所以 PE 文件里的所有地址都是错的，导入表也是空的。我们必须手动干系统加载器的活。</p>
+<p>代码主要在 <code>MemLoadDriver.cpp</code> 的 <code>DBK_LoadMyDriver</code> 函数中。</p>
+<h3 id="修复重定位-Fix-Relocation"><a href="#修复重定位-Fix-Relocation" class="headerlink" title="修复重定位 (Fix Relocation)"></a>修复重定位 (Fix Relocation)</h3><p>驱动编译时的基址（ImageBase）和我们在内核申请到的地址肯定不一样。<br><code>FixRelocation</code> 函数会遍历 PE 的重定位表，计算出偏移量 <code>delta</code>，然后把代码里所有硬编码的绝对地址都修正过来。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算偏移</span></span><br><span class="line">ULONG_PTR llDelta = (ULONG_PTR)pBaseAddress - pImageNtHeaders-&gt;OptionalHeader.ImageBase;</span><br><span class="line"><span class="comment">// 遍历 Block 修改地址...</span></span><br><span class="line">*(PULONG_PTR)<span class="built_in">CONVERT_RVA</span>(...) += llDelta;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修复导入表-Fix-Imports"><a href="#修复导入表-Fix-Imports" class="headerlink" title="修复导入表 (Fix Imports)"></a>修复导入表 (Fix Imports)</h3><p>我们的驱动可能会调用 <code>ntoskrnl.exe</code> 里的 <code>DbgPrint</code> 或者 <code>PsCreateSystemThread</code>。系统加载时会自动填好这些函数地址，但现在必须手动填。</p>
+<p><code>FixImports</code> 函数通过 <code>GetDriverAddress</code>（获取内核模块基址）和 <code>GetDriverExportFuncByName</code>（解析导出表）来找到这些函数的真实内核地址，并填入我们驱动的 IAT 表中。</p>
+<p>这一步做完，把处理好的 PE 镜像通过 <code>DBK_WriteProcessMem</code> 写入刚才申请的内核内存中，驱动就“就位”了。</p>
+<h2 id="4-激活-Execution"><a href="#4-激活-Execution" class="headerlink" title="4. 激活 (Execution)"></a>4. 激活 (Execution)</h2><p>最后一步是让 CPU 跳过去执行我们的 <code>DriverEntry</code>。</p>
+<p>这里有个很有意思的设计。<code>MemLoadDriver.cpp</code> 里准备了两段 Shellcode：</p>
+<ol>
+<li>**<code>shellcode_CallIoCreateDriver</code>**：这段 Shellcode 会模拟调用 <code>IoCreateDriver</code>。这会让我们的未签名驱动在内核对象管理器里注册一个合法的 <code>DriverObject</code>。这对于需要处理 IOCTL 的复杂驱动来说是必须的。</li>
+<li>**<code>shellcode_JmpDriverEntry</code>**：简单粗暴，直接 <code>jmp</code> 到入口点。适合那种跑完就退的测试驱动。</li>
+</ol>
+<p>最后通过 <code>DBK_ExecuteCode</code> 发送 IOCTL，DBK 驱动会在内核态执行这段 Shellcode，从而拉起我们的 Payload。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构造 Shellcode 并让 DBK 执行</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">DBK_ExecuteCode</span>((UINT64)pKernelShellcode)) &#123;</span><br><span class="line">    <span class="built_in">LOG</span>(<span class="string">&quot;DBK_ExecuteCode failed&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实战踩坑记录-重点！"><a href="#实战踩坑记录-重点！" class="headerlink" title="实战踩坑记录 (重点！)"></a>实战踩坑记录 (重点！)</h2><p>原理听起来简单，但实操起来全是坑。如果你直接写个驱动扔进去，99% 会蓝屏或者没反应。以下是我调试时遇到的几个关键点：</p>
+<h3 id="1-必须禁用缓冲区安全检查-GS"><a href="#1-必须禁用缓冲区安全检查-GS" class="headerlink" title="1. 必须禁用缓冲区安全检查 (/GS-)"></a>1. 必须禁用缓冲区安全检查 (<code>/GS-</code>)</h3><p>这是最容易被忽视的。VS 默认开启 <code>/GS</code>，编译器会在函数入口插入 <code>__security_init_cookie</code>。<br>但是！手动映射的驱动<strong>没人帮你初始化这个 Cookie</strong>。驱动一跑，Cookie 检查失败，直接自爆。<br><strong>解决：</strong> 在 <code>CMakeLists.txt</code> 或 VS 属性里，务必加上 <code>/GS-</code>。</p>
+<h3 id="2-入口点必须是-DriverEntry"><a href="#2-入口点必须是-DriverEntry" class="headerlink" title="2. 入口点必须是 DriverEntry"></a>2. 入口点必须是 <code>DriverEntry</code></h3><p>如果你用 KMDF 框架，入口点其实是 <code>FxDriverEntry</code>；如果你开了 <code>/GS</code>，入口点是 <code>GsDriverEntry</code>。这俩都需要环境支持，手动映射搞不定。<br><strong>解决：</strong> 强制链接器选项 <code>/ENTRY:DriverEntry</code>，把那些初始化壳子全扒掉。</p>
+<h3 id="3-“僵尸驱动”-问题"><a href="#3-“僵尸驱动”-问题" class="headerlink" title="3. “僵尸驱动” 问题"></a>3. “僵尸驱动” 问题</h3><p>如果你用 <code>IoCreateDriver</code> 方式加载，驱动会注册一个设备名（如 <code>\Device\MyDriver</code>）。如果你调试时驱动崩了或者没卸载干净，第二次加载时 <code>IoCreateDriver</code> 会因为<strong>名字冲突</strong>直接返回失败，导致你以为代码没执行，其实是入口都没进去。<br><strong>解决：</strong> 调试阶段改个驱动名再加载，或者确保卸载干净。</p>
+<h3 id="4-虚假的-Win11-兼容性"><a href="#4-虚假的-Win11-兼容性" class="headerlink" title="4. 虚假的 Win11 兼容性"></a>4. 虚假的 Win11 兼容性</h3><p>虽然项目声称支持 Win11，但如果开了 **HVCI (内核隔离)**，DBK 申请 RWX 内存的操作可能会失败，或者执行时被拦截。要在 Win11 上顺畅玩耍，最好先关掉内核隔离，或者在编译时加上 <code>/guard:cf-</code> 禁用控制流保护。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>CECheater 本质上就是把 Cheat Engine 当作了一个通过合法签名的“加载器”。相比于利用漏洞（Exploit）的 kdmapper，这种方式利用的是 Feature，相对稳定一些，但反作弊（EAC&#x2F;BE）对 <code>dbk64.sys</code> 的监控也更严。</p>
+<p>对于驱动开发学习者来说，研究这个项目的代码（特别是 PE 解析和 Shellcode 构造部分）比单纯跑通一个 Demo 要有价值得多。</p>
+<hr>
+<p><em>本文代码参考自 CECheater 项目源码及调试日志。仅供安全研究，请勿用于非法用途。</em></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz/2025/12/03/Reverse/CECheater/">https://blog.010920.xyz/2025/12/03/Reverse/CECheater/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.010920.xyz" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CE/">CE</a><a class="post-meta__tags" href="/tags/BYOVD/">BYOVD</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/11/30/Reverse/kdmapper-dbk64/" title="使用 kdmapper 手动映射 CE 驱动 dbk64"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用 kdmapper 手动映射 CE 驱动 dbk64</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2025/08/01/Reverse/UndetectedCE/" title="Undetected Cheat Engine"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/Cheat_Engine_Logo.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-01</div><div class="title">Undetected Cheat Engine</div></div></a></div><div><a href="/2025/11/30/Reverse/kdmapper-dbk64/" title="使用 kdmapper 手动映射 CE 驱动 dbk64"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-30</div><div class="title">使用 kdmapper 手动映射 CE 驱动 dbk64</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%EF%BC%9A%E5%AE%83%E6%98%AF%E6%80%8E%E4%B9%88%E2%80%9C%E5%81%B7%E6%B8%A1%E2%80%9D%E7%9A%84%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">核心原理：它是怎么“偷渡”的？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%90%9E%E5%AE%9A%E2%80%9C%E5%B7%A5%E5%85%B7%E4%BA%BA%E2%80%9D-DBK-%E9%A9%B1%E5%8A%A8%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">1. 搞定“工具人” (DBK 驱动加载)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%89%8B%E5%8A%A8%E6%98%A0%E5%B0%84-The-Hard-Part"><span class="toc-number">3.</span> <span class="toc-text">3. 手动映射 (The Hard Part)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E9%87%8D%E5%AE%9A%E4%BD%8D-Fix-Relocation"><span class="toc-number">3.1.</span> <span class="toc-text">修复重定位 (Fix Relocation)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E5%AF%BC%E5%85%A5%E8%A1%A8-Fix-Imports"><span class="toc-number">3.2.</span> <span class="toc-text">修复导入表 (Fix Imports)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%BF%80%E6%B4%BB-Execution"><span class="toc-number">4.</span> <span class="toc-text">4. 激活 (Execution)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95-%E9%87%8D%E7%82%B9%EF%BC%81"><span class="toc-number">5.</span> <span class="toc-text">实战踩坑记录 (重点！)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%BF%85%E9%A1%BB%E7%A6%81%E7%94%A8%E7%BC%93%E5%86%B2%E5%8C%BA%E5%AE%89%E5%85%A8%E6%A3%80%E6%9F%A5-GS"><span class="toc-number">5.1.</span> <span class="toc-text">1. 必须禁用缓冲区安全检查 (&#x2F;GS-)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%A5%E5%8F%A3%E7%82%B9%E5%BF%85%E9%A1%BB%E6%98%AF-DriverEntry"><span class="toc-number">5.2.</span> <span class="toc-text">2. 入口点必须是 DriverEntry</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E2%80%9C%E5%83%B5%E5%B0%B8%E9%A9%B1%E5%8A%A8%E2%80%9D-%E9%97%AE%E9%A2%98"><span class="toc-number">5.3.</span> <span class="toc-text">3. “僵尸驱动” 问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%99%9A%E5%81%87%E7%9A%84-Win11-%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-number">5.4.</span> <span class="toc-text">4. 虚假的 Win11 兼容性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>

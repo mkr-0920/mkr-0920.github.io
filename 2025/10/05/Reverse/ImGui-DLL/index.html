@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34571722.jpeg">
 <meta property="article:published_time" content="2025-10-05T07:28:44.000Z">
-<meta property="article:modified_time" content="2025-11-04T08:11:34.444Z">
+<meta property="article:modified_time" content="2025-12-08T15:34:27.659Z">
 <meta property="article:author" content="Meng">
 <meta property="article:tag" content="DLL">
 <meta property="article:tag" content="ImGui">
@@ -57,7 +57,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2025-11-04 16:11:34'
+  postUpdate: '2025-12-08 23:34:27'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -154,14 +154,14 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">86</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34571722.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">基于 ImGui+DLL 的动态修改器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-05T07:28:44.000Z" title="发表于 2025-10-05 15:28:44">2025-10-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-04T08:11:34.444Z" title="更新于 2025-11-04 16:11:34">2025-11-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本项目（以《三国志14PK》为例）的目标就是实现这样一个系统。它由三个核心部分组成：</p>
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34571722.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">基于 ImGui+DLL 的动态修改器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-05T07:28:44.000Z" title="发表于 2025-10-05 15:28:44">2025-10-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-08T15:34:27.659Z" title="更新于 2025-12-08 23:34:27">2025-12-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/programming/">programming</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本项目（以《三国志14PK》为例）的目标就是实现这样一个系统。由三个核心部分组成：</p>
 <ol>
 <li><strong>C++ DLL (<code>San14TrainerDll.dll</code>)</strong>: 运行在游戏进程中的“大脑”，负责挂钩（Hook）游戏函数和执行修改。</li>
-<li><strong>C++ ImGui GUI (<code>TrainerLoader.exe</code>)</strong>: 一个完全独立的“脸面”，用户通过它来控制“大脑”。</li>
+<li><strong>C++ ImGui GUI (<code>TrainerLoader.exe</code>)</strong>: 一个完全独立的“脸面”，用户通过来控制“大脑”。</li>
 <li><strong>IPC (命名管道)</strong>: 连接“大脑”和“脸面”的“神经系统”。</li>
 </ol>
 <hr>
-<h1 id="核心原理"><a href="#核心原理" class="headerlink" title="核心原理"></a>核心原理</h1><p>我们的起点是两个独立的进程：<code>TrainerLoader.exe</code> (我们的GUI) 和 <code>SAN14PK.exe</code> (游戏)。它们各自拥有受保护的内存空间，无法直接通信。我们的目标，就是把我们自己的代码（<code>San14TrainerDll.dll</code>）“塞”进游戏进程里去运行。</p>
+<h1 id="核心原理"><a href="#核心原理" class="headerlink" title="核心原理"></a>核心原理</h1><p>我们的起点是两个独立的进程：<code>TrainerLoader.exe</code> (我们的GUI) 和 <code>SAN14PK.exe</code> (游戏)。们各自拥有受保护的内存空间，无法直接通信。我们的目标，就是把我们自己的代码（<code>San14TrainerDll.dll</code>）“塞”进游戏进程里去运行。</p>
 <p>这就是 <strong>DLL 注入</strong>。</p>
 <h2 id="1-标准方式-The-“Easy-Way”-CreateRemoteThread-LoadLibrary"><a href="#1-标准方式-The-“Easy-Way”-CreateRemoteThread-LoadLibrary" class="headerlink" title="1. 标准方式 (The “Easy Way”): CreateRemoteThread + LoadLibrary"></a>1. 标准方式 (The “Easy Way”): <code>CreateRemoteThread</code> + <code>LoadLibrary</code></h2><p>这是最古老、最稳定、也是最容易被检测到的方法。</p>
 <p><strong>工作流程：</strong></p>
@@ -175,7 +175,7 @@
 <p><strong>结果：</strong><br>游戏进程内部“凭空”出现了一个新线程，这个线程的任务就是执行 <code>LoadLibraryA(&quot;D:\Trainer\San1tTrainerDll.dll&quot;)</code>。</p>
 <p><strong><code>LoadLibrary</code> 的优点:</strong><br>当调用 <code>LoadLibrary</code> 时，Windows 操作系统加载器 (OS Loader) 会像“保姆”一样为处理好<strong>所有</strong>复杂工作：</p>
 <ul>
-<li><strong>依赖加载</strong>: 它会检查 DLL 的导入表，如果的 DLL 依赖 <code>PolyHook_2.dll</code>，加载器会自动去查找并加载它。</li>
+<li><strong>依赖加载</strong>: 会检查 DLL 的导入表，如果的 DLL 依赖 <code>PolyHook_2.dll</code>，加载器会自动去查找并加载。</li>
 <li><strong>基址重定位 (Relocations)</strong>: 如果 DLL 想要加载到 <code>0x140000000</code>，但那个地址已被占用，加载器会自动“修复” DLL 的所有内部地址，使其能在新地址（例如 <code>0x150000000</code>）正常运行。</li>
 <li><strong>CRT&#x2F;TLS 初始化</strong>: <strong>这是最重要的！</strong> 加载器会正确初始化 C&#x2F;C++ 运行时（CRT），为 <code>errno</code> 和 <code>rand()</code> 等函数设置线程本地存储（TLS），并<strong>调用所有 C++ 全局&#x2F;静态对象的构造函数</strong>。</li>
 </ul>
@@ -185,7 +185,7 @@
 <li><strong>模块列表</strong>: DLL 会被登记在游戏进程的“已加载模块列表”中，一查便知。</li>
 <li><strong>磁盘文件</strong>: 的 DLL 必须真实地存在于磁盘上。</li>
 </ul>
-<h2 id="2-手动映射-The-“Hard-Way”-我们的选择"><a href="#2-手动映射-The-“Hard-Way”-我们的选择" class="headerlink" title="2. 手动映射 (The “Hard Way”): 我们的选择"></a>2. 手动映射 (The “Hard Way”): 我们的选择</h2><p>这种方式更隐蔽，它完全绕过了 <code>LoadLibrary</code> 和 Windows 加载器。我们不再“敲门”，而是“潜入”并<strong>手动模拟</strong>加载器所做的一切。</p>
+<h2 id="2-手动映射-The-“Hard-Way”-我们的选择"><a href="#2-手动映射-The-“Hard-Way”-我们的选择" class="headerlink" title="2. 手动映射 (The “Hard Way”): 我们的选择"></a>2. 手动映射 (The “Hard Way”): 我们的选择</h2><p>这种方式更隐蔽，完全绕过了 <code>LoadLibrary</code> 和 Windows 加载器。我们不再“敲门”，而是“潜入”并<strong>手动模拟</strong>加载器所做的一切。</p>
 <p><strong>工作流程：</strong></p>
 <ol>
 <li><strong>[GUI]</strong> <code>OpenProcess()</code>: 同样，获取游戏句柄。</li>
@@ -194,13 +194,13 @@
 <li><strong>[GUI]</strong> <strong>“拼图” (手动复制)</strong>:<ul>
 <li><code>WriteProcessMemory()</code>: 将 DLL 的 PE 头（文件的前 4KB）从的 <code>pSrcData</code> 缓冲区复制到游戏内存的<strong>起始位置</strong>。</li>
 <li><strong>循环</strong>遍历 DLL 的所有“区段”（Sections，例如 <code>.text</code> <code>.data</code>）。</li>
-<li><code>WriteProcessMemory()</code>: 将每个区段（如代码区段 <code>.text</code>）从 <code>pSrcData + SectionHeader.PointerToRawData</code>（它在文件中的位置）复制到 <code>pTargetBase + SectionHeader.VirtualAddress</code>（它在内存中“应该”在的位置）。</li>
+<li><code>WriteProcessMemory()</code>: 将每个区段（如代码区段 <code>.text</code>）从 <code>pSrcData + SectionHeader.PointerToRawData</code>（在文件中的位置）复制到 <code>pTargetBase + SectionHeader.VirtualAddress</code>（在内存中“应该”在的位置）。</li>
 </ul>
 </li>
 </ol>
-<p>至此，DLL 的“尸体”已经被我们完整地“克隆”到了游戏内存中。但它还不是一个“活”的 DLL。</p>
-<p><strong>5. 引导代码 (Shellcode)</strong><br>我们不能直接调用 DLL 的 <code>DllMain</code>，因为它还没有被“激活”。我们需要一段“引导代码” (<code>Shellcode</code>) 来完成 <code>LoadLibrary</code> 免费提供的那些“保姆”工作。</p>
-<p><strong>6. Shellcode 的“待办清单” (最难的部分)</strong><br>我们的 <code>injector.cpp</code> 里的 <code>Shellcode</code> 函数，它的任务就是在游戏进程内部执行：</p>
+<p>至此，DLL 的“尸体”已经被我们完整地“克隆”到了游戏内存中。但还不是一个“活”的 DLL。</p>
+<p><strong>5. 引导代码 (Shellcode)</strong><br>我们不能直接调用 DLL 的 <code>DllMain</code>，因为还没有被“激活”。我们需要一段“引导代码” (<code>Shellcode</code>) 来完成 <code>LoadLibrary</code> 免费提供的那些“保姆”工作。</p>
+<p><strong>6. Shellcode 的“待办清单” (最难的部分)</strong><br>我们的 <code>injector.cpp</code> 里的 <code>Shellcode</code> 函数，的任务就是在游戏进程内部执行：</p>
 <ul>
 <li><strong>修复基址重定位</strong>: 我们在第3步申请的内存地址（<code>pTargetBase</code>）几乎不可能等于 DLL 期望的基址（<code>ImageBase</code>）。Shellcode 必须计算这个差值 (<code>LocationDelta</code>)，然后遍历 <code>.reloc</code> 区段，修复 DLL 代码中所有的硬编码地址。</li>
 <li><strong>解析导入表 (IAT)</strong>: 我们的 DLL（<code>PolyHook</code>）需要调用 <code>kernel32.dll</code> 里的 <code>CreateFileW</code>。Shellcode 必须遍历 <code>.idata</code> 区段，手动调用 <code>LoadLibraryA</code> (加载 <code>kernel32.dll</code> 等依赖) 和 <code>GetProcAddress</code> (获取 <code>CreateFileW</code> 的地址)，然后把这个真实地址填入 DLL 的导入地址表 (IAT) 中。</li>
@@ -218,21 +218,21 @@
 <ul>
 <li><p><strong>极度复杂</strong>: 我们等于在手动重写一个简化版的 Windows 加载器。</p>
 </li>
-<li><p><strong>编译器配置问题</strong>:<br>  <code>Shellcode</code> 函数必须是纯粹的、可被复制的机器码。但我们的 C++ 编译器（Visual Studio）为了“安全”，默认会往<strong>所有</strong>函数（包括 <code>Shellcode</code>）里注入它自己的“私货”：</p>
+<li><p><strong>编译器配置问题</strong>:<br>  <code>Shellcode</code> 函数必须是纯粹的、可被复制的机器码。但我们的 C++ 编译器（Visual Studio）为了“安全”，默认会往<strong>所有</strong>函数（包括 <code>Shellcode</code>）里注入自己的“私货”：</p>
 <ul>
 <li><strong><code>/GS</code> (安全检查)</strong>: 插入 <code>__security_cookie</code> 检查代码（堆栈金丝雀）。</li>
 <li><strong><code>/RTCs</code> (运行时检查)</strong>: 插入对 <code>_RTC_CheckEsp</code> 等函数的调用。</li>
 <li><strong><code>/guard:cf</code> (控制流保护)</strong>: 插入额外的 <code>jmp</code> 验证。</li>
 </ul>
-<p>  当我们把这个<strong>“被污染”</strong>的 <code>Shellcode</code> 复制到游戏进程中并运行时，它一执行到这些“私货”代码（如 <code>_RTC_CheckEsp</code>）就<strong>立刻崩溃</strong>，因为它在游戏进程的内存中根本找不到这个函数！这也就是为什么我们必须在项目属性中<strong>强制禁用</strong>这些编译选项。</p>
+<p>  当我们把这个<strong>“被污染”</strong>的 <code>Shellcode</code> 复制到游戏进程中并运行时，一执行到这些“私货”代码（如 <code>_RTC_CheckEsp</code>）就<strong>立刻崩溃</strong>，因为在游戏进程的内存中根本找不到这个函数！这也就是为什么我们必须在项目属性中<strong>强制禁用</strong>这些编译选项。</p>
 </li>
 </ul>
 <hr>
-<h2 id="3-进程间通信-IPC"><a href="#3-进程间通信-IPC" class="headerlink" title="3. 进程间通信 (IPC)"></a>3. 进程间通信 (IPC)</h2><p>现在，DLL（“大脑”）已经在游戏里了，但它没有 UI。GUI（“脸面”）在外面。我们如何让 GUI 告诉 DLL “把速度设为2.0”？</p>
+<h2 id="3-进程间通信-IPC"><a href="#3-进程间通信-IPC" class="headerlink" title="3. 进程间通信 (IPC)"></a>3. 进程间通信 (IPC)</h2><p>现在，DLL（“大脑”）已经在游戏里了，但没有 UI。GUI（“脸面”）在外面。我们如何让 GUI 告诉 DLL “把速度设为2.0”？</p>
 <p>我们使用 **命名管道 (Named Pipes)**。</p>
 <ul>
 <li><strong>DLL (服务器)</strong>: <code>DllMain</code> 启动后，会创建一个命名管道（例如 <code>\\.\pipe\San14TrainerPipe</code>）并作为“服务器”开始<strong>监听</strong>。</li>
-<li><strong>GUI (客户端)</strong>: 启动时，它会作为“客户端”去<strong>连接</strong>这个管道。</li>
+<li><strong>GUI (客户端)</strong>: 启动时，会作为“客户端”去<strong>连接</strong>这个管道。</li>
 <li><strong>对话</strong>: 连接成功后，GUI 可以通过 <code>WriteFile</code> 发送命令（如 <code>&quot;SPEEDHACK_SET 2.0\n&quot;</code>），而 DLL 则通过 <code>ReadFile</code> 接收并执行命令。</li>
 </ul>
 <h2 id="4-动态解耦-UI"><a href="#4-动态解耦-UI" class="headerlink" title="4. 动态解耦 UI"></a>4. 动态解耦 UI</h2><p>这是本框架的灵魂。我们的 GUI 不“写死”任何功能。</p>
@@ -241,21 +241,21 @@
 <li>GUI 向 DLL 发送一个命令: <code>&quot;get_ui&quot;</code>。</li>
 <li>DLL 收到命令后，<strong>动态生成</strong>一个 JSON 字符串，这个 JSON <strong>定义</strong>了修改器的所有功能（“我有一个叫‘变速’的滑块，范围1.0-5.0”、“我有一个叫‘上帝模式’的开关”…）。</li>
 <li>DLL 通过 IPC 把这个 JSON 发回给 GUI。</li>
-<li>GUI 收到 JSON 后，<strong>动态解析</strong>它，并<strong>自动渲染</strong>出 ImGui 界面（滑块、开关等）。</li>
+<li>GUI 收到 JSON 后，<strong>动态解析</strong>，并<strong>自动渲染</strong>出 ImGui 界面（滑块、开关等）。</li>
 </ol>
 <p><strong>好处</strong>: 当游戏更新，我们<strong>只需要更新 DLL</strong>（比如修改 Hook 地址），而 GUI 程序 (<code>TrainerLoader.exe</code>) <strong>完全不需要重新编译</strong>。</p>
 <hr>
 <h1 id="具体实践与“踩坑实录”"><a href="#具体实践与“踩坑实录”" class="headerlink" title="具体实践与“踩坑实录”"></a>具体实践与“踩坑实录”</h1><p>原理讲完了，我们来看看代码。</p>
-<h2 id="阶段-1：“大脑”-DLL-与-IPC-服务器"><a href="#阶段-1：“大脑”-DLL-与-IPC-服务器" class="headerlink" title="阶段 1：“大脑” - DLL 与 IPC 服务器"></a>阶段 1：“大脑” - DLL 与 IPC 服务器</h2><p>这是 DLL 的核心，它必须是一个健壮的、支持持久连接的 IPC 服务器。</p>
+<h2 id="阶段-1：“大脑”-DLL-与-IPC-服务器"><a href="#阶段-1：“大脑”-DLL-与-IPC-服务器" class="headerlink" title="阶段 1：“大脑” - DLL 与 IPC 服务器"></a>阶段 1：“大脑” - DLL 与 IPC 服务器</h2><p>这是 DLL 的核心，必须是一个健壮的、支持持久连接的 IPC 服务器。</p>
 <p><strong><code>GameUtility.cpp</code> (DLL 内部的 <code>PipeServerThread</code>)</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是 DLL 中运行在独立线程的 IPC 服务器</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">PipeServerThread</span><span class="params">(<span class="type">const</span> std.wstring pipeName, <span class="type">const</span> CommandHandlerMap commandHandlers)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// ... (CreateNamedPipeW 在这里) ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 外层循环：保持服务器存活</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 1. 阻塞，直到一个客户端 (GUI) 连接进来</span></span><br><span class="line">        BOOL bConnected = <span class="built_in">ConnectNamedPipe</span>(hPipe, <span class="literal">NULL</span>) ?</span><br><span class="line">            TRUE : (<span class="built_in">GetLastError</span>() == ERROR_PIPE_CONNECTED);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (bConnected)</span><br><span class="line">        &#123;</span><br><span class="line">            Logger::<span class="built_in">GetInstance</span>().<span class="built_in">Log</span>(LogLevel::Info, <span class="string">&quot;[IPC Server] 客户端已连接。&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 2.【关键】内层循环：保持此客户端的持久连接</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="built_in">ReadFile</span>(hPipe, buffer, ..., &amp;bytesRead, <span class="literal">NULL</span>) != FALSE)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 3. 成功读取到命令 (例如 &quot;get_ui&quot; 或 &quot;SPEEDHACK_SET 2.0&quot;)</span></span><br><span class="line">                std::string commandStr = ... <span class="comment">// (解析 buffer)</span></span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 4. 在命令映射表(commandHandlers)中查找并执行</span></span><br><span class="line">                <span class="keyword">auto</span> it = commandHandlers.<span class="built_in">find</span>(commandName);</span><br><span class="line">                <span class="keyword">if</span> (it != commandHandlers.<span class="built_in">end</span>())</span><br><span class="line">                &#123;</span><br><span class="line">                    it-&gt;<span class="built_in">second</span>(hPipe, args); <span class="comment">// 执行命令，hPipe 可用于回写响应</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 5. ReadFile 失败 (客户端断开)，跳出内循环</span></span><br><span class="line">            Logger::<span class="built_in">GetInstance</span>().<span class="built_in">Log</span>(LogLevel::Info, <span class="string">&quot;[IPC Server] 客户端已断开。&quot;</span>);</span><br><span class="line">            <span class="built_in">DisconnectNamedPipe</span>(hPipe);</span><br><span class="line">            <span class="built_in">CloseHandle</span>(hPipe);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 6. 返回外层循环，创建下一个管道实例，等待新连接</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="阶段-2：“加载器”-手动映射注入器"><a href="#阶段-2：“加载器”-手动映射注入器" class="headerlink" title="阶段 2：“加载器” - 手动映射注入器"></a>阶段 2：“加载器” - 手动映射注入器</h2><p>我们的 <code>ManualMapDll</code> 逻辑（分配内存、写PE头、写区段、写 Shellcode、<code>CreateRemoteThread</code>）在 C++ 逻辑上是完美的，但它就是一注入游戏就崩溃。</p>
+<h2 id="阶段-2：“加载器”-手动映射注入器"><a href="#阶段-2：“加载器”-手动映射注入器" class="headerlink" title="阶段 2：“加载器” - 手动映射注入器"></a>阶段 2：“加载器” - 手动映射注入器</h2><p>我们的 <code>ManualMapDll</code> 逻辑（分配内存、写PE头、写区段、写 Shellcode、<code>CreateRemoteThread</code>）在 C++ 逻辑上是完美的，但就是一注入游戏就崩溃。</p>
 <p><strong>原因</strong>: GUI 项目默认开启了一些现代 C++ 安全功能，这些功能会“污染”我们的 <code>Shellcode</code> 函数。</p>
 <p>当 <code>WriteProcessMemory(..., Shellcode, ...)</code> 时，以为复制的是纯机器码，实际上复制的是：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[ 编译器自动插入的安全检查代码 (例如 _RTC_CheckEsp, __security_cookie) ]</span><br><span class="line">[ 真正的 Shellcode 机器码 ]</span><br><span class="line">[ 编译器自动插入的另一段检查代码 ]</span><br></pre></td></tr></table></figure>
 
-<p>当远程线程在游戏进程中执行这段被“污染”的 Shellcode 时，它试图调用的 <code>_RTC_CheckEsp</code> 函数在游戏进程中根本不存在，导致<strong>立即崩溃</strong>。</p>
+<p>当远程线程在游戏进程中执行这段被“污染”的 Shellcode 时，试图调用的 <code>_RTC_CheckEsp</code> 函数在游戏进程中根本不存在，导致<strong>立即崩溃</strong>。</p>
 <p>解决方案:</p>
 <p>在的 ImGui GUI 项目属性中，必须禁用所有这些安全功能：</p>
 <ol>
@@ -268,10 +268,10 @@
 <p>我们对比了能正常工作的 C# 客户端和我们重构这个 C++ 客户端，发现了两个致命的 API 误用：</p>
 <p><strong>踩坑点: <code>SetCommTimeouts</code> 失败 (Error 1)</strong></p>
 <ul>
-<li><strong>问题</strong>: 我们在 <code>Connect()</code> 成功后调用 <code>SetCommTimeouts</code> 来设置超时，但它返回了 <code>ERROR_INVALID_FUNCTION</code> (错误 1)，导致连接失败。</li>
+<li><strong>问题</strong>: 我们在 <code>Connect()</code> 成功后调用 <code>SetCommTimeouts</code> 来设置超时，但返回了 <code>ERROR_INVALID_FUNCTION</code> (错误 1)，导致连接失败。</li>
 <li><strong>症状</strong>: 日志显示 <code>SetCommTimeouts 失败。错误: 1</code>。</li>
-<li><strong>原因</strong>: <code>SetCommTimeouts</code> 是一个古老的 API，用于<strong>COM 串行端口</strong> (<code>COM1</code>, <code>COM2</code>…)，<strong>它根本不支持命名管道！</strong></li>
-<li><strong>修复</strong>: <strong>直接删除</strong>对 <code>SetCommTimeouts</code> 的所有调用。C# 客户端也从未使用它。</li>
+<li><strong>原因</strong>: <code>SetCommTimeouts</code> 是一个古老的 API，用于<strong>COM 串行端口</strong> (<code>COM1</code>, <code>COM2</code>…)，<strong>根本不支持命名管道！</strong></li>
+<li><strong>修复</strong>: <strong>直接删除</strong>对 <code>SetCommTimeouts</code> 的所有调用。C# 客户端也从未使用。</li>
 </ul>
 <h2 id="阶段-4：GUI-渲染与崩溃修复"><a href="#阶段-4：GUI-渲染与崩溃修复" class="headerlink" title="阶段 4：GUI 渲染与崩溃修复"></a>阶段 4：GUI 渲染与崩溃修复</h2><p>我们终于连上了！GUI 调用 <code>&quot;get_ui&quot;</code>，收到了 JSON，然后……又崩了。</p>
 <p><strong>踩坑点: 标题栏中文乱码 (UTF-8 vs. UTF-16)</strong></p>

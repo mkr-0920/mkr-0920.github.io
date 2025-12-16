@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-33979490.jpeg">
 <meta property="article:published_time" content="2025-09-21T10:54:16.000Z">
-<meta property="article:modified_time" content="2025-10-02T05:22:33.258Z">
+<meta property="article:modified_time" content="2025-11-27T08:43:37.645Z">
 <meta property="article:author" content="Meng">
 <meta property="article:tag" content="permissions">
 <meta name="twitter:card" content="summary">
@@ -56,7 +56,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2025-10-02 13:22:33'
+  postUpdate: '2025-11-27 16:43:37'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -153,7 +153,7 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">86</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-33979490.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Linux权限</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-21T10:54:16.000Z" title="发表于 2025-09-21 18:54:16">2025-09-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-02T05:22:33.258Z" title="更新于 2025-10-02 13:22:33">2025-10-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>“Permission denied”—— 每一个 Linux 用户都曾面对过的“拦路虎”。这不仅仅是一条错误信息，更是通往理解 Linux 安全核心的大门。Linux 作为一个多用户操作系统，其精髓就在于如何通过权限系统，清晰地界定“谁”可以对“什么文件”做“什么事”。</p>
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-33979490.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Linux权限</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-21T10:54:16.000Z" title="发表于 2025-09-21 18:54:16">2025-09-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-27T08:43:37.645Z" title="更新于 2025-11-27 16:43:37">2025-11-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>“Permission denied”—— 每一个 Linux 用户都曾面对过的“拦路虎”。这不仅仅是一条错误信息，更是通往理解 Linux 安全核心的大门。Linux 作为一个多用户操作系统，其精髓就在于如何通过权限系统，清晰地界定“谁”可以对“什么文件”做“什么事”。</p>
 <h1 id="用户和用户组"><a href="#用户和用户组" class="headerlink" title="用户和用户组"></a>用户和用户组</h1><h2 id="主组与附加组"><a href="#主组与附加组" class="headerlink" title="主组与附加组"></a>主组与附加组</h2><p>一个用户可以属于 <strong>一个主用户组 (Primary Group)</strong> 和 **多个附加用户组 (Supplementary&#x2F;Secondary Groups)**。</p>
 <ul>
 <li><strong>主用户组</strong>：用户创建文件时，文件的默认所属组就是这个组。<strong>每个用户必须有且只有一个主用户组</strong>。</li>
@@ -187,7 +187,7 @@
 
 <p><strong>示例输出：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo:x:27:arthur,bob</span><br></pre></td></tr></table></figure>
-<p>这表示 <code>sudo</code> 组的 GID 是 <code>27</code>，它的成员列表里有 <code>arthur</code> 和 <code>bob</code>。</p>
+<p>这表示 <code>sudo</code> 组的 GID 是 <code>27</code>，的成员列表里有 <code>arthur</code> 和 <code>bob</code>。</p>
 <p><strong>方法二：直接搜索 <code>/etc/group</code> 文件</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">&#x27;^sudo:&#x27;</span> /etc/group</span><br></pre></td></tr></table></figure>
 <p>输出结果和上面类似。</p>
@@ -195,7 +195,7 @@
 <p><strong>注意</strong>：一个用户的主组关系是在 <code>/etc/passwd</code> 文件中定义的，<code>/etc/group</code> 的成员列表里只显示作为<strong>附加组</strong>加入的用户。<code>getent</code> 会综合考虑这两种情况，所以结果更全面。</p>
 </blockquote>
 <hr>
-<h2 id="用户组类型"><a href="#用户组类型" class="headerlink" title="用户组类型"></a>用户组类型</h2><p>我们可以把它们分为两大类：</p>
+<h2 id="用户组类型"><a href="#用户组类型" class="headerlink" title="用户组类型"></a>用户组类型</h2><p>我们可以分为两大类：</p>
 <h3 id="系统用户组-System-Groups"><a href="#系统用户组-System-Groups" class="headerlink" title="系统用户组 (System Groups)"></a>系统用户组 (System Groups)</h3><p>这些组通常在安装操作系统或特定软件（如数据库、Web服务器）时自动创建，用于权限管理，不代表真实的人。</p>
 <ul>
 <li><strong>数量</strong>：一个最小化的服务器可能有几十个，一个功能齐全的桌面系统可能有上百个。</li>
@@ -214,13 +214,13 @@
 <ul>
 <li><p><strong>User Private Group (UPG) 模式</strong>：</p>
 <ul>
-<li>这是现在绝大多数 Linux 发行版的默认策略。当你创建一个新用户（如 <code>adduser arthur</code>），系统会自动创建一个同名的组 <code>arthur</code>，并将它作为该用户的主组。</li>
+<li>这是现在绝大多数 Linux 发行版的默认策略。当你创建一个新用户（如 <code>adduser arthur</code>），系统会自动创建一个同名的组 <code>arthur</code>，并将作为该用户的主组。</li>
 <li><strong>好处</strong>：默认情况下，用户创建的文件权限是 <code>644</code> (rw-r–r–)，所有者是 <code>arthur</code>，所属组也是 <code>arthur</code>。因为组里只有他自己，所以文件默认是私有的，非常安全。当需要协作时，再把他加入到一个共享的附加组（比如 <code>developers</code>）中。</li>
 </ul>
 </li>
 <li><p><strong>共享组模式</strong>：</p>
 <ul>
-<li>在一些老系统或特定环境中，可能会创建一个像 <code>users</code> 这样的通用组，所有普通用户的主组都是 <code>users</code>。这种模式现在不太常见，因为它不利于文件隐私和权限隔离。</li>
+<li>在一些老系统或特定环境中，可能会创建一个像 <code>users</code> 这样的通用组，所有普通用户的主组都是 <code>users</code>。这种模式现在不太常见，因为不利于文件隐私和权限隔离。</li>
 </ul>
 </li>
 </ul>
@@ -247,7 +247,7 @@
 
 <p>输出会是：<code>Removing user arthur from group docker</code></p>
 <p><strong>验证：</strong><br>再次使用 <code>id arthur</code> 查看，你会发现 <code>docker</code> 组已经从他的 <code>groups</code> 列表中消失了</p>
-<h1 id="权限的基础：所有权-Ownership"><a href="#权限的基础：所有权-Ownership" class="headerlink" title="权限的基础：所有权 (Ownership)"></a>权限的基础：所有权 (Ownership)</h1><p>在 Linux 中，每个文件和目录都有一个“身份标签”，它定义了谁是主人。这个身份由三部分组成：</p>
+<h1 id="权限的基础：所有权-Ownership"><a href="#权限的基础：所有权-Ownership" class="headerlink" title="权限的基础：所有权 (Ownership)"></a>权限的基础：所有权 (Ownership)</h1><p>在 Linux 中，每个文件和目录都有一个“身份标签”，定义了谁是主人。这个身份由三部分组成：</p>
 <ul>
 <li>**用户 (User)**：文件的所有者。通常是创建该文件的用户。</li>
 <li>**用户组 (Group)**：一个用户的集合。文件可以被分配给一个用户组，组内的所有用户都可能拥有特定权限。这对于团队协作非常有用。</li>
@@ -256,7 +256,7 @@
 <p>可以通过 <code>ls -l</code> 命令来查看文件的所有权信息：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -l my_file.txt</span><br><span class="line">-rw-r--r-- 1 arthur developers 1024 Oct 26 10:30 my_file.txt</span><br><span class="line">              |      |</span><br><span class="line">             用户   用户组</span><br><span class="line">           (arthur) (developers)</span><br></pre></td></tr></table></figure>
 
-<h1 id="核心权限位：r-w-x"><a href="#核心权限位：r-w-x" class="headerlink" title="核心权限位：r, w, x"></a>核心权限位：<code>r</code>, <code>w</code>, <code>x</code></h1><p><code>ls -l</code> 命令输出的开头部分 <code>-rw-r--r--</code> 就是权限的直观表示。它分为 4 个部分：</p>
+<h1 id="核心权限位：r-w-x"><a href="#核心权限位：r-w-x" class="headerlink" title="核心权限位：r, w, x"></a>核心权限位：<code>r</code>, <code>w</code>, <code>x</code></h1><p><code>ls -l</code> 命令输出的开头部分 <code>-rw-r--r--</code> 就是权限的直观表示。分为 4 个部分：</p>
 <table>
 <thead>
 <tr>
@@ -307,7 +307,7 @@
 <blockquote>
 <p>🔑 <strong>关键点</strong>：一个目录的 <code>x</code> 权限至关重要。即使你有目录下某个文件的 <code>r</code> 权限，如果没有该目录的 <code>x</code> 权限，你甚至无法进入目录来访问那个文件。</p>
 </blockquote>
-<h1 id="修改权限：chmod-命令"><a href="#修改权限：chmod-命令" class="headerlink" title="修改权限：chmod 命令"></a>修改权限：<code>chmod</code> 命令</h1><p><code>chmod</code> (change mode) 是我们用来修改文件或目录权限的命令。它有两种使用方式：<strong>符号模式和八进制模式</strong>。</p>
+<h1 id="修改权限：chmod-命令"><a href="#修改权限：chmod-命令" class="headerlink" title="修改权限：chmod 命令"></a>修改权限：<code>chmod</code> 命令</h1><p><code>chmod</code> (change mode) 是我们用来修改文件或目录权限的命令。有两种使用方式：<strong>符号模式和八进制模式</strong>。</p>
 <h2 id="符号模式-Symbolic-Mode"><a href="#符号模式-Symbolic-Mode" class="headerlink" title="符号模式 (Symbolic Mode)"></a>符号模式 (Symbolic Mode)</h2><p>这种方式非常直观，易于理解。</p>
 <ul>
 <li><strong>操作对象</strong>: <code>u</code> (user), <code>g</code> (group), <code>o</code> (others), <code>a</code> (all, 即 ugo)</li>
@@ -317,7 +317,7 @@
 <p><strong>示例：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 给用户添加执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> u+x my_script.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除其他人对文件的写权限</span></span><br><span class="line"><span class="built_in">chmod</span> o-w sensitive_data.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 让用户组和用户拥有相同的权限：读和写</span></span><br><span class="line"><span class="built_in">chmod</span> g=rw project_plan.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除所有人的执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> a-x my_file.txt</span><br></pre></td></tr></table></figure>
 
-<h2 id="八进制模式-Octal-Mode"><a href="#八进制模式-Octal-Mode" class="headerlink" title="八进制模式 (Octal Mode)"></a>八进制模式 (Octal Mode)</h2><p>这种方式更快捷，是系统管理员和脚本中的常用方法。它将权限用数字表示：</p>
+<h2 id="八进制模式-Octal-Mode"><a href="#八进制模式-Octal-Mode" class="headerlink" title="八进制模式 (Octal Mode)"></a>八进制模式 (Octal Mode)</h2><p>这种方式更快捷，是系统管理员和脚本中的常用方法。将权限用数字表示：</p>
 <ul>
 <li><code>r</code> &#x3D; 4</li>
 <li><code>w</code> &#x3D; 2</li>
@@ -394,7 +394,7 @@
 <h2 id="SUID-Set-User-ID"><a href="#SUID-Set-User-ID" class="headerlink" title="SUID (Set User ID)"></a>SUID (Set User ID)</h2><ul>
 <li><strong>表现形式</strong>: 在用户执行位上显示为 <code>s</code> (或 <code>S</code>)，例如 <code>rwsr-xr-x</code>。</li>
 <li><strong>作用</strong>: 当一个设置了 SUID 的可执行文件被运行时，该进程将<strong>以文件所有者的权限</strong>来运行，而不是以执行者的权限。</li>
-<li><strong>经典案例</strong>: <code>/usr/bin/passwd</code> 命令。普通用户执行 <code>passwd</code> 时，需要修改 <code>/etc/shadow</code> 这个 root 用户才能写入的文件。<code>passwd</code> 命令的所有者是 root 且设置了 SUID，所以任何用户运行它时，它都临时获得了 root 权限来修改密码文件。</li>
+<li><strong>经典案例</strong>: <code>/usr/bin/passwd</code> 命令。普通用户执行 <code>passwd</code> 时，需要修改 <code>/etc/shadow</code> 这个 root 用户才能写入的文件。<code>passwd</code> 命令的所有者是 root 且设置了 SUID，所以任何用户运行时，都临时获得了 root 权限来修改密码文件。</li>
 <li><strong>设置方法</strong>: <code>chmod u+s filename</code> 或 <code>chmod 4755 filename</code>。</li>
 </ul>
 <h2 id="SGID-Set-Group-ID"><a href="#SGID-Set-Group-ID" class="headerlink" title="SGID (Set Group ID)"></a>SGID (Set Group ID)</h2><ul>
@@ -415,18 +415,18 @@
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li><strong>最小权限原则</strong>: 只给予用户完成任务所需的最小权限。</li>
 <li><strong>默认权限</strong>: <code>755</code> 适用于目录和可执行文件，<code>644</code> 适用于普通文件。</li>
-<li><strong>谨慎使用 <code>777</code></strong>: 避免使用 <code>chmod 777</code>，它会带来巨大的安全风险。</li>
+<li><strong>谨慎使用 <code>777</code></strong>: 避免使用 <code>chmod 777</code>，会带来巨大的安全风险。</li>
 <li><strong>理解 <code>x</code> 对目录的意义</strong>: 无法 <code>cd</code> 进一个目录，十有八九是 <code>x</code> 权限问题。</li>
 <li><strong>善用 <code>SGID</code></strong>: 在团队协作目录上设置 <code>SGID</code> 可以极大地方便文件管理。</li>
 </ul>
-<h2 id="为服务创建专用的、权限受限的系统用户"><a href="#为服务创建专用的、权限受限的系统用户" class="headerlink" title="为服务创建专用的、权限受限的系统用户"></a><strong>为服务创建专用的、权限受限的系统用户</strong></h2><p>创建一个名为 <code>navidrome</code> 的系统用户，它不能登录，并且没有家目录。</p>
+<h2 id="为服务创建专用的、权限受限的系统用户"><a href="#为服务创建专用的、权限受限的系统用户" class="headerlink" title="为服务创建专用的、权限受限的系统用户"></a><strong>为服务创建专用的、权限受限的系统用户</strong></h2><p>创建一个名为 <code>navidrome</code> 的系统用户，不能登录，并且没有家目录。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> useradd --system --shell /sbin/nologin --no-create-home navidrome</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><code>sudo</code>: 需要管理员权限。</li>
 <li><code>useradd</code>: 创建用户的命令。</li>
 <li><code>--system</code>: 告诉系统这是一个服务&#x2F;系统账户。</li>
-<li><code>--shell /sbin/nologin</code>: 禁止它登录。</li>
+<li><code>--shell /sbin/nologin</code>: 禁止登录。</li>
 <li><code>--no-create-home</code>: 不要在 <code>/home</code> 下创建 <code>navidrome</code> 目录。</li>
 <li><code>navidrome</code>: 新用户的名字。</li>
 </ul>

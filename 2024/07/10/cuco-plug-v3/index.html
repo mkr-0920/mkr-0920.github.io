@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34234639.jpeg">
 <meta property="article:published_time" content="2024-07-10T01:36:27.000Z">
-<meta property="article:modified_time" content="2025-10-10T04:38:11.921Z">
+<meta property="article:modified_time" content="2025-11-27T08:37:42.612Z">
 <meta property="article:author" content="Meng">
 <meta property="article:tag" content="miio">
 <meta name="twitter:card" content="summary">
@@ -56,7 +56,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2025-10-10 12:38:11'
+  postUpdate: '2025-11-27 16:37:42'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -153,20 +153,20 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">86</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34234639.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">小米智能插座3自动控制充电</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-10T01:36:27.000Z" title="发表于 2024-07-10 09:36:27">2024-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-10T04:38:11.921Z" title="更新于 2025-10-10 12:38:11">2025-10-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/others/">others</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>目标是将一部性能尚可的旧手机（OnePlus 6），通过刷入 <strong>postmarketOS</strong>，打造成一台低功耗、高效率的家庭服务器。它需要 24&#x2F;7 不间断运行，承载各种任务。</p>
-<p>这个计划最大的问题，就是手机内置的那块锂电池。如果让它常年维持在 100% 的充电状态，电池的化学老化会急剧加速，最终导致容量暴跌和物理损坏（鼓包）。</p>
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34234639.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">小米智能插座3自动控制充电</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-10T01:36:27.000Z" title="发表于 2024-07-10 09:36:27">2024-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-27T08:37:42.612Z" title="更新于 2025-11-27 16:37:42">2025-11-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/others/">others</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>目标是将一部性能尚可的旧手机（OnePlus 6），通过刷入 <strong>postmarketOS</strong>，打造成一台低功耗、高效率的家庭服务器。需要 24&#x2F;7 不间断运行，承载各种任务。</p>
+<p>这个计划最大的问题，就是手机内置的那块锂电池。如果让常年维持在 100% 的充电状态，电池的化学老化会急剧加速，最终导致容量暴跌和物理损坏（鼓包）。</p>
 <p>因此，项目的核心任务诞生了：<strong>创建一个全自动的电池管理系统，将电量维持在对电池最友好的 40%-80% “黄金养护区间”内。</strong></p>
 <h1 id="碰壁——无法在手机内部控制充电"><a href="#碰壁——无法在手机内部控制充电" class="headerlink" title="碰壁——无法在手机内部控制充电"></a>碰壁——无法在手机内部控制充电</h1><p>最直接的思路，是在 postmarketOS 内部通过脚本控制充电。理论上，Linux 系统通过 <code>/sys</code> 虚拟文件系统暴露了所有硬件的控制接口，我们只需要找到对应的文件并写入 <code>0</code> 或 <code>1</code> 即可。但现实给了我们沉重的一击。</p>
 <p>我们尝试了所有可能的软件控制路径，但都以失败告终：</p>
 <ul>
-<li>**尝试控制 <code>current_max</code>**：直接向充电芯片的电流上限文件写入 <code>0</code>，但驱动程序或硬件本身有自己的逻辑，会立即将该值强制修正回一个最低的充电档位（0.5A），我们甚至无法命令它停止。</li>
+<li>**尝试控制 <code>current_max</code>**：直接向充电芯片的电流上限文件写入 <code>0</code>，但驱动程序或硬件本身有自己的逻辑，会立即将该值强制修正回一个最低的充电档位（0.5A），我们甚至无法命令停止。</li>
 <li>**尝试“取消授权”USB设备 (<code>authorized</code>)**：通过 <code>echo 0 &gt; .../authorized</code> 命令让内核“断开”USB设备，但 PVE 主机上强大的 <code>udev</code> 服务会立即检测到变化并自动重新授权，陷入了毫秒级的“拉锯战”。</li>
 <li>**尝试“挂起”USB设备 (<code>autosuspend</code>)**：尝试命令内核将 USB 端口挂起以断电，但因为手机开启了 USB 网络共享，活动的 <code>cdc_ncm</code> 网络驱动会向内核报告“设备正忙”，拒绝挂起。</li>
 <li><strong>尝试 <code>uhubctl</code> 硬件控制</strong>：试图通过 PVE 主机直接控制 USB Hub 的端口电源，但主板硬件本身不支持该功能。</li>
 </ul>
 <p><strong>结论</strong>：在手机内部通过软件控制充电的道路被彻底堵死。我们需要一个能从物理层面切断电源的“执行者”。</p>
 <h1 id="引入智能插座与-python-miio"><a href="#引入智能插座与-python-miio" class="headerlink" title="引入智能插座与 python-miio"></a>引入智能插座与 <code>python-miio</code></h1><p>既然无法控制手机，我们就控制充电器。</p>
-<p>社区最成熟的控制工具是 <code>python-miio</code>，它提供了一个命令行工具 <code>miiocli</code>，完美符合我们的脚本化需求。</p>
+<p>社区最成熟的控制工具是 <code>python-miio</code>，提供了一个命令行工具 <code>miiocli</code>，完美符合我们的脚本化需求。</p>
 <h2 id="部署-python-miio"><a href="#部署-python-miio" class="headerlink" title="部署 python-miio"></a>部署 <code>python-miio</code></h2><p><a target="_blank" rel="noopener" href="https://github.com/rytilahti/python-miio">python-miio</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建虚拟环境</span></span><br><span class="line">python -m venv /path/to/miio</span><br><span class="line"><span class="built_in">source</span> /path/to/miio/bin/activate</span><br><span class="line"><span class="comment"># 安装</span></span><br><span class="line">pip install git+https://github.com/rytilahti/python-miio.git</span><br></pre></td></tr></table></figure>
 
@@ -210,20 +210,20 @@
 <li>**<code>chuangmiplug</code>**：设备专用命令，但因之前的 <code>TypeError</code> 问题被我们跳过。</li>
 <li>**<code>genericmiot set switch:on true</code>**：根据设备规格推断出的命令，却返回 <code>ValueError: Unable to find setting &#39;switch:on&#39;</code>。</li>
 <li>**<code>genericmiot set_property_by 2 1 1</code>**：换用更底层的数字ID，却返回 <code>code: -4005</code> (设备正忙)。</li>
-<li><strong>最终的正确命令</strong>：在关闭了所有干扰功能后，我们终于试出了那条隐藏在文档深处、独一无二的正确格式。**它要求在命令末尾明确指定数据类型 <code>bool</code>**。</li>
+<li><strong>最终的正确命令</strong>：在关闭了所有干扰功能后，我们终于试出了那条隐藏在文档深处、独一无二的正确格式。**要求在命令末尾明确指定数据类型 <code>bool</code>**。</li>
 </ul>
 </li>
 </ol>
 <p><strong>至此，我们得到了命令：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取状态</span></span><br><span class="line">miiocli genericmiot --ip &lt;IP&gt; --token &lt;Token&gt; status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开插座</span></span><br><span class="line">miiocli genericmiot --ip &lt;IP&gt; --token &lt;Token&gt; set_property_by 2 1 True bool</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭插座</span></span><br><span class="line">miiocli genericmiot --ip &lt;IP&gt; --token &lt;Token&gt; set_property_by 2 1 False bool</span><br></pre></td></tr></table></figure>
 
-<h1 id="最终成果"><a href="#最终成果" class="headerlink" title="最终成果"></a>最终成果</h1><p>在掌握了可靠的物理控制命令后，我们终于可以编写最终的自动化脚本了。它不仅是一个控制器，更是一个具备自我修正能力的“守护神”。</p>
+<h1 id="最终成果"><a href="#最终成果" class="headerlink" title="最终成果"></a>最终成果</h1><p>在掌握了可靠的物理控制命令后，我们终于可以编写最终的自动化脚本了。不仅是一个控制器，更是一个具备自我修正能力的“守护神”。</p>
 <p><strong>核心逻辑</strong>：</p>
 <ul>
 <li><strong>主动查询</strong>：每分钟通过网络获取插座的真实开关状态。</li>
 <li><strong>守护逻辑</strong>：<ul>
-<li>如果电量 <code>&gt;= 80%</code>，但脚本发现插座状态竟然是 <code>on</code>，它会立刻发送 <code>off</code> 命令强制关闭，并发送一条“守护警报”通知。</li>
-<li>如果电量 <code>&lt;= 40%</code>，但脚本发现插座状态竟然是 <code>off</code>，它会立刻发送 <code>on</code> 命令强制开启，并发送警报。</li>
+<li>如果电量 <code>&gt;= 80%</code>，但脚本发现插座状态竟然是 <code>on</code>，会立刻发送 <code>off</code> 命令强制关闭，并发送一条“守护警报”通知。</li>
+<li>如果电量 <code>&lt;= 40%</code>，但脚本发现插座状态竟然是 <code>off</code>，会立刻发送 <code>on</code> 命令强制开启，并发送警报。</li>
 </ul>
 </li>
 <li><strong>智能通知</strong>：只有在策略发生“计划内”的切换时才发送常规通知，避免骚扰。</li>

@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg">
 <meta property="article:published_time" content="2022-11-10T03:09:56.000Z">
-<meta property="article:modified_time" content="2025-10-07T05:21:43.956Z">
+<meta property="article:modified_time" content="2025-11-27T08:37:42.639Z">
 <meta property="article:author" content="Meng">
 <meta property="article:tag" content="UnblockNeteaseMusic">
 <meta name="twitter:card" content="summary">
@@ -56,7 +56,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2025-10-07 13:21:43'
+  postUpdate: '2025-11-27 16:37:42'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -153,9 +153,9 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">86</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">UnblockNeteaseMusic项目分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-11-10T03:09:56.000Z" title="发表于 2022-11-10 11:09:56">2022-11-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-07T05:21:43.956Z" title="更新于 2025-10-07 13:21:43">2025-10-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/music/">music</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>UnblockNeteaseMusic</code>是用其他平台音源替换网易云无版权的歌曲，达到解锁灰色歌曲的目的</p>
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">UnblockNeteaseMusic项目分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-11-10T03:09:56.000Z" title="发表于 2022-11-10 11:09:56">2022-11-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-27T08:37:42.639Z" title="更新于 2025-11-27 16:37:42">2025-11-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/music/">music</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>UnblockNeteaseMusic</code>是用其他平台音源替换网易云无版权的歌曲，达到解锁灰色歌曲的目的</p>
 <p>项目地址<a target="_blank" rel="noopener" href="https://github.com/UnblockNeteaseMusic/server">UnblockNeteaseMusic</a>，在本地或服务器都可，安卓可在<code>termux</code>上部署</p>
-<h1 id="项目分析"><a href="#项目分析" class="headerlink" title="项目分析"></a>项目分析</h1><h2 id="权限“美化”与“伪造”-核心"><a href="#权限“美化”与“伪造”-核心" class="headerlink" title="权限“美化”与“伪造” (核心)"></a>权限“美化”与“伪造” (核心)</h2><p>这是除了音源替换之外，<strong>最重要</strong>的一种解锁方式。它像一个“化妆师”，负责将网易云返回的原始、带有各种限制的歌曲信息，美化成一份“完美无瑕”的数据再交给客户端。</p>
+<h1 id="项目分析"><a href="#项目分析" class="headerlink" title="项目分析"></a>项目分析</h1><h2 id="权限“美化”与“伪造”-核心"><a href="#权限“美化”与“伪造”-核心" class="headerlink" title="权限“美化”与“伪造” (核心)"></a>权限“美化”与“伪造” (核心)</h2><p>这是除了音源替换之外，<strong>最重要</strong>的一种解锁方式。像一个“化妆师”，负责将网易云返回的原始、带有各种限制的歌曲信息，美化成一份“完美无瑕”的数据再交给客户端。</p>
 <ul>
 <li><strong>核心代码</strong>: <code>hook.request.after</code> 函数中的 <code>inject</code> 辅助函数。</li>
 <li><strong>工作原理</strong>: 在代理拿到网易云的响应（无论是可播放还是不可播放）并准备返回给客户端之前，<code>inject</code> 函数会遍历这份JSON数据，并<strong>强制修改</strong>其中的关键权限字段：<ul>
@@ -165,36 +165,36 @@
 <li><strong><code>pl</code> &#x2F; <code>dl</code></strong>: 提升显示的播放码率和下载码率，让客户端认为这是一首高品质歌曲。</li>
 </ul>
 </li>
-<li><strong>最终效果</strong>: 即使一首歌在网易云上是灰色的（<code>code: 404</code>），经过这层“美化”后，它在客户端的界面上也会显示为一首完全正常、高品质、可播放的歌曲。这为我们后续的“音源替换”铺平了道路，确保了播放按钮可以被点击。</li>
+<li><strong>最终效果</strong>: 即使一首歌在网易云上是灰色的（<code>code: 404</code>），经过这层“美化”后，在客户端的界面上也会显示为一首完全正常、高品质、可播放的歌曲。这为我们后续的“音源替换”铺平了道路，确保了播放按钮可以被点击。</li>
 </ul>
 <hr>
 <h2 id="“本地VIP”解锁"><a href="#“本地VIP”解锁" class="headerlink" title="“本地VIP”解锁"></a>“本地VIP”解锁</h2><p>这个功能专门用于解锁客户端的VIP专属界面和功能，是一种纯粹的“视觉解锁”。</p>
 <ul>
 <li><strong>核心代码</strong>: <code>hook.request.after</code> 函数中处理 <code>ENABLE_LOCAL_VIP</code> 的逻辑块。</li>
-<li><strong>工作原理</strong>: 代理会专门拦截客户端查询用户VIP身份的API请求（<code>/api/music-vip-membership/client/vip/info</code>）。然后，它会<strong>彻底修改</strong>这份API的响应内容，伪造一个“尊贵的黑胶SVIP”身份信息（例如，修改<code>redVipLevel</code>, <code>associator</code>, <code>musicPackage</code>等字段），并设定一个非常久的过期时间。</li>
+<li><strong>工作原理</strong>: 代理会专门拦截客户端查询用户VIP身份的API请求（<code>/api/music-vip-membership/client/vip/info</code>）。然后，会<strong>彻底修改</strong>这份API的响应内容，伪造一个“尊贵的黑胶SVIP”身份信息（例如，修改<code>redVipLevel</code>, <code>associator</code>, <code>musicPackage</code>等字段），并设定一个非常久的过期时间。</li>
 <li><strong>最终效果</strong>: 客户端收到这份伪造的VIP信息后，会解锁并显示所有VIP专属的皮肤、主题、头像挂件、播放器样式等。<strong>请注意</strong>：这并不能让你真正免费听付费歌曲，付费歌曲的播放依然依赖于第一步的“音源替换”。</li>
 </ul>
 <hr>
 <h2 id="客户端功能解锁-鲸云音效-歌词特效"><a href="#客户端功能解锁-鲸云音效-歌词特效" class="headerlink" title="客户端功能解锁 (鲸云音效&#x2F;歌词特效)"></a>客户端功能解锁 (鲸云音效&#x2F;歌词特效)</h2><p>这与“本地VIP”类似，但更具针对性。</p>
 <ul>
 <li><strong>核心代码</strong>: <code>unblockSoundEffects</code> 和 <code>unblockLyricsEffects</code> 函数。</li>
-<li><strong>工作原理</strong>: 代理会拦截查询这些付费功能是否可用的API请求，然后修改响应中的关键布尔值，例如将 <code>canUse</code> 改为 <code>true</code>，或者将 <code>cannotListenReason</code> 改为 <code>null</code>，欺骗客户端让它认为已经购买了这些功能。</li>
+<li><strong>工作原理</strong>: 代理会拦截查询这些付费功能是否可用的API请求，然后修改响应中的关键布尔值，例如将 <code>canUse</code> 改为 <code>true</code>，或者将 <code>cannotListenReason</code> 改为 <code>null</code>，欺骗客户端让认为已经购买了这些功能。</li>
 <li><strong>最终效果</strong>: 可以在客户端中免费使用鲸云音效、动态歌词特效等原本需要付费的功能。</li>
 </ul>
 <hr>
 <h2 id="操作失败“模拟”-如收藏-喜欢灰色歌曲"><a href="#操作失败“模拟”-如收藏-喜欢灰色歌曲" class="headerlink" title="操作失败“模拟” (如收藏&#x2F;喜欢灰色歌曲)"></a>操作失败“模拟” (如收藏&#x2F;喜欢灰色歌曲)</h2><p>这是一个非常巧妙的体验优化。</p>
 <ul>
 <li><strong>核心代码</strong>: <code>tryCollect</code> 和 <code>tryLike</code> 函数。</li>
-<li><strong>工作原理</strong>: 当尝试“喜欢”或“收藏”一首灰色歌曲时，发往网易云的请求会因为歌曲无版权而失败（例如返回 <code>401</code> 或 <code>512</code> 错误）。代理在拦截到这个失败响应后，<strong>并不会</strong>直接把它返回给客户端。相反，它会自己再发起一系列新的API请求（例如，先查询到“我喜欢的音乐”歌单ID，然后再调用添加歌曲到歌单的接口），强行将这首歌加入的歌单。操作成功后，它会<strong>伪造一个 <code>code: 200</code> 的成功响应</strong>返回给客户端。</li>
+<li><strong>工作原理</strong>: 当尝试“喜欢”或“收藏”一首灰色歌曲时，发往网易云的请求会因为歌曲无版权而失败（例如返回 <code>401</code> 或 <code>512</code> 错误）。代理在拦截到这个失败响应后，<strong>并不会</strong>直接把返回给客户端。相反，会自己再发起一系列新的API请求（例如，先查询到“我喜欢的音乐”歌单ID，然后再调用添加歌曲到歌单的接口），强行将这首歌加入的歌单。操作成功后，会<strong>伪造一个 <code>code: 200</code> 的成功响应</strong>返回给客户端。</li>
 <li><strong>最终效果</strong>: 在的客户端界面上，那个“红心”会立刻点亮，给一种操作成功的无缝体验，尽管背后的实现过程非常曲折。</li>
 </ul>
 <hr>
 <h2 id="替换流程"><a href="#替换流程" class="headerlink" title="替换流程"></a>替换流程</h2><p>以安卓端<code>clash</code>代理为例，流程主要分为四个阶段：<strong>DNS劫持</strong>、<strong>前置请求处理</strong>、<strong>后置响应处理</strong> 与 <strong>代理流式传输</strong>。</p>
 <hr>
 <h3 id="阶段一：DNS劫持与连接建立-Clash"><a href="#阶段一：DNS劫持与连接建立-Clash" class="headerlink" title="阶段一：DNS劫持与连接建立 (Clash)"></a><strong>阶段一：DNS劫持与连接建立 (Clash)</strong></h3><ol>
-<li><strong>DNS查询拦截</strong>：当网易云音乐客户端启动或需要与API服务器通信时，它会向操作系统发起一个DNS查询，请求解析域名 <code>interface.music.163.com</code>。</li>
+<li><strong>DNS查询拦截</strong>：当网易云音乐客户端启动或需要与API服务器通信时，会向操作系统发起一个DNS查询，请求解析域名 <code>interface.music.163.com</code>。</li>
 <li><strong>DNS欺骗</strong>：Clash截获了这个DNS查询。根据配置的 <code>DOMAIN-SUFFIX,163.com,🎶 网易音乐</code> 规则，Clash并不会向上游DNS服务器查询真实IP，而是直接返回在 <code>proxies</code> 部分为 <code>UnblockNeteaseMusic</code> 代理节点配置的IP地址和端口。</li>
-<li><strong>建立TCP连接</strong>：客户端的操作系统收到这个“伪造”的IP地址后，便信任地与其建立TCP连接。因此，客户端实际上是直接与 <code>UnblockNeteaseMusic</code> 代理服务器建立了连接，尽管它本身以为自己连接的是网易云官方服务器。</li>
+<li><strong>建立TCP连接</strong>：客户端的操作系统收到这个“伪造”的IP地址后，便信任地与其建立TCP连接。因此，客户端实际上是直接与 <code>UnblockNeteaseMusic</code> 代理服务器建立了连接，尽管本身以为自己连接的是网易云官方服务器。</li>
 </ol>
 <hr>
 <h3 id="阶段二：前置请求处理-hook-request-before"><a href="#阶段二：前置请求处理-hook-request-before" class="headerlink" title="阶段二：前置请求处理 (hook.request.before)"></a><strong>阶段二：前置请求处理 (<code>hook.request.before</code>)</strong></h3><ol>
@@ -221,7 +221,7 @@
 <li>之前在后台启动的 <code>alternativeSearchPromise</code> 的完成（即 <code>match</code> 函数从的自建解析服务获取到的结果）。</li>
 </ul>
 </li>
-<li><strong>触发<code>after</code>钩子</strong>：一旦收到网易云的响应，<code>hook.request.after</code> 函数被触发。它首先解密网易云的响应体。</li>
+<li><strong>触发<code>after</code>钩子</strong>：一旦收到网易云的响应，<code>hook.request.after</code> 函数被触发。首先解密网易云的响应体。</li>
 <li><strong>调用<code>tryMatch</code>决策</strong>：程序进入 <code>tryMatch</code> 函数，并执行“强制替换”逻辑：<ul>
 <li>函数通过 <code>await</code> 或 <code>.then()</code> <strong>等待</strong>之前存入 <code>ctx.alternativeSearchPromise</code> 的任务完成。由于此任务早已开始，这里的等待时间通常很短。</li>
 <li>函数检查 <code>matchedSong</code>（来自解析服务的结果）是否存在。</li>
@@ -230,8 +230,8 @@
 </li>
 <li>**响应体构建 (<code>/package/</code> 代理流)**：<ul>
 <li>程序提取 <code>matchedSong</code> 中的 <code>url</code>、<code>br</code>、<code>size</code> 等核心数据。</li>
-<li>它将 <code>realUrl</code> (真实的第三方音源链接) 进行Base64编码。</li>
-<li>它读取 <code>global.endpoint</code>（通过 <code>-e</code> 参数设置的代理自身地址），并构建一个指向代理自身的、永不过期的<strong>代理流URL</strong>，格式为 <code>http://&lt;endpoint&gt;/package/&lt;encodedUrl&gt;/&lt;songId&gt;.flac</code>。默认是<code>music.163.com</code>。</li>
+<li>将 <code>realUrl</code> (真实的第三方音源链接) 进行Base64编码。</li>
+<li>读取 <code>global.endpoint</code>（通过 <code>-e</code> 参数设置的代理自身地址），并构建一个指向代理自身的、永不过期的<strong>代理流URL</strong>，格式为 <code>http://&lt;endpoint&gt;/package/&lt;encodedUrl&gt;/&lt;songId&gt;.flac</code>。默认是<code>music.163.com</code>。</li>
 <li>程序用这个代理流URL和从 <code>matchedSong</code> 获取的其他数据，<strong>彻底重写</strong>了从网易云返回的响应JSON对象中的 <code>data</code> 部分。</li>
 </ul>
 </li>
@@ -240,10 +240,10 @@
 </ol>
 <hr>
 <h3 id="阶段四：代理流式传输-处理-package-请求"><a href="#阶段四：代理流式传输-处理-package-请求" class="headerlink" title="阶段四：代理流式传输 (处理 /package/ 请求)"></a><strong>阶段四：代理流式传输 (处理 <code>/package/</code> 请求)</strong></h3><ol>
-<li><strong>客户端发起流请求</strong>：客户端收到响应后，解析出 <code>/package/</code> 链接。它的播放器向这个链接发起一个 <code>HTTP GET</code> 请求以获取音频数据，此请求可能会包含 <code>Range</code> 头用于分块缓冲。</li>
+<li><strong>客户端发起流请求</strong>：客户端收到响应后，解析出 <code>/package/</code> 链接。的播放器向这个链接发起一个 <code>HTTP GET</code> 请求以获取音频数据，此请求可能会包含 <code>Range</code> 头用于分块缓冲。</li>
 <li><strong>代理拦截自身请求</strong>：这个请求的目标地址就是代理服务器自身，因此被 <code>hook.request.before</code> 再次捕获。</li>
 <li><strong>处理<code>package</code>路由</strong>：函数检测到URL中包含 <code>package</code>，进入专门的处理逻辑：<ul>
-<li>它从URL中提取出Base64编码的部分，并将其解码，从而得到那个<strong>真实的、会过期的</strong>第三方音源链接。</li>
+<li>从URL中提取出Base64编码的部分，并将其解码，从而得到那个<strong>真实的、会过期的</strong>第三方音源链接。</li>
 <li>代理服务器作为客户端，向这个真实的第三方链接发起请求（如果原始请求有<code>Range</code>头，代理也会带上）。</li>
 <li>代理从第三方服务器接收到音频数据流。</li>
 </ul>

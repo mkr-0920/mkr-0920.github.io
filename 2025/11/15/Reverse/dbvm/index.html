@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>DBVM 源码分析 | Meng's blog</title><meta name="author" content="Meng"><meta name="copyright" content="Meng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="分析 CE 底层 DBVM 源码，揭秘 AMD 平台下的 NPT 隐身机制与 Ring3 直通 Ring-1 的无驱动通信黑科技。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DBVM 源码分析">
+<meta property="og:url" content="https://blog.010920.xyz/2025/11/15/Reverse/dbvm/index.html">
+<meta property="og:site_name" content="Meng&#39;s blog">
+<meta property="og:description" content="分析 CE 底层 DBVM 源码，揭秘 AMD 平台下的 NPT 隐身机制与 Ring3 直通 Ring-1 的无驱动通信黑科技。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35219769.jpeg">
+<meta property="article:published_time" content="2025-11-15T09:02:06.000Z">
+<meta property="article:modified_time" content="2025-12-16T10:10:41.399Z">
+<meta property="article:author" content="Meng">
+<meta property="article:tag" content="DBVM">
+<meta property="article:tag" content="Rootkit">
+<meta property="article:tag" content="Virtualization">
+<meta property="article:tag" content="AMD SVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35219769.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.010920.xyz/2025/11/15/Reverse/dbvm/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"该文章最后更新于","messageNext":"天前，可能已经过时"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'DBVM 源码分析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-16 18:10:41'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35219769.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">DBVM 源码分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-15T09:02:06.000Z" title="发表于 2025-11-15 17:02:06">2025-11-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-16T10:10:41.399Z" title="更新于 2025-12-16 18:10:41">2025-12-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在研究 CE 下层的 <strong>DBVM</strong>（Dark Byte Virtual Machine）。</p>
+<p>搞内核对抗的兄弟都知道，现在的反作弊（AC）对驱动的监控简直到了“丧心病狂”的地步——扫驱动列表、校验签名、监控设备对象（DeviceObject）、甚至 Hook <code>IRP_MJ_DEVICE_CONTROL</code>。传统的“写个驱动然后在 R0 搞事”的路子，风险越来越高。</p>
+<p>既然我们已经玩到了虚拟化层（Ring -1），手里握着 Hypervisor，为什么还要在 Ring 0 这一层受气？</p>
+<p>本文重点关注 DBVM 在 <strong>AMD 平台</strong> 上的实现，特别是：</p>
+<ol>
+<li>虚拟化层如何接管系统（大管家）。</li>
+<li>如何处理缺页实现 NPT Hook（手术刀）。</li>
+<li><strong>（重点）如何利用 CPU 特性实现 Ring 3 直通 Ring -1 的无驱动通信（黑魔法）。</strong></li>
+</ol>
+<hr>
+<h1 id="地图：核心源码结构"><a href="#地图：核心源码结构" class="headerlink" title="地图：核心源码结构"></a>地图：核心源码结构</h1><p>拿到源码，第一眼看目录结构可能会晕。对于 AMD 平台的 NPT Hook，其实只有几个文件是“核心中的核心”，其他的基本是辅助或者 Intel 相关的。</p>
+<p>请死死盯住以下四个文件：</p>
+<ol>
+<li><strong><code>vmm/vmeventhandler_amd.c</code><strong>：</strong>【大管家】</strong>。AMD SVM 的 <code>#VMEXIT</code> 事件分发中心，所有的异常入口。</li>
+<li><strong><code>vmm/nphandler.c</code><strong>：</strong>【手术刀】</strong>。处理 NPT（Nested Page Tables）缺页异常的核心，隐形 Hook 就在这里做。</li>
+<li><strong><code>vmm/vmcall.c</code></strong> &amp; <strong><code>vmcallstructs.h</code><strong>：</strong>【传声筒】</strong>。定义了 R-1 如何接收外部指令的协议。</li>
+<li>**<code>vmm/main.c</code>**：初始化入口，了解一下 VMM 启动流程即可。</li>
+</ol>
+<p>下面我们逐个击破。</p>
+<hr>
+<h1 id="入口：vmeventhandler-amd-c-的分发逻辑"><a href="#入口：vmeventhandler-amd-c-的分发逻辑" class="headerlink" title="入口：vmeventhandler_amd.c 的分发逻辑"></a>入口：vmeventhandler_amd.c 的分发逻辑</h1><p>在 AMD 体系下，当 CPU 从 Guest（你的 Windows）退回到 Host（DBVM）时，会产生一个 <code>#VMEXIT</code>。</p>
+<p>在 <code>vmeventhandler_amd.c</code> 中，核心函数通常是一个巨大的 switch-case 结构（源码中可能被封装在 <code>handleVMEvent_AMD</code> 类似名字的函数里）。这是 VMM 的心脏跳动逻辑：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 伪代码逻辑还原</span></span><br><span class="line"><span class="keyword">switch</span> (exitcode)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">case</span> VMEXIT_MSR: </span><br><span class="line">        <span class="comment">// 拦截 MSR 读写，想做 Syscall Hook (MSR 0xC0000082) 可以在这里搞事</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">case</span> VMEXIT_NPF: </span><br><span class="line">        <span class="comment">// 【重点】Nested Page Fault (NPT 缺页)</span></span><br><span class="line">        <span class="comment">// 当 Guest 访问了 NPT 表中权限不足的物理页（例如：把页面设为不可写/不可执行）时触发。</span></span><br><span class="line">        <span class="comment">// 这是实现“内存隐身”和“无痕 Hook”的必经之路。</span></span><br><span class="line">        handleNestedPagingFault(currentcpuinfo, ...);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> VMEXIT_VMMCALL:</span><br><span class="line">        <span class="comment">// 【重点】处理 Guest 发来的指令</span></span><br><span class="line">        <span class="comment">// 这就是我们和 VMM 通信的接口</span></span><br><span class="line">        handleVMCall(currentcpuinfo, vmregisters);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 处理完必须跳过指令，否则死循环</span></span><br><span class="line">        currentcpuinfo-&gt;vmcb-&gt;RIP += <span class="number">3</span>; </span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">        </span><br><span class="line">    <span class="comment">// ... 其他异常处理 (CPUID, IOIO, etc.)</span></span><br><span class="line">&#125;</span><br><span class="line">````</span><br><span class="line"></span><br><span class="line">**关键点：**</span><br><span class="line">如果你只关心 Hook，你不需要关心太多其他的，死死盯住 `VMEXIT_NPF`。当你在 NPT 表里把某个物理页的权限改成“只读”或“不可执行”，CPU 访问它时就会炸出这个异常，控制权瞬间反转到 Hypervisor 手中。</span><br><span class="line"></span><br><span class="line">-----</span><br><span class="line"></span><br><span class="line"># 手术刀：nphandler.c 里的“偷天换日”</span><br><span class="line"></span><br><span class="line">打开 `nphandler.c`，最重要的函数是 `handleNestedPagingFault`。这里是 DBVM 实现“影子内存”（Cloaking）的地方。</span><br><span class="line"></span><br><span class="line">### <span class="number">1</span>\. 核心逻辑</span><br><span class="line"></span><br><span class="line">看代码逻辑，它大概干了这几件事：</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span>  **获取故障地址**：</span><br><span class="line">    从 VMCB（AMD 的虚拟机控制块）里读取 `EXITINFO2`，这是 Guest 试图访问的物理地址（GPA）。</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>  **检查监视列表**：</span><br><span class="line">    代码里有一行 `ept_handleWatchEvent(...)`。</span><br><span class="line">    *注意*：虽然名字带 `ept`（Intel 术语），但作者在 AMD 代码里也混用了这个名字。这行代码会检查当前访问的地址是不是我们“下断点”或者“Hook”的地址。</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span>  **影子页面切换 (Cloaking/Shadow Walker)**：</span><br><span class="line">    如果触发缺页的是我们隐藏的代码页，DBVM 需要在这里做一个“偷天换日”的操作（MTF, Monitor Trap Flag）：</span><br><span class="line"></span><br><span class="line">      * **读操作** -\&gt; 临时修改 NPT，使其指向**原始页面**（看起来没被修改，过签名校验）。</span><br><span class="line">      * **执行操作** -\&gt; 临时修改 NPT，使其指向**Hook 页面**（执行我们的 Shellcode）。</span><br><span class="line"></span><br><span class="line">### <span class="number">2</span>\. AMD 的痛点</span><br><span class="line"></span><br><span class="line">AMD 的 NPT 和 Intel EPT 有个历史遗留区别：AMD NPT **不支持“Execute Only”（仅执行）** 权限。</span><br><span class="line">这意味着你不能简单地设置一个页面为“可执行但不可读”。</span><br><span class="line">因此，DBVM 在 AMD 上必须采用 **缺页 -\&gt; 切换映射 -\&gt; 单步执行 -\&gt; 恢复映射** 的复杂状态机。</span><br><span class="line"></span><br><span class="line">代码片段里的 `NPMode1CloakRestoreCallback` 就是干恢复工作的。它会修改 NPT 表项（`data-&gt;npentry`），重新把 P（Present）、RW（Read/Write）、US（User/Supervisor）位填好，确保下一次访问还能触发异常，维持 Hook 状态。</span><br><span class="line"></span><br><span class="line">-----</span><br><span class="line"></span><br><span class="line"># 实战：构建通信链路</span><br><span class="line"></span><br><span class="line">这部分是本文的精华。我们将从底层的汇编实现，到中间的协议定义，再到上层的 C++ 封装，完整还原这条通信链路。</span><br><span class="line"></span><br><span class="line">## <span class="number">1.</span> 汇编：暗号与握手</span><br><span class="line"></span><br><span class="line">DBVM 为了防止误触，设计了一套**密码校验机制**。</span><br><span class="line"></span><br><span class="line">**VMCALLWrapper.<span class="keyword">asm</span>：**</span><br><span class="line"></span><br><span class="line">```<span class="keyword">asm</span></span><br><span class="line">.code</span><br><span class="line"></span><br><span class="line">; DBVM 访问密码 (硬编码的 Magic Number)</span><br><span class="line">; 这两个值必须与 DBVM 内部的校验值匹配，否则 VMM 会直接忽略调用</span><br><span class="line">DBVM_PASS1 EQU <span class="number">0</span>db23d0c1h</span><br><span class="line">DBVM_PASS3 EQU <span class="number">08118302b</span>h</span><br><span class="line"></span><br><span class="line">; =================================================================</span><br><span class="line">; UINT64 <span class="title function_">dbvm_vmcall_amd</span><span class="params">(<span class="type">void</span>* input)</span></span><br><span class="line">; 遵循 x64 调用约定，参数 input 在 RCX 中</span><br><span class="line">; =================================================================</span><br><span class="line">dbvm_vmcall_amd PROC</span><br><span class="line">    push rbx</span><br><span class="line">    </span><br><span class="line">    ; 【关键协议】</span><br><span class="line">    ; RAX = 参数结构体指针 (User Mode Virtual Address)</span><br><span class="line">    ; RDX = 密码 <span class="number">1</span></span><br><span class="line">    ; RCX = 密码 <span class="number">3</span></span><br><span class="line">    </span><br><span class="line">    mov rax, rcx            ; 将输入参数 input (rcx) 转移到 rax</span><br><span class="line">    mov rdx, DBVM_PASS1     ; 装载密码 <span class="number">1</span></span><br><span class="line">    mov rcx, DBVM_PASS3     ; 装载密码 <span class="number">3</span></span><br><span class="line">    </span><br><span class="line">    ; 触发 AMD <span class="title function_">VMMCALL</span> <span class="params">(Opcode: <span class="number">0F</span> <span class="number">01</span> D9)</span></span><br><span class="line">    ; CPU 瞬间陷入 Ring <span class="number">-1</span></span><br><span class="line">    BYTE <span class="number">00F</span>h, <span class="number">001</span>h, <span class="number">0</span>D9h   </span><br><span class="line">    </span><br><span class="line">    ; VMM 处理完后，会修改 Guest 的 RAX 作为返回值</span><br><span class="line">    ; 所以函数返回时 RAX 就是结果</span><br><span class="line">    </span><br><span class="line">    pop rbx</span><br><span class="line">    ret</span><br><span class="line">dbvm_vmcall_amd ENDP</span><br></pre></td></tr></table></figure>
+
+<p><strong>实战细节：</strong></p>
+<ol>
+<li><strong>寄存器约定</strong>：DBVM 并不像常规函数那样用 RCX 传参，而是指定 <strong>RAX</strong> 存放数据指针，RDX 和 RCX 存放 Magic Number。</li>
+<li><strong>密码校验</strong>：如果在 Ring 3 随便执行 <code>vmmcall</code> 而没有填充正确的 RDX&#x2F;RCX，VMM 会认为这是无效调用或者 Guest OS 自己的正常操作，直接忽略。</li>
+</ol>
+<h2 id="2-协议层：定义-VMCALL-结构体"><a href="#2-协议层：定义-VMCALL-结构体" class="headerlink" title="2. 协议层：定义 VMCALL 结构体"></a>2. 协议层：定义 VMCALL 结构体</h2><p>解决了握手问题，接下来要定义传输的数据包。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> pack(push, 1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 基础命令头</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">VMCALL_BASIC</span> &#123;</span><br><span class="line">    DWORD structsize;       <span class="comment">// 结构体大小，用于 VMM 校验</span></span><br><span class="line">    DWORD level2pass;       <span class="comment">// 二级密码 (DBVM_PASSWORD2 = 0x921d708a)</span></span><br><span class="line">    DWORD command;          <span class="comment">// 命令号</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开启内存监视 (NPT Hook) 的参数结构</span></span><br><span class="line"><span class="comment">// 对应 Command ID: VMCALL_WATCH_WRITES (41) / VMCALL_WATCH_READS (42)</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">VMCALL_WATCH_INPUT</span> &#123;</span><br><span class="line">    DWORD structsize;       </span><br><span class="line">    DWORD level2pass;       </span><br><span class="line">    DWORD command;          </span><br><span class="line">    UINT64 PhysicalAddress; <span class="comment">// 目标物理地址 (PA)</span></span><br><span class="line">    UINT64 UserModeLoop;    <span class="comment">// 用户态死循环地址 (用于拦截后暂存线程)</span></span><br><span class="line">    UINT64 KernelModeLoop;  <span class="comment">// 内核态死循环地址</span></span><br><span class="line">    DWORD Size;             <span class="comment">// 监控范围 (4096)</span></span><br><span class="line">    DWORD Options;          <span class="comment">// 选项 (如 EPTO_LOG_ALL)</span></span><br><span class="line">    DWORD MaxEntryCount;    <span class="comment">// 缓冲区最大条目数</span></span><br><span class="line">    INT32 ID;               <span class="comment">// [Out] 返回的 WatchID</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取日志数据的参数结构</span></span><br><span class="line"><span class="comment">// 对应 Command ID: VMCALL_WATCH_RETRIEVELOG (43)</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">VMCALL_RETRIEVE_INPUT</span> &#123;</span><br><span class="line">    <span class="type">uint32_t</span> structsize;</span><br><span class="line">    <span class="type">uint32_t</span> level2pass;</span><br><span class="line">    <span class="type">uint32_t</span> command;</span><br><span class="line">    <span class="type">uint32_t</span> ID;            <span class="comment">// WatchID</span></span><br><span class="line">    <span class="type">uint64_t</span> resultsBuffer; <span class="comment">// Ring 3 接收缓冲区的地址 (VA)</span></span><br><span class="line">    <span class="type">uint32_t</span> bufferSize;    </span><br><span class="line">    <span class="type">uint32_t</span> copied;        <span class="comment">// [Out] 实际拷贝的字节数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> pack(pop)</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>实战细节：</strong></p>
+<ul>
+<li><strong>UserModeLoop</strong>：这是一个极其精妙的设计。当 NPT 触发 Hook 时，DBVM 无法长时间挂起 Guest（会导致看门狗蓝屏）。DBVM 的做法是将当前 CPU 核心的 RIP 指向<code>0xCC</code>指令，让线程在 Ring 3 “空转”，直到我们处理完毕再恢复。</li>
+</ul>
+<h2 id="3-应用层：DBVMWatcher-的封装"><a href="#3-应用层：DBVMWatcher-的封装" class="headerlink" title="3. 应用层：DBVMWatcher 的封装"></a>3. 应用层：DBVMWatcher 的封装</h2><p><strong>初始化与环境检测：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">DBVMWatcher::<span class="built_in">DBVMWatcher</span>() : <span class="built_in">m_watchID</span>(<span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="type">int</span> cpuInfo[<span class="number">4</span>] = &#123; <span class="number">-1</span> &#125;;</span><br><span class="line">    __cpuid(cpuInfo, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 判断 Vendor ID 是否为 &quot;AuthenticAMD&quot;</span></span><br><span class="line">    m_isAMD = (cpuInfo[<span class="number">1</span>] == <span class="number">0x68747541</span>); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DBVMWatcher::ExecuteVMCALL</span><span class="params">(<span class="type">void</span>* input)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 根据 CPU 类型调用对应的汇编 Wrapper</span></span><br><span class="line">    <span class="keyword">if</span> (m_isAMD) <span class="built_in">dbvm_vmcall_amd</span>(input);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">dbvm_vmcall_intel</span>(input);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>开启监控 (Start)：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">DBVMWatcher::Start</span><span class="params">(DWORD pid, UINT64 address, DWORD size, <span class="type">int</span> type, DWORD options)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 获取目标物理地址 (PA)</span></span><br><span class="line">    <span class="comment">// 虽然 VMM 可以帮我们转译 VA，但在开启 NPT Hook 时，</span></span><br><span class="line">    <span class="comment">// 我们通常需要明确指定要 Hook 哪个物理页。</span></span><br><span class="line">    UINT64 phyAddr = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!ProcessHandler::<span class="built_in">getInstance</span>().<span class="built_in">GetPhysicalAddress</span>(address, phyAddr)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 对齐页边界 (4KB)</span></span><br><span class="line">    <span class="keyword">if</span> (options &amp; EPTO_LOG_ALL) &#123;</span><br><span class="line">        phyAddr &amp;= ~<span class="number">0xFFFULL</span>;</span><br><span class="line">        size = <span class="number">4096</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 构造命令包</span></span><br><span class="line">    VMCALL_WATCH_INPUT input = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    input.structsize = <span class="built_in">sizeof</span>(input);</span><br><span class="line">    input.level2pass = DBVM_PASSWORD2; <span class="comment">// 0x921d708a</span></span><br><span class="line">    input.command = (type == <span class="number">0</span>) ? VMCALL_WATCH_WRITES : VMCALL_WATCH_READS;</span><br><span class="line">    input.PhysicalAddress = phyAddr;</span><br><span class="line">    <span class="comment">// ... 设置 UserModeLoop 等参数 ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 发射！</span></span><br><span class="line">    <span class="built_in">ExecuteVMCALL</span>(&amp;input);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5. 获取 WatchID</span></span><br><span class="line">    m_watchID = input.ID;</span><br><span class="line">    <span class="keyword">return</span> (m_watchID != <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>高效数据回传 (Poll)：</strong> 传统的内核通信常用事件（Event）通知，但 R3 直通 R-1 没有这种机制。DBVM 采用<strong>主动轮询</strong>模式。R3 程序定期发送 <code>RETRIEVE_LOG</code> 命令，VMM 将缓冲区里的 Hook 记录直接 <code>memcpy</code> 到 R3 的内存中。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::vector&lt;PageEventBasic&gt; <span class="title">DBVMWatcher::Poll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::vector&lt;PageEventBasic&gt; results;</span><br><span class="line">    <span class="keyword">if</span> (m_watchID == <span class="number">-1</span>) <span class="keyword">return</span> results;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 准备一块 R3 内存作为缓冲区</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> MAX_FETCH = <span class="number">100</span>;</span><br><span class="line">    <span class="type">size_t</span> bufSize = <span class="built_in">sizeof</span>(PageEventListDescriptor) + MAX_FETCH * <span class="built_in">sizeof</span>(PageEventBasic);</span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">uint8_t</span>&gt; <span class="title">buffer</span><span class="params">(bufSize, <span class="number">0</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    VMCALL_RETRIEVE_INPUT input = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    input.command = VMCALL_WATCH_RETRIEVELOG;</span><br><span class="line">    input.ID = m_watchID;</span><br><span class="line">    input.resultsBuffer = (UINT64)buffer.<span class="built_in">data</span>(); <span class="comment">// 直接传 vector 的数据指针 (VA)</span></span><br><span class="line">    input.bufferSize = (DWORD)bufSize;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// VMM 会利用当前 CR3，将数据写入 buffer.data() 指向的内存</span></span><br><span class="line">    <span class="built_in">ExecuteVMCALL</span>(&amp;input);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解析返回数据</span></span><br><span class="line">    <span class="keyword">if</span> (input.copied &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">auto</span>* header = (PageEventListDescriptor*)buffer.<span class="built_in">data</span>();</span><br><span class="line">        <span class="keyword">auto</span>* entries = (PageEventBasic*)(buffer.<span class="built_in">data</span>() + <span class="built_in">sizeof</span>(PageEventListDescriptor));</span><br><span class="line">        <span class="keyword">for</span> (DWORD i = <span class="number">0</span>; i &lt; header-&gt;numberOfEntries; i++) &#123;</span><br><span class="line">            results.<span class="built_in">push_back</span>(entries[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="避坑指南"><a href="#避坑指南" class="headerlink" title="避坑指南"></a>避坑指南</h1><p>虽然“无驱动通信”很爽，但在魔改源码时有几个坑必须注意：</p>
+<ol>
+<li><p><strong>多核并发炸裂</strong>：<br><code>vmmcall</code> 是在当前核心处理的。如果你的 R3 程序开了多线程在不同核心上狂发指令，VMM 里的全局链表（比如 Hook 列表）必须加自旋锁（Spinlock），否则分分钟 BSOD。</p>
+</li>
+<li><p><strong>看门狗（Watchdog）</strong>：<br>不要在 <code>vmcall.c</code> 的处理函数里做太耗时的操作（比如暴力搜索全内存）。VMM 运行时，Guest OS 是被冻结的。如果你卡了 5 秒以上，Windows 的 <code>CLOCK_WATCHDOG_TIMEOUT</code> 蓝屏就会教做人。</p>
+</li>
+<li><p><strong>Intel 区别</strong>：<br>本文针对 AMD。Intel 的 <code>VMCALL</code> 同样会触发 VMEXIT，但部分 Hypervisor 实现可能会在 VMX 层面注入 <code>#UD</code> 给 Ring 3。不过 DBVM 的源码逻辑在 Intel 上通常也是开放的，原理类似。</p>
+</li>
+</ol>
+<hr>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过分析 DBVM 源码，我们发现：</p>
+<ol>
+<li><strong>vmeventhandler_amd.c</strong> 是入口，不检查 CPL 是最大的利用点。</li>
+<li><strong>nphandler.c</strong> 是核心，利用 NPT 缺页实现隐形 Hook。</li>
+<li><strong>vmcall.c</strong> 提供了通信协议，配合 CPU 特性，我们完全可以丢掉 Ring 0 驱动，实现 <strong>Ring 3 -&gt; Ring -1</strong> 的降维打击。</li>
+</ol>
+<p>这才是虚拟化对抗的精髓所在：<strong>跳出操作系统的规则，制定自己的规则。</strong></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz/2025/11/15/Reverse/dbvm/">https://blog.010920.xyz/2025/11/15/Reverse/dbvm/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.010920.xyz" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/DBVM/">DBVM</a><a class="post-meta__tags" href="/tags/Rootkit/">Rootkit</a><a class="post-meta__tags" href="/tags/Virtualization/">Virtualization</a><a class="post-meta__tags" href="/tags/AMD-SVM/">AMD SVM</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35219769.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/11/30/Reverse/kdmapper-dbk64/" title="使用 kdmapper 手动映射 CE 驱动 dbk64"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">使用 kdmapper 手动映射 CE 驱动 dbk64</div></div></a></div><div class="next-post pull-right"><a href="/2025/11/09/nginx-http3/" title="编译 nginx 开启 http3"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-34887115.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">编译 nginx 开启 http3</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%B0%E5%9B%BE%EF%BC%9A%E6%A0%B8%E5%BF%83%E6%BA%90%E7%A0%81%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">地图：核心源码结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%A5%E5%8F%A3%EF%BC%9Avmeventhandler-amd-c-%E7%9A%84%E5%88%86%E5%8F%91%E9%80%BB%E8%BE%91"><span class="toc-number">3.</span> <span class="toc-text">入口：vmeventhandler_amd.c 的分发逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8D%8F%E8%AE%AE%E5%B1%82%EF%BC%9A%E5%AE%9A%E4%B9%89-VMCALL-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">3.1.</span> <span class="toc-text">2. 协议层：定义 VMCALL 结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%BA%94%E7%94%A8%E5%B1%82%EF%BC%9ADBVMWatcher-%E7%9A%84%E5%B0%81%E8%A3%85"><span class="toc-number">3.2.</span> <span class="toc-text">3. 应用层：DBVMWatcher 的封装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="toc-number">4.</span> <span class="toc-text">避坑指南</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>

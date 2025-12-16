@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-29989540.jpeg">
 <meta property="article:published_time" content="2024-08-17T11:41:34.000Z">
-<meta property="article:modified_time" content="2025-10-24T07:18:19.564Z">
+<meta property="article:modified_time" content="2025-11-27T08:37:42.661Z">
 <meta property="article:author" content="Meng">
 <meta property="article:tag" content="assembly">
 <meta name="twitter:card" content="summary">
@@ -56,7 +56,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2025-10-24 15:18:19'
+  postUpdate: '2025-11-27 16:37:42'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -153,7 +153,7 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">86</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-29989540.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ARM64汇编</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-17T11:41:34.000Z" title="发表于 2024-08-17 19:41:34">2024-08-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-24T07:18:19.564Z" title="更新于 2025-10-24 15:18:19">2025-10-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/programming/">programming</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><h2 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h2><table>
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-29989540.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ARM64汇编</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-17T11:41:34.000Z" title="发表于 2024-08-17 19:41:34">2024-08-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-27T08:37:42.661Z" title="更新于 2025-11-27 16:37:42">2025-11-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/programming/">programming</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><h2 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h2><table>
 <thead>
 <tr>
 <th align="left">寄存器</th>
@@ -235,7 +235,7 @@
 </li>
 </ul>
 <h2 id="cpsr寄存器（状态寄存器）"><a href="#cpsr寄存器（状态寄存器）" class="headerlink" title="cpsr寄存器（状态寄存器）"></a>cpsr寄存器（状态寄存器）</h2><p><strong>CPSR (Current Program Status Register)</strong> 记录程序运行时的状态</p>
-<p>最常见的是<strong>NZCV</strong>标志位，它们通常由 <code>CMP</code> 指令或数据处理指令（如 <code>ADDS</code>&#x2F;<code>SUBS</code>）设置，用于决定后续条件跳转（如 <code>B.EQ</code>）或条件执行（如 <code>CSEL</code>）的行为</p>
+<p>最常见的是<strong>NZCV</strong>标志位，们通常由 <code>CMP</code> 指令或数据处理指令（如 <code>ADDS</code>&#x2F;<code>SUBS</code>）设置，用于决定后续条件跳转（如 <code>B.EQ</code>）或条件执行（如 <code>CSEL</code>）的行为</p>
 <ul>
 <li><strong>N</strong>：<strong>Negative Condition Flag</strong>，代表运算结果是负数（即最高位为 1）</li>
 <li><strong>Z</strong>：<strong>Zero Condition Flag</strong>，代表运算结果为 0</li>
@@ -343,7 +343,7 @@
 <p><strong>释放栈空间</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add sp, sp, #32  ; 释放 32 字节</span><br></pre></td></tr></table></figure>
 
-<h2 id="地址计算指令-ADR-ADRP"><a href="#地址计算指令-ADR-ADRP" class="headerlink" title="地址计算指令 (ADR, ADRP)"></a>地址计算指令 (ADR, ADRP)</h2><p><strong>问题</strong>：<code>LDR</code>&#x2F;<code>STR</code> 需要一个内存地址如果我想访问一个全局变量或一个字符串常量，它的地址是固定的，但我写的代码（尤其是 <code>.so</code> 动态库）可能被加载到内存的<em>任意</em>基地址（这称为<strong>位置无关代码, PIC</strong>）我该如何获取这个变量的<em>运行时</em>地址？</p>
+<h2 id="地址计算指令-ADR-ADRP"><a href="#地址计算指令-ADR-ADRP" class="headerlink" title="地址计算指令 (ADR, ADRP)"></a>地址计算指令 (ADR, ADRP)</h2><p><strong>问题</strong>：<code>LDR</code>&#x2F;<code>STR</code> 需要一个内存地址如果我想访问一个全局变量或一个字符串常量，的地址是固定的，但我写的代码（尤其是 <code>.so</code> 动态库）可能被加载到内存的<em>任意</em>基地址（这称为<strong>位置无关代码, PIC</strong>）我该如何获取这个变量的<em>运行时</em>地址？</p>
 <p>答案就是使用 <code>PC</code> 相对寻址：<code>ADR</code> 和 <code>ADRP</code></p>
 <ul>
 <li><p><code>adr</code>指令 (<strong>Address</strong>)</p>
@@ -362,15 +362,15 @@
 <ul>
 <li><strong>作用</strong>：获取一个<strong>远距离</strong>标签所在的<strong>内存页 (Page) 的基地址</strong></li>
 <li><strong>原理</strong>：现代操作系统以 4KB（<code>0x1000</code> 字节）为一页<code>ADRP</code> 计算目标地址与<strong>当前指令(PC)所在的页</strong>的<strong>页偏移量</strong>（即相差多少个 4KB）</li>
-<li><strong>关键</strong>：它只计算并加载<strong>高 52 位</strong>地址（页基址），并将<strong>低 12 位（页内偏移）清零</strong></li>
+<li><strong>关键</strong>：只计算并加载<strong>高 52 位</strong>地址（页基址），并将<strong>低 12 位（页内偏移）清零</strong></li>
 <li><strong>范围</strong>：极大，可以寻址 <code>PC</code> 周围 <code>±4GB</code> 的范围</li>
 </ul>
 </li>
 <li><p><code>ADRP</code> + <code>ADD</code>：黄金组合</p>
-<p><code>ADRP</code> 几乎从不单独使用它帮你拿到页基址（高位），你还需要 <code>ADD</code> 来加上页内偏移（低位），才能得到确切地址</p>
+<p><code>ADRP</code> 几乎从不单独使用帮你拿到页基址（高位），你还需要 <code>ADD</code> 来加上页内偏移（低位），才能得到确切地址</p>
 </li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">; 目标：获取 my_global_var 的确切地址到 X0</span><br><span class="line">; 假设 my_global_var 在 0x123456789ABC</span><br><span class="line">; (页基址 0x123456789000, 页内偏移 0xABC)</span><br><span class="line"></span><br><span class="line">    adrp x0, my_global_var</span><br><span class="line">    ; 此时 X0 = 0x123456789000 (变量所在页的基地址)</span><br><span class="line"></span><br><span class="line">    add x0, x0, #:lo12:my_global_var</span><br><span class="line">    ; #:lo12: 是一个链接器魔法，它会提取 my_global_var 的</span><br><span class="line">    ; 页内偏移量 (0xABC)</span><br><span class="line">    ; 最终 X0 = 0x123456789000 + 0xABC = 0x123456789ABC</span><br><span class="line"></span><br><span class="line">    ; 现在 X0 里是确切地址了</span><br><span class="line">    ldr w1, [x0]     ; 从 my_global_var 加载一个 32 位值</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">; 目标：获取 my_global_var 的确切地址到 X0</span><br><span class="line">; 假设 my_global_var 在 0x123456789ABC</span><br><span class="line">; (页基址 0x123456789000, 页内偏移 0xABC)</span><br><span class="line"></span><br><span class="line">    adrp x0, my_global_var</span><br><span class="line">    ; 此时 X0 = 0x123456789000 (变量所在页的基地址)</span><br><span class="line"></span><br><span class="line">    add x0, x0, #:lo12:my_global_var</span><br><span class="line">    ; #:lo12: 是一个链接器魔法，会提取 my_global_var 的</span><br><span class="line">    ; 页内偏移量 (0xABC)</span><br><span class="line">    ; 最终 X0 = 0x123456789000 + 0xABC = 0x123456789ABC</span><br><span class="line"></span><br><span class="line">    ; 现在 X0 里是确切地址了</span><br><span class="line">    ldr w1, [x0]     ; 从 my_global_var 加载一个 32 位值</span><br></pre></td></tr></table></figure>
 
 <p>这个 <code>ADRP</code> + <code>ADD</code> 的组合是 AArch64 访问全局变量的标准方式</p>
 <h2 id="数据处理指令"><a href="#数据处理指令" class="headerlink" title="数据处理指令"></a>数据处理指令</h2><ul>
@@ -505,7 +505,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">; 假设 X10 中存着一个函数A的地址</span><br><span class="line">blr x10          ; 调用 A, 并将返回地址存入 LR</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><code>ret</code>指令 (函数返回)<br><strong>Return from subroutine</strong><br><code>ret</code> 是一条<strong>伪指令</strong>，它实际上是 <code>br lr</code> 的别名<br>它直接跳转到 <code>LR</code> (X30) 寄存器中保存的地址，实现函数返回</li>
+<li><code>ret</code>指令 (函数返回)<br><strong>Return from subroutine</strong><br><code>ret</code> 是一条<strong>伪指令</strong>，实际上是 <code>br lr</code> 的别名<br>直接跳转到 <code>LR</code> (X30) 寄存器中保存的地址，实现函数返回</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">; 在函数末尾, 配合 ldp x29, x30, [sp], #16 使用</span><br><span class="line">ret              ; 等价于 br lr</span><br></pre></td></tr></table></figure>
 
@@ -614,9 +614,9 @@
 <li><strong>情况2 (加载近地址)</strong>: <code>ldr x0, =my_nearby_label</code> -&gt; 汇编器转为 <code>adr x0, my_nearby_label</code></li>
 <li><strong>情况3 (加载远地址)</strong>: <code>ldr x0, =my_far_away_label</code> -&gt; 汇编器转为 <code>adrp x0, ...</code> + <code>add x0, ...</code> (黄金组合)</li>
 <li><strong>情况4 (加载绝对常量)</strong>: <code>ldr x0, =0x123456789ABCDEF0</code><ul>
-<li>汇编器无法用 <code>MOVZ/MOVK</code> (因为太长) 或 <code>ADRP</code> (因为它不是 PC 相对地址) 来生成</li>
+<li>汇编器无法用 <code>MOVZ/MOVK</code> (因为太长) 或 <code>ADRP</code> (因为不是 PC 相对地址) 来生成</li>
 <li>汇编器会在代码段附近自动生成一个“**字面量池 (Literal Pool)**”（一块数据区）</li>
-<li>它将 <code>0x123456789ABCDEF0</code> 这个 8 字节的值存入池中</li>
+<li>将 <code>0x123456789ABCDEF0</code> 这个 8 字节的值存入池中</li>
 <li>然后将 <code>ldr</code> 伪指令转为一个<strong>PC 相对的真实 LDR 指令</strong>，从那个池子里把数据加载进来</li>
 </ul>
 </li>
@@ -645,11 +645,11 @@
 </ul>
 </li>
 <li><strong>保留寄存器</strong>：<ul>
-<li><p><strong>调用者保存寄存器 (Caller-Saved Registers)</strong>: 包括 <code>X0</code> - <code>X18</code>。如果一个函数（调用者）在调用另一个函数之前，希望 <code>X0</code>-<code>X18</code> 中的某个值在子函数返回后仍然保持不变，那么<strong>调用者</strong>自己有责任在调用前将这个值保存起来（比如压入栈中），并在调用返回后再恢复它。被调用的子函数可以<strong>随意</strong>使用这些寄存器，无需担心破坏调用者的值。</p>
+<li><p><strong>调用者保存寄存器 (Caller-Saved Registers)</strong>: 包括 <code>X0</code> - <code>X18</code>。如果一个函数（调用者）在调用另一个函数之前，希望 <code>X0</code>-<code>X18</code> 中的某个值在子函数返回后仍然保持不变，那么<strong>调用者</strong>自己有责任在调用前将这个值保存起来（比如压入栈中），并在调用返回后再恢复。被调用的子函数可以<strong>随意</strong>使用这些寄存器，无需担心破坏调用者的值。</p>
 </li>
-<li><p><strong>被调用者保存寄存器 (Callee-Saved Registers)</strong>: 包括 <strong><code>X19</code> - <code>X28</code><strong>。这个约定规定，如果一个函数（被调用者，也就是我们正在分析的这个函数）</strong>想要</strong>在自己的代码中使用 <code>X19</code>-<code>X28</code> 中的任何一个寄存器来存储自己的局部变量或中间计算结果，那么它<strong>必须</strong>承担起责任：在函数<strong>开头</strong>（序言）将这些寄存器的<strong>原始值</strong>保存到栈上，并在函数<strong>结尾</strong>（尾声）<strong>必须</strong>将这些原始值从栈上恢复回对应的寄存器。</p>
+<li><p><strong>被调用者保存寄存器 (Callee-Saved Registers)</strong>: 包括 <strong><code>X19</code> - <code>X28</code><strong>。这个约定规定，如果一个函数（被调用者，也就是我们正在分析的这个函数）</strong>想要</strong>在自己的代码中使用 <code>X19</code>-<code>X28</code> 中的任何一个寄存器来存储自己的局部变量或中间计算结果，那么<strong>必须</strong>承担起责任：在函数<strong>开头</strong>（序言）将这些寄存器的<strong>原始值</strong>保存到栈上，并在函数<strong>结尾</strong>（尾声）<strong>必须</strong>将这些原始值从栈上恢复回对应的寄存器。</p>
 </li>
-<li><p><strong>保证调用者状态不变</strong>: 这样做的目的是为了给<strong>调用者</strong>提供保障。调用者可以将一些重要的、需要在多次函数调用之间保持不变的值（比如循环计数器、基址指针等）放心地存放在 <code>X19</code>-<code>X28</code> 中，因为它知道，无论它调用哪个遵循约定的子函数，当子函数返回时，<code>X19</code>-<code>X28</code> 里的值都会和调用前一模一样。</p>
+<li><p><strong>保证调用者状态不变</strong>: 这样做的目的是为了给<strong>调用者</strong>提供保障。调用者可以将一些重要的、需要在多次函数调用之间保持不变的值（比如循环计数器、基址指针等）放心地存放在 <code>X19</code>-<code>X28</code> 中，因为知道，无论调用哪个遵循约定的子函数，当子函数返回时，<code>X19</code>-<code>X28</code> 里的值都会和调用前一模一样。</p>
 </li>
 </ul>
 </li>

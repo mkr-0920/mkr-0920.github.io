@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>使用 kdmapper 手动映射 CE 驱动 dbk64 | Meng's blog</title><meta name="author" content="Meng"><meta name="copyright" content="Meng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="硬核实战：使用 kdmapper 手动映射 CE 驱动并开启 DBVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 kdmapper 手动映射 CE 驱动 dbk64">
+<meta property="og:url" content="https://blog.010920.xyz/2025/11/30/Reverse/kdmapper-dbk64/index.html">
+<meta property="og:site_name" content="Meng&#39;s blog">
+<meta property="og:description" content="硬核实战：使用 kdmapper 手动映射 CE 驱动并开启 DBVM">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg">
+<meta property="article:published_time" content="2025-11-30T06:21:43.000Z">
+<meta property="article:modified_time" content="2025-12-03T11:16:41.568Z">
+<meta property="article:author" content="Meng">
+<meta property="article:tag" content="BYOVD">
+<meta property="article:tag" content="kdmapper">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.010920.xyz/2025/11/30/Reverse/kdmapper-dbk64/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"该文章最后更新于","messageNext":"天前，可能已经过时"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用 kdmapper 手动映射 CE 驱动 dbk64',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-03 19:16:41'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">71</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">使用 kdmapper 手动映射 CE 驱动 dbk64</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-30T06:21:43.000Z" title="发表于 2025-11-30 14:21:43">2025-11-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-03T11:16:41.568Z" title="更新于 2025-12-03 19:16:41">2025-12-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>最近为了过某游戏的 EAC，折腾了一下 Cheat Engine 的内核驱动（DBK64）。目标很明确：<strong>不要签名，不要在设备树里创建显眼的 <code>DBK64</code> 设备，直接用 <code>kdmapper</code> 手动映射进内核</strong>。</p>
+<p>但这玩意儿坑是真的多，从 LNK 链接错误，到 CE 连不上驱动，再到 DBVM 死活加载不起来。这篇博客记录一下完整的修改和填坑过程。</p>
+<h2 id="为什么要这么折腾？"><a href="#为什么要这么折腾？" class="headerlink" title="为什么要这么折腾？"></a>为什么要这么折腾？</h2><p>原版 CE 驱动有几个死穴：</p>
+<ol>
+<li><strong>签名问题</strong>：需要买 EV 证书，或者开测试模式（Test Signing），后者反作弊一抓一个准。</li>
+<li><strong>设备名</strong>：<code>\Device\DBK64</code> 这个名字太招摇了，反作弊扫描设备树必死。</li>
+<li><strong>通信方式</strong>：标准的 <code>DeviceIoControl</code> 发送的 IOCTL 码特征太明显。</li>
+</ol>
+<p>我的方案是：<strong>利用 kdmapper 手动映射驱动 + 劫持系统 <code>Null</code> 设备的 FastIO 进行隐蔽通信。</strong></p>
+<hr>
+<h2 id="驱动层改造-Driver"><a href="#驱动层改造-Driver" class="headerlink" title="驱动层改造 (Driver)"></a>驱动层改造 (Driver)</h2><p>原版驱动依赖 <code>IoCreateDevice</code> 创建设备，我们得把它扬了，改为“寄生”在 <code>\Device\Null</code> 上。</p>
+<h3 id="1-实现-FastIO-Hook-utils-c"><a href="#1-实现-FastIO-Hook-utils-c" class="headerlink" title="1. 实现 FastIO Hook (utils.c)"></a>1. 实现 FastIO Hook (<code>utils.c</code>)</h3><p>这是核心通信逻辑。为了隐蔽，我采用了一种 <strong>Wrapper 协议</strong>：CE 客户端发送 <code>IOCTL = 0</code>，把真实的指令和数据打包在 <code>InputBuffer</code> 里。驱动拦截到 <code>IOCTL=0</code> 后再解包执行。</p>
+<p>在 <code>src</code> 下新建 <code>utils.c</code>（记得在 <code>templates/CMakeLists.txt.tpl</code> 里加上它）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// utils.c 核心逻辑截取</span></span><br><span class="line">BOOL <span class="title function_">MyDeviceIoControl</span><span class="params">(...)</span> &#123;</span><br><span class="line">    <span class="comment">// 只拦截 IOCTL = 0 的请求，其他的放行给原驱动，防止系统异常</span></span><br><span class="line">    <span class="keyword">if</span> (IoControlCode != <span class="number">0</span> || InputBuffer == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解析 Wrapper 结构体</span></span><br><span class="line">    __try &#123;</span><br><span class="line">        <span class="keyword">if</span> (InputBufferLength &lt; <span class="keyword">sizeof</span>(CommInfo)) <span class="keyword">return</span> FALSE;</span><br><span class="line">        PCommInfo pInfo = (PCommInfo)InputBuffer;</span><br><span class="line">        realControlCode = pInfo-&gt;ControlCode; <span class="comment">// 取出真实 IOCTL</span></span><br><span class="line">        realInputBuffer = pInfo-&gt;inputBuffer; <span class="comment">// 取出真实数据</span></span><br><span class="line">    &#125; __except (<span class="number">1</span>) &#123; <span class="keyword">return</span> FALSE; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 伪造 IRP 调用原始 DBK 处理函数</span></span><br><span class="line">    IRP FakeIRP = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    FakeIRP.Flags = realControlCode; <span class="comment">// DBK 会从这里读控制码</span></span><br><span class="line">    FakeIRP.AssociatedIrp.SystemBuffer = realInputBuffer;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ... 调用 DispatchIoctl ...</span></span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 替换 Null 驱动的 FastIO 指针</span></span><br><span class="line">NTSTATUS <span class="title function_">Hook_Setting_Device_FastIoDeviceControl</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// ... 获取 \Device\Null 对象 ...</span></span><br><span class="line">    InterlockedExchangePointer(</span><br><span class="line">        (PVOID*)&amp;pDriver-&gt;FastIoDispatch-&gt;FastIoDeviceControl, </span><br><span class="line">        (PVOID)MyDeviceIoControl</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span> STATUS_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line">````</span><br><span class="line"></span><br><span class="line">### <span class="number">2</span>\. 重写 `DriverEntry` (`DBKDrvr.c`)</span><br><span class="line"></span><br><span class="line">kdmapper 加载的驱动没有合法的 `DriverObject`，也没有注册表路径。所以：</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span>  **删除**所有注册表读取代码。</span><br><span class="line"><span class="number">2.</span>  **删除** `IoCreateDevice`。</span><br><span class="line"><span class="number">3.</span>  **关键修正**：设置 `loadedbydbvm = FALSE` 但 `IsManualMap = TRUE`。</span><br><span class="line">      * *坑点*：之前我为了让通信跑通强制设了 `loadedbydbvm = TRUE`，结果导致驱动以为 DBVM 已启动，在那瞎执行 VMCALL 指令，直接导致后续加载 DBVM 失败。必须解耦这两个标志位。</span><br><span class="line"></span><br><span class="line">```c</span><br><span class="line">NTSTATUS DriverEntry(...) &#123;</span><br><span class="line">    <span class="comment">// 初始化全局变量</span></span><br><span class="line">    IsManualMap = TRUE;   <span class="comment">// 告诉 Dispatcher 用 FakeIRP 模式解析</span></span><br><span class="line">    loadedbydbvm = FALSE; <span class="comment">// DBVM 还没启动，别乱动 VMX 指令！</span></span><br><span class="line">    DBVM_Active = FALSE;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ... 初始化调试器等 ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 挂钩子</span></span><br><span class="line">    Hook_Setting_Device_FastIoDeviceControl();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> STATUS_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-处理-Process-Watcher-报错"><a href="#3-处理-Process-Watcher-报错" class="headerlink" title="3. 处理 Process Watcher 报错"></a>3. 处理 Process Watcher 报错</h3><p>CE 启动时会尝试注册进程监视回调。但这在 Unbacked Memory (手动映射的内存) 里是不允许的，Windows 会直接拒绝访问。<br><strong>解决方法</strong>：在 <code>IOPLDispatcher.c</code> 里直接“欺骗” CE。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> IOCTL_CE_STARTPROCESSWATCH:</span><br><span class="line">    <span class="keyword">if</span> (IsManualMap) &#123;</span><br><span class="line">        <span class="comment">// 假装成功，实际上啥也没干，防止 CE 报错弹窗</span></span><br><span class="line">        ntStatus = STATUS_SUCCESS;</span><br><span class="line">        <span class="keyword">break</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ... 原有逻辑</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="构建系统填坑-CMake"><a href="#构建系统填坑-CMake" class="headerlink" title="构建系统填坑 (CMake)"></a>构建系统填坑 (CMake)</h2><p>这个项目用 <code>npm</code> 调 <code>CMake</code>，有些编译选项必须改，否则 kdmapper 加载直接蓝屏。</p>
+<p>修改 <code>templates/CMakeLists.txt.tpl</code>：</p>
+<ol>
+<li><strong>禁用安全检查</strong>：<code>/GS-</code> (关掉缓冲区检查)，<code>/GUARD:NO</code> (关掉 CFG)。手动映射的驱动没法处理这些 Cookie。</li>
+<li><strong>强制入口点</strong>：<code>/ENTRY:DriverEntry</code>。如果不加，WDK 会默认用 KMDF 的入口，导致崩盘。</li>
+<li><strong>移除完整性检查</strong>：<code>/INTEGRITYCHECK:NO</code> (虽然只是个标记，但在链接器参数里要处理好)。</li>
+</ol>
+<hr>
+<h2 id="客户端改造-Cheat-Engine-Pascal源码"><a href="#客户端改造-Cheat-Engine-Pascal源码" class="headerlink" title="客户端改造 (Cheat Engine Pascal源码)"></a>客户端改造 (Cheat Engine Pascal源码)</h2><p>驱动改好了，CE 客户端也得改，不然它还是傻乎乎地去连 <code>\\.\DBK64</code>。</p>
+<h3 id="1-修改通信协议-DBK32functions-pas"><a href="#1-修改通信协议-DBK32functions-pas" class="headerlink" title="1. 修改通信协议 (DBK32functions.pas)"></a>1. 修改通信协议 (<code>DBK32functions.pas</code>)</h3><p>把 <code>DeviceIoControl</code> 函数魔改掉：</p>
+<ol>
+<li>**目标改为 <code>\\.\Nul</code>**：每次调用现开现关。</li>
+<li><strong>打包数据</strong>：把 IOCTL 和数据指针塞进结构体。</li>
+<li><strong>发送 IOCTL&#x3D;0</strong>。</li>
+</ol>
+<figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span></span><br><span class="line">  TCommInfo = <span class="keyword">record</span></span><br><span class="line">    ControlCode: DWORD;</span><br><span class="line">    Padding: DWORD;</span><br><span class="line">    InputBuffer: Pointer;</span><br><span class="line">  <span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DeviceIoControl</span><span class="params">(...)</span>:</span> BOOL;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="comment">// 打开 Nul 设备</span></span><br><span class="line">  RealHandle := CreateFileW(<span class="string">&#x27;\\.\Nul&#x27;</span>, ...);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 包装</span></span><br><span class="line">  Wrapper.ControlCode := dwIoControlCode;</span><br><span class="line">  Wrapper.InputBuffer := lpInBuffer;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 发送 IOCTL 0</span></span><br><span class="line">  Result := Windows.DeviceIoControl(RealHandle, <span class="number">0</span>, @Wrapper, SizeOf(Wrapper), ...);</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-修复-DBVM-加载失败的问题"><a href="#2-修复-DBVM-加载失败的问题" class="headerlink" title="2. 修复 DBVM 加载失败的问题"></a>2. 修复 DBVM 加载失败的问题</h3><p>这是最搞心态的一步。驱动加载了，通信通了，但点击“加载 DBVM”时报错：</p>
+<blockquote>
+<p>“I don’t know what you did… you didn’t load DBVM”</p>
+</blockquote>
+<p>查了半天 DebugView，发现驱动报错 <code>c0000034 (Object Name Not Found)</code>。<br><strong>原因</strong>：我在精简 <code>DBK32Initialize</code> 代码时，手快把获取当前路径的代码删了！导致驱动去根目录下找 <code>vmdisk.img</code>。</p>
+<p><strong>修复</strong>：在 <code>DBK32Initialize</code> 里把路径获取逻辑加回去，并强制跳过驱动加载检查，直接认为成功。</p>
+<figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DBK32Initialize 中必须保留：</span></span><br><span class="line">getmem(apppath, <span class="number">510</span>);</span><br><span class="line">GetModuleFileNameW(<span class="number">0</span>, apppath, <span class="number">250</span>);</span><br><span class="line">applicationpath := extractfilepath(apppath); <span class="comment">// 驱动需要这个路径来找 vmdisk.img</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="调试与验证"><a href="#调试与验证" class="headerlink" title="调试与验证"></a>调试与验证</h2><p>为了看清驱动到底在干嘛，不仅要用 <strong>DebugView</strong>，还得改一下注册表开启内核日志打印：<br><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Debug Print Filter</code> -&gt; <code>DEFAULT</code> &#x3D; <code>0xF</code>。</p>
+<p>还要在驱动头文件里把 <code>DbgPrint</code> 宏注释掉，不然 Release 编译就把日志优化没了。</p>
+<p><code>src\DBKFunc.h</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> RELEASE</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DbgPrint(...)</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><ol>
+<li>运行 <code>kdmapper</code>，驱动加载成功。</li>
+<li>打开修改版 CE，左上角出现熟悉的 **”DBK64 LOADED”**。</li>
+<li>DebugView 查看日志。</li>
+<li>点击加载 DBVM，日志显示 <code>vmxoffload</code> 成功，CE 显示当前由于 DBVM 正在运行。</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这套方案通过<strong>寄生系统驱动</strong>和<strong>伪装通信协议</strong>，实现了极高的隐蔽性。虽然过程折腾，但不仅学到了 kdmapper 的原理，还把 CE 的通信层摸透了。</p>
+<p><strong>最后提醒</strong>：调试完记得 <code>bcdedit /set testsigning off</code> 和 <code>bcdedit /debug off</code>，不然反作弊系统会因为系统处于调试模式而踢人。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz/2025/11/30/Reverse/kdmapper-dbk64/">https://blog.010920.xyz/2025/11/30/Reverse/kdmapper-dbk64/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.010920.xyz" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/BYOVD/">BYOVD</a><a class="post-meta__tags" href="/tags/kdmapper/">kdmapper</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/12/03/Reverse/CECheater/" title="借壳上市：利用 CE 官方驱动 (DBK64) 加载未签名驱动原理分析"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">借壳上市：利用 CE 官方驱动 (DBK64) 加载未签名驱动原理分析</div></div></a></div><div class="next-post pull-right"><a href="/2025/11/15/Reverse/dbvm/" title="DBVM 源码分析"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35219769.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">DBVM 源码分析</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2025/12/03/Reverse/CECheater/" title="借壳上市：利用 CE 官方驱动 (DBK64) 加载未签名驱动原理分析"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-35026563.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-03</div><div class="title">借壳上市：利用 CE 官方驱动 (DBK64) 加载未签名驱动原理分析</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%99%E4%B9%88%E6%8A%98%E8%85%BE%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">为什么要这么折腾？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E5%B1%82%E6%94%B9%E9%80%A0-Driver"><span class="toc-number">2.</span> <span class="toc-text">驱动层改造 (Driver)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%9E%E7%8E%B0-FastIO-Hook-utils-c"><span class="toc-number">2.1.</span> <span class="toc-text">1. 实现 FastIO Hook (utils.c)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%84%E7%90%86-Process-Watcher-%E6%8A%A5%E9%94%99"><span class="toc-number">2.2.</span> <span class="toc-text">3. 处理 Process Watcher 报错</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E5%A1%AB%E5%9D%91-CMake"><span class="toc-number">3.</span> <span class="toc-text">构建系统填坑 (CMake)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%94%B9%E9%80%A0-Cheat-Engine-Pascal%E6%BA%90%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">客户端改造 (Cheat Engine Pascal源码)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BF%AE%E6%94%B9%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE-DBK32functions-pas"><span class="toc-number">4.1.</span> <span class="toc-text">1. 修改通信协议 (DBK32functions.pas)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BF%AE%E5%A4%8D-DBVM-%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">4.2.</span> <span class="toc-text">2. 修复 DBVM 加载失败的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81"><span class="toc-number">5.</span> <span class="toc-text">调试与验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-number">5.1.</span> <span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>

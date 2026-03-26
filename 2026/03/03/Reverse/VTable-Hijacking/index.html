@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>VTable Hijacking | Meng's blog</title><meta name="author" content="Meng"><meta name="copyright" content="Meng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="理解虚函数表劫持（VTable Hijacking）的原理，并以《三国志14》为例，实战打造无痕的建筑锁血外挂。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VTable Hijacking">
+<meta property="og:url" content="https://blog.010920.xyz/2026/03/03/Reverse/VTable-Hijacking/index.html">
+<meta property="og:site_name" content="Meng&#39;s blog">
+<meta property="og:description" content="理解虚函数表劫持（VTable Hijacking）的原理，并以《三国志14》为例，实战打造无痕的建筑锁血外挂。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-3022942.jpeg">
+<meta property="article:published_time" content="2026-03-03T04:09:32.000Z">
+<meta property="article:modified_time" content="2026-03-26T08:42:47.565Z">
+<meta property="article:author" content="Meng">
+<meta property="article:tag" content="VTable">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-3022942.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.010920.xyz/2026/03/03/Reverse/VTable-Hijacking/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"该文章最后更新于","messageNext":"天前，可能已经过时"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VTable Hijacking',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-03-26 16:42:47'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./image/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">97</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">86</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-3022942.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="Meng's blog"><span class="site-name">Meng's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VTable Hijacking</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-03T04:09:32.000Z" title="发表于 2026-03-03 12:09:32">2026-03-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-26T08:42:47.565Z" title="更新于 2026-03-26 16:42:47">2026-03-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Reverse/">Reverse</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Inline Hook 确实简单粗暴：找到地址，改写前 5 个字节为 <code>jmp</code>，完事。</p>
+<p>但在现代反作弊（BE, EAC）越来越严苛的环境下，无脑改写 <code>.text</code>（代码段）无异于在安检门前大喊自己带了违禁品。内存完整性校验（Memory Integrity Check）分分钟教你做人。</p>
+<p>这时候，我们需要一种更优雅、更底层的手段——<strong>VTable Hijacking（虚函数表劫持）</strong>。它不改一行机器码，<strong>只在堆内存</strong>里做数据指针的偷天换日。</p>
+<hr>
+<h2 id="理论篇：什么是-VTable-Hijacking？"><a href="#理论篇：什么是-VTable-Hijacking？" class="headerlink" title="理论篇：什么是 VTable Hijacking？"></a>理论篇：什么是 VTable Hijacking？</h2><p>要理解虚表劫持，必须先彻底搞懂 C++ 编译器是如何实现多态的。</p>
+<h3 id="虚函数表（VTable）的本质"><a href="#虚函数表（VTable）的本质" class="headerlink" title="虚函数表（VTable）的本质"></a>虚函数表（VTable）的本质</h3><p>当一个 C++ 类中存在 <code>virtual</code> 关键字修饰的函数时，编译器为了在运行时决定到底该调用哪个具体实现（父类还是子类的），会在这个类的内存布局的最开头，强行塞入一个<strong>隐藏的指针（vptr）</strong>。</p>
+<p>这个 <code>vptr</code> 指向哪里？指向一个属于该类的<strong>函数指针数组</strong>，这个数组就是大名鼎鼎的 VTable（虚函数表）。</p>
+<p>假设有一个简单的类：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CBuilding</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">CBuilding</span>() &#123;&#125;            <span class="comment">// Index 0</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">Update</span><span class="params">()</span> </span>&#123;&#125;           <span class="comment">// Index 1</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">ApplyDamage</span><span class="params">(<span class="type">int</span> dmg)</span> </span>&#123;&#125; <span class="comment">// Index 2</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">int16_t</span> durability; <span class="comment">// 偏移 +0x08 (64位系统下)</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在 64 位游戏的内存里，一个 <code>CBuilding</code> 实例的样子是这样的：</p>
+<ul>
+<li><code>[0x00 - 0x07]</code>：<code>vptr</code> (指向 <code>.rdata</code> 段里的虚表)</li>
+<li><code>[0x08 - 0x09]</code>：<code>durability</code> (耐久度)</li>
+</ul>
+<p>当我们调用 <code>pBuilding-&gt;ApplyDamage(50);</code> 时，CPU 底层执行的汇编其实是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov rax, [rcx]          ; rcx 是 this 指针，拿到 vptr (虚表地址)</span><br><span class="line">call qword ptr [rax+10h]; 调用虚表里偏移 0x10 (也就是第 3 个，Index 2) 的函数</span><br></pre></td></tr></table></figure>
+
+<h3 id="劫持的艺术：偷天换日"><a href="#劫持的艺术：偷天换日" class="headerlink" title="劫持的艺术：偷天换日"></a>劫持的艺术：偷天换日</h3><p>Inline Hook 是去 <code>ApplyDamage</code> 的代码实体里改指令。<br>而 VTable Hijacking 的思路是：<strong>我不动原函数，我给你换一本“花名册”。</strong></p>
+<ol>
+<li>游戏原版的 VTable 存在 <code>.rdata</code>（只读数据段），直接改会触发保护或崩溃。</li>
+<li>我们在堆内存（Heap）里，自己 <code>malloc</code> 或 <code>new</code> 一个同样大小的指针数组。</li>
+<li>把原版 VTable 里的所有函数指针，原封不动地 <code>memcpy</code> 拷贝到我们的新数组里。</li>
+<li><strong>【核心】</strong>：把新数组里 <code>ApplyDamage</code> 对应的那个位置，替换成我们自己写的外挂函数地址。</li>
+<li>最后，把内存里那个建筑对象的 <code>vptr</code>，强行指向我们的新数组。</li>
+</ol>
+<p>就这么简单。业务代码依然执行 <code>call qword ptr [rax+10h]</code>，但此时 <code>rax</code> 已经是我们的假表了，程序神不知鬼不觉地飞进了我们的外挂逻辑里。完全规避了 <code>.text</code> 段的扫描。</p>
+<hr>
+<h2 id="实战篇"><a href="#实战篇" class="headerlink" title="实战篇"></a>实战篇</h2><p>纸上谈兵没用，直接上强度。前两天在拆 San14 的内存时，通过底层的流序列化函数（Serialization Archive），我们精准还原了地图建筑&#x2F;陷阱对象（<code>CBuilding</code>）的底层结构。</p>
+<h3 id="第一步：情报收集与结构体重建"><a href="#第一步：情报收集与结构体重建" class="headerlink" title="第一步：情报收集与结构体重建"></a>第一步：情报收集与结构体重建</h3><p>通过 IDA 静态分析和 CE 动态比对，确定 <code>CBuilding</code> 大小为 32 字节（<code>0x20</code>），核心偏移如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> pack(push, 1)</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">CBuilding</span> &#123;</span><br><span class="line">    <span class="type">void</span>** vptr;            <span class="comment">// +0x00 虚表指针</span></span><br><span class="line">    <span class="type">char</span> pad_08[<span class="number">0x0C</span>];      <span class="comment">// +0x08 </span></span><br><span class="line">    <span class="type">int16_t</span> durability;     <span class="comment">// +0x14 建筑当前耐久度</span></span><br><span class="line">    <span class="type">int16_t</span> maxDurability;  <span class="comment">// +0x16 </span></span><br><span class="line">    <span class="type">uint8_t</span> status;         <span class="comment">// +0x18 </span></span><br><span class="line">    <span class="type">char</span> pad_19[<span class="number">0x07</span>];      <span class="comment">// +0x19</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> pack(pop)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="第二步：定位目标虚函数-VTable-Index"><a href="#第二步：定位目标虚函数-VTable-Index" class="headerlink" title="第二步：定位目标虚函数 (VTable Index)"></a>第二步：定位目标虚函数 (VTable Index)</h3><p>我们要劫持扣除耐久的函数。如何在几百个虚函数里找到它？</p>
+<ol>
+<li>打开 Cheat Engine，找到你自己建的一个投石台，锁定它的耐久度地址（比如 <code>0x1418C9014</code>，注意这正好是对象首地址 <code>+0x14</code>）。</li>
+<li>右键该地址 -&gt; **找出是什么改写了这个地址 (Find out what writes to this address)**。</li>
+<li>在游戏里让敌人打一下这个投石台。</li>
+<li>CE 会捕获到一条类似 <code>sub eax, edx</code> 然后 <code>mov [rcx+14h], ax</code> 的指令。</li>
+<li>顺着 CE 给出的堆栈往上一层找，看是谁 <code>call</code> 了这个逻辑。你会看到极其经典的虚表调用特征：<br><code>call qword ptr [rax+28h]</code></li>
+</ol>
+<p><code>0x28</code> 除以 8（64位指针大小）等于 5。<br>破案了！<strong>扣除耐久的函数，在 <code>CBuilding</code> 虚表里的 Index 是 5。</strong> 函数原型推测为 <code>void ApplyDamage(CBuilding* this, int damage)</code>。</p>
+<h3 id="第三步：C-劫持代码实现"><a href="#第三步：C-劫持代码实现" class="headerlink" title="第三步：C++ 劫持代码实现"></a>第三步：C++ 劫持代码实现</h3><p>我们在自己的 DLL 里写下这套 VTable Hijacking 的标准模板：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 定义原函数指针类型</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">(__fastcall* tApplyDamage)</span><span class="params">(CBuilding* pThis, <span class="type">int</span> damage)</span></span>;</span><br><span class="line">tApplyDamage oApplyDamage = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们的假虚表（全局保留，防止被回收）</span></span><br><span class="line"><span class="type">void</span>** g_FakeVTable = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="type">bool</span> g_bIsVTableCreated = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 编写我们的外挂逻辑 (Detour)</span></span><br><span class="line"><span class="function"><span class="type">void</span> __fastcall <span class="title">DetourApplyDamage</span><span class="params">(CBuilding* pThis, <span class="type">int</span> damage)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 这里需要一个判断敌我的逻辑，防止把敌人的建筑也变无敌了。</span></span><br><span class="line">    <span class="comment">// 具体可以通过比对对象内的派系 ID，或者从外部数组校验。</span></span><br><span class="line">    <span class="comment">// 为演示原理，假设我们有一个 IsPlayerFaction 宏/函数</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">IsPlayerFaction</span>(pThis)) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 建筑锁血核心：将受到的伤害强行归零！</span></span><br><span class="line">        damage = <span class="number">0</span>; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 带着被篡改的参数，去执行原版正常的扣血逻辑</span></span><br><span class="line">    <span class="comment">// 如果是敌人，damage 原样传入，正常掉血</span></span><br><span class="line">    <span class="comment">// 如果是我方，传入 0，耐久纹丝不动</span></span><br><span class="line">    <span class="built_in">oApplyDamage</span>(pThis, damage);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 执行虚表替换 (需要传入一个真实存在的建筑对象指针)</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">SetupBuildingGodMode</span><span class="params">(CBuilding* pTargetBuilding)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pTargetBuilding == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 拿到光荣原版的虚表地址</span></span><br><span class="line">    <span class="type">void</span>** pOriginalVTable = pTargetBuilding-&gt;vptr;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果是第一次运行，我们需要初始化假表</span></span><br><span class="line">    <span class="keyword">if</span> (!g_bIsVTableCreated) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 假设通过 IDA 查看 .rdata，发现这个虚表大概有 20 个函数</span></span><br><span class="line">        <span class="type">const</span> <span class="type">int</span> VTABLE_SIZE = <span class="number">20</span>; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// 在堆上申请我们自己的数组</span></span><br><span class="line">        g_FakeVTable = <span class="keyword">new</span> <span class="type">void</span>*[VTABLE_SIZE];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将原版虚表完整拷贝过来</span></span><br><span class="line">        <span class="built_in">memcpy</span>(g_FakeVTable, pOriginalVTable, <span class="built_in">sizeof</span>(<span class="type">void</span>*) * VTABLE_SIZE);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 保存原版 Index 5 的函数地址，以备后续调用</span></span><br><span class="line">        oApplyDamage = (tApplyDamage)pOriginalVTable[<span class="number">5</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 偷天换日：把假表里的 Index 5 替换成我们的 Detour 函数</span></span><br><span class="line">        g_FakeVTable[<span class="number">5</span>] = &amp;DetourApplyDamage;</span><br><span class="line"></span><br><span class="line">        g_bIsVTableCreated = <span class="literal">true</span>;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;[+] Fake VTable Created.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将当前建筑对象的虚表指针，无情地指向我们的假表</span></span><br><span class="line">    pTargetBuilding-&gt;vptr = g_FakeVTable;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;[+] Building &quot;</span> &lt;&lt; std::hex &lt;&lt; pTargetBuilding &lt;&lt; <span class="string">&quot; is now invincible.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第四步：注入与批量应用"><a href="#第四步：注入与批量应用" class="headerlink" title="第四步：注入与批量应用"></a>第四步：注入与批量应用</h3><p>上述代码只修改了 <code>pTargetBuilding</code> 这<strong>一个</strong>建筑实例的虚表指针。<br><strong>在实际写代码时，我们通常会挂一个底层的遍历 Hook（比如拦截引擎生成对象的工厂函数 <code>CreateBuilding</code>），在每个属于玩家的建筑被 new 出来的时候，顺手调用一下 <code>SetupBuildingGodMode(pNewBuilding)</code>。</strong></p>
+<p>只要对象的 <code>vptr</code> 被换成了我们的指针，从今往后，无论是 AI 投石、火攻还是战法，只要试图削减它的耐久，CPU 都会乖乖跳进我们的 <code>DetourApplyDamage</code> 里，把伤害化为乌有。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>VTable Hijacking 是每一个 C++ 逆向工程师必修的内功。它利用了 C++ 面向对象底层的实现机制，实现了真正意义上的“逻辑层劫持”。</p>
+<p>当然，这种技术也不是完美无缺的。如果引擎在核心循环里对对象的 <code>vptr</code> 做了硬编码校验（检测 <code>vptr</code> 是否落在 <code>.rdata</code> 段内），这种方法就会暴露。但在大多数单机游戏和中低强度的网游中，这一手“偷梁换柱”，足以让你所向披靡。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz">Meng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.010920.xyz/2026/03/03/Reverse/VTable-Hijacking/">https://blog.010920.xyz/2026/03/03/Reverse/VTable-Hijacking/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.010920.xyz" target="_blank">Meng's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/VTable/">VTable</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-3022942.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2026/02/21/Reverse/0xzeon-amd-hypervisor-analysis/" title="降维打击与时间欺骗：深度解析 0xZeOn AMD Hypervisor 游戏绕过底层架构"><img class="cover" src="https://cdn.jsdelivr.net/gh/mkr-0920/BlogImage/img/pexels-photo-2433464.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">降维打击与时间欺骗：深度解析 0xZeOn AMD Hypervisor 游戏绕过底层架构</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E7%AF%87%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF-VTable-Hijacking%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">理论篇：什么是 VTable Hijacking？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8%EF%BC%88VTable%EF%BC%89%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-number">1.1.</span> <span class="toc-text">虚函数表（VTable）的本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%AB%E6%8C%81%E7%9A%84%E8%89%BA%E6%9C%AF%EF%BC%9A%E5%81%B7%E5%A4%A9%E6%8D%A2%E6%97%A5"><span class="toc-number">1.2.</span> <span class="toc-text">劫持的艺术：偷天换日</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E7%AF%87"><span class="toc-number">2.</span> <span class="toc-text">实战篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%83%85%E6%8A%A5%E6%94%B6%E9%9B%86%E4%B8%8E%E7%BB%93%E6%9E%84%E4%BD%93%E9%87%8D%E5%BB%BA"><span class="toc-number">2.1.</span> <span class="toc-text">第一步：情报收集与结构体重建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E8%99%9A%E5%87%BD%E6%95%B0-VTable-Index"><span class="toc-number">2.2.</span> <span class="toc-text">第二步：定位目标虚函数 (VTable Index)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9AC-%E5%8A%AB%E6%8C%81%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.3.</span> <span class="toc-text">第三步：C++ 劫持代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E6%B3%A8%E5%85%A5%E4%B8%8E%E6%89%B9%E9%87%8F%E5%BA%94%E7%94%A8"><span class="toc-number">2.4.</span> <span class="toc-text">第四步：注入与批量应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">3.</span> <span class="toc-text">结语</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Meng</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>
